@@ -3,7 +3,7 @@ package edu.hw1;
 public class Task3 {
 	public boolean isNestable(int[] a, int[] b) {
 
-		if(a == null || b == null  || a.length == 0 || b.length==0){
+		if (a == null || b == null || a.length == 0 || b.length == 0) {
 			return false;
 		}
 		boolean expressionOne = getMinValueInArray(a) > getMinValueInArray(b);
