@@ -3,43 +3,64 @@ package edu.hw1;
 import java.util.Arrays;
 
 public class Task6 {
-	private int cnt = 0;
-	public int countK(int number) {
+    private int cnt = 0;
 
-		if(number<1000 || number>=10000){
-			throw new IllegalArgumentException("Value should be in range [1000,9999]");
-		}
+    public int countK(int number) {
+        final int LOW_BORDER_OF_NUMBER = 1000;
+        final int HIGH_BORDER_OF_NUMBER = 9999;
+        if (number < LOW_BORDER_OF_NUMBER || number > HIGH_BORDER_OF_NUMBER) {
+            throw new IllegalArgumentException("Value should be in range [1000,9999]");
+        }
 
-		kaperkarRec(number, 0);
-		return cnt;
-	}
+        kaperkarRec(number);
+        return cnt;
+    }
 
-	private int kaperkarRec(int n, int prev) {
 
-		if (n == 0) {
-			return 0;
-		}
+    private int kaperkarRec(int n) {
 
-		prev = n;
+        if (n == 0) {
+            return 0;
+        }
 
-		int[] sortedDigits = new int[4];
-		String str = String.valueOf(n);
+        final int MAX_ARRAY_LENGHT = 4;
+        int[] sortedDigits = new int[MAX_ARRAY_LENGHT];
 
-		for (int i = 0; i < sortedDigits.length; i++) {
-			sortedDigits[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
-		}
+        String str = String.valueOf(n);
 
-		Arrays.sort(sortedDigits);
+        for (int i = 0; i < sortedDigits.length; i++) {
+            sortedDigits[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
+        }
 
-		int sortedA = sortedDigits[0] * 1000 + sortedDigits[1] * 100 + sortedDigits[2] * 10 + sortedDigits[3];
-		int sortedB = sortedDigits[3] * 1000 + sortedDigits[2] * 100 + sortedDigits[1] * 10 + sortedDigits[0];
+        Arrays.sort(sortedDigits);
 
-		int diff = Math.abs(sortedA - sortedB);
+        final int THAUSEND_FOR_NORMAL_FORM = 1000; // 1234 = 1*1000
+        final int THUNDREED_FOR_NORMAL_FORM = 100; // 1234 = 2*100
+        final int DECADE_FOR_NORMAL_FORM = 10; // 1234 = 3*10
+        // 1 * 1000 + 2 * 100 + 3 * 10 + 4 = 1234
 
-		if (diff == prev) {
-			return diff;
-		}
-		cnt++;
-		return kaperkarRec(diff, prev);
-	}
+        final int FOURTH_DIGIT_IN_NUMBER = 3;
+        final int THIRD_DIGIT_IN_NUMBER = 2;
+        final int SECOND_DIGIT_IN_NUMBER = 1;
+        final int FIRST_DIGIT_IN_NUMBER = 0;
+
+        int sortedA = sortedDigits[FIRST_DIGIT_IN_NUMBER] * THAUSEND_FOR_NORMAL_FORM
+                + sortedDigits[SECOND_DIGIT_IN_NUMBER] * THUNDREED_FOR_NORMAL_FORM
+                + sortedDigits[THIRD_DIGIT_IN_NUMBER] * DECADE_FOR_NORMAL_FORM
+                + sortedDigits[FOURTH_DIGIT_IN_NUMBER];
+        int sortedB = sortedDigits[FOURTH_DIGIT_IN_NUMBER] * THAUSEND_FOR_NORMAL_FORM
+                + sortedDigits[THIRD_DIGIT_IN_NUMBER] * THUNDREED_FOR_NORMAL_FORM
+                + sortedDigits[SECOND_DIGIT_IN_NUMBER] * DECADE_FOR_NORMAL_FORM
+                + sortedDigits[FIRST_DIGIT_IN_NUMBER];
+
+        int diff = Math.abs(sortedA - sortedB);
+
+        if (diff == n) {
+            return diff;
+        }
+
+
+        cnt++;
+        return kaperkarRec(diff);
+    }
 }
