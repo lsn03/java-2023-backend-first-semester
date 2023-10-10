@@ -29,10 +29,9 @@ public class Task1 {
             int ss = Integer.parseInt(parts[1]);
 
             if (ss < MAX_SECONDS_IN_MINUTE && ss >= MIN_SECONDS_IN_MINUTE && mm >= 0) {
-                try{
+                try {
                     res = Math.multiplyExact(mm, MAX_SECONDS_IN_MINUTE) + ss;
-                }
-                catch (ArithmeticException ignored){
+                } catch (ArithmeticException ignored) {
 
                 }
 
