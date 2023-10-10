@@ -1,11 +1,11 @@
 package edu.hw1;
 
+import java.util.Objects;
+
 public class Task4 {
     public String fixString(String string) {
 
-        if (string == null) {
-            throw new NullPointerException();
-        }
+        Objects.requireNonNull(string);
 
         char[] chars = new char[string.length()];
 

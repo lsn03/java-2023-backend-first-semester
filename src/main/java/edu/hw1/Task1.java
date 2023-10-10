@@ -1,41 +1,43 @@
 package edu.hw1;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Task1 {
-    private final static Logger LOGGER = LogManager.getLogger();
+    private final static int MAX_SECONDS_IN_MINUTE = 60;
+    private final static int MIN_SECONDS_IN_MINUTE = 0;
+
+    private boolean isValidInput(String string) {
+        boolean notNullOrEmpty = string != null && !string.isBlank();
+        boolean arraySizeIsTwoAndFormatIsGood = false;
+
+        if (notNullOrEmpty) {
+            String[] parts = string.split(":");
+            arraySizeIsTwoAndFormatIsGood = !parts[0].isBlank() && parts[1].length() == 2 && parts.length == 2;
+        }
+
+        return notNullOrEmpty && arraySizeIsTwoAndFormatIsGood;
+
+
+    }
 
     public int minutesToSeconds(String string) {
+        int res = -1;
+        if (isValidInput(string)) {
 
-        boolean checkThatIsNotNullOrEmpty = string == null || string.isEmpty();
+            String[] parts = string.split(":");
 
-        try {
+            int mm = Integer.parseInt(parts[0]);
+            int ss = Integer.parseInt(parts[1]);
 
-            if (!checkThatIsNotNullOrEmpty) {
-                String[] parts = string.split(":");
-                boolean checkThatFormatIsGood = parts[0].length() > 1 && parts[1].length() == 2;
-
-                if (checkThatFormatIsGood) {
-
-                    int mm = Integer.parseInt(parts[0]);
-                    int ss = Integer.parseInt(parts[1]);
-
-                    final int MAX_SECONDS_IN_MINUTE = 60;
-
-                    if (ss < MAX_SECONDS_IN_MINUTE && ss >= 0 && mm > 0) {
-                        return Math.multiplyExact(mm, MAX_SECONDS_IN_MINUTE) + ss;
-                    }
+            if (ss < MAX_SECONDS_IN_MINUTE && ss >= MIN_SECONDS_IN_MINUTE && mm >= 0) {
+                try{
+                    res = Math.multiplyExact(mm, MAX_SECONDS_IN_MINUTE) + ss;
+                }
+                catch (ArithmeticException ignored){
 
                 }
+
             }
-
-
-        } catch (Exception ex) {
-            LOGGER.info(ex.getMessage());
         }
-        return -1;
-
-
+        return res;
     }
 }

@@ -5,9 +5,19 @@ import java.util.Arrays;
 public class Task6 {
     private int cnt = 0;
 
+    private static final int THAUSEND_FOR_NORMAL_FORM = 1000; // 1234 = 1*1000
+    private static final int THUNDREED_FOR_NORMAL_FORM = 100; // 1234 = 2*100
+    private static final int DECADE_FOR_NORMAL_FORM = 10; // 1234 = 3*10
+    // 1 * 1000 + 2 * 100 + 3 * 10 + 4 = 1234
+    private static final int FOURTH_DIGIT_IN_NUMBER = 3;
+    private static final int THIRD_DIGIT_IN_NUMBER = 2;
+    private static final int SECOND_DIGIT_IN_NUMBER = 1;
+    private static final int FIRST_DIGIT_IN_NUMBER = 0;
+    private static final int LOW_BORDER_OF_NUMBER = 1000;
+    private static final int HIGH_BORDER_OF_NUMBER = 9999;
+
     public int countK(int number) {
-        final int LOW_BORDER_OF_NUMBER = 1000;
-        final int HIGH_BORDER_OF_NUMBER = 9999;
+
         if (number < LOW_BORDER_OF_NUMBER || number > HIGH_BORDER_OF_NUMBER) {
             throw new IllegalArgumentException("Value should be in range [1000,9999]");
         }
@@ -34,15 +44,6 @@ public class Task6 {
 
         Arrays.sort(sortedDigits);
 
-        final int THAUSEND_FOR_NORMAL_FORM = 1000; // 1234 = 1*1000
-        final int THUNDREED_FOR_NORMAL_FORM = 100; // 1234 = 2*100
-        final int DECADE_FOR_NORMAL_FORM = 10; // 1234 = 3*10
-        // 1 * 1000 + 2 * 100 + 3 * 10 + 4 = 1234
-
-        final int FOURTH_DIGIT_IN_NUMBER = 3;
-        final int THIRD_DIGIT_IN_NUMBER = 2;
-        final int SECOND_DIGIT_IN_NUMBER = 1;
-        final int FIRST_DIGIT_IN_NUMBER = 0;
 
         int sortedA = sortedDigits[FIRST_DIGIT_IN_NUMBER] * THAUSEND_FOR_NORMAL_FORM
                 + sortedDigits[SECOND_DIGIT_IN_NUMBER] * THUNDREED_FOR_NORMAL_FORM

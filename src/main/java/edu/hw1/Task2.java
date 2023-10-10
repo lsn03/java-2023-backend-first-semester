@@ -5,19 +5,18 @@ public class Task2 {
     @SuppressWarnings("MagicNumber")
     public int countDigits(int number) {
 
-        int cnt = 0;
+
         if (number == 0) {
             return 1;
-        }
-        int myNumber = number;
-        if (number == Integer.MIN_VALUE) {
+        } else if (number == Integer.MIN_VALUE) {
             return -1;
         }
 
+        int myNumber = number;
 
-        if (myNumber < 0) {
-            myNumber *= -1;
-        }
+        myNumber = Math.abs(myNumber);
+
+        int cnt = 0;
 
         while (myNumber > 0) {
             myNumber /= 10;

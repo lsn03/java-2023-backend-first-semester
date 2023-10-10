@@ -82,4 +82,14 @@ public class Task1Test {
 //		Assert
 		assertEquals(-1, result);
 	}
+	@Test
+	public void testThatZeroMinuteAndGoodSecondsWithGoodFormatSuccess() {
+//		Arrange
+		var task = new Task1();
+		String inputString = "0:50";
+//		Act
+		var result = task.minutesToSeconds(inputString);
+//		Assert
+		assertEquals(50, result);
+	}
 }
