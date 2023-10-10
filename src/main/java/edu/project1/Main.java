@@ -12,16 +12,25 @@ public final class Main {
     }
 
     public static void main(String[] args) {
+        Dictionary dictionary = new MyDictionaryImpl();
+
+        String word = dictionary.randomWord();
+
+        Session session = new Session(word, word.length() / 2);
+
+        ConsoleHangman hangman = new ConsoleHangman(dictionary, session, session.getMaxAttempts());
+
+        hangman.run();
         // Press Alt+Enter with your caret at the highlighted text to see how
         // IntelliJ IDEA suggests fixing it.
-        LOGGER.info("Hello and welcome!");
-
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 0; i <= 2; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            LOGGER.info("i = {}", i);
-        }
+//        LOGGER.info("Hello and welcome!");
+//
+//        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
+//        for (int i = 0; i <= 2; i++) {
+//
+//            // Press Shift+F9 to start debugging your code. We have set one breakpoint
+//            // for you, but you can always add more by pressing Ctrl+F8.
+//            LOGGER.info("i = {}", i);
+//        }
     }
 }
