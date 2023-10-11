@@ -12,4 +12,6 @@ public interface InputOutputSystem {
     void printGuessFailedLetter();
 
     void printGuessSuccessLetter();
+
+    void scannerUserCharacter(String inputChar);
 }

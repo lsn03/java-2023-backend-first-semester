@@ -1,6 +1,7 @@
 package edu.project1;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Session {
     private final String answer;
@@ -8,6 +9,30 @@ public class Session {
     private final int maxAttempts;
     private int attempts;
     private String gameState;
+
+    public Session(String answer, int maxAttempts) {
+
+        Objects.requireNonNull(answer);
+
+        if (maxAttempts >= answer.length() || maxAttempts < 0) {
+            throw new IllegalArgumentException("The maxAttempts should be in range [0; answer.lenght())");
+        }
+
+        this.answer = answer;
+        this.maxAttempts = maxAttempts;
+
+        attempts = 0;
+
+        userAnswer = new char[answer.length()];
+
+        Arrays.fill(userAnswer, '*');
+
+        gameState = GameState.IS_PLAYING.name();
+    }
+
+    public Session(String answer) {
+        this(answer, answer.length() / 2);
+    }
 
     public String getGameState() {
         return gameState;
@@ -21,9 +46,10 @@ public class Session {
         return answer;
     }
 
-    public char[] getUserAnswer() {
-        return userAnswer;
+    public String getUserAnswer() {
+        return String.valueOf(userAnswer);
     }
+
 
     public int getMaxAttempts() {
         return maxAttempts;
@@ -44,9 +70,13 @@ public class Session {
         return flag;
     }
 
+    private boolean checkThatWordCountainStar() {
+        return new String(userAnswer).contains("*");
+    }
+
     public int validationInput(String result) {
         int returnResult = Integer.MIN_VALUE;
-
+        Objects.requireNonNull(result);
         if (result.equals("-1")) {
             giveUp();
             returnResult = -1;
@@ -55,7 +85,15 @@ public class Session {
             char symbol = result.charAt(0);
 
             if (isSymbolInAnswer(symbol)) {
-                returnResult = 1;
+
+                if (checkThatWordCountainStar()) {
+
+                    returnResult = 1;
+                } else {
+                    gameState = GameState.GAME_OVER.name();
+                    returnResult = 2;
+                }
+
 
             } else {
                 attempts += 1;
@@ -64,6 +102,7 @@ public class Session {
                     returnResult = -1;
 
                 } else {
+
                     returnResult = 0;
                 }
 
@@ -72,16 +111,7 @@ public class Session {
         return returnResult;
     }
 
-    public Session(String answer, int maxAttempts) {
-        this.answer = answer;
-        this.maxAttempts = maxAttempts;
-        attempts = 0;
 
-        userAnswer = new char[answer.length()];
 
-        Arrays.fill(userAnswer, '*');
-
-        gameState = GameState.IS_PLAYING.name();
-    }
 }
 
