@@ -5,41 +5,38 @@ import java.util.Objects;
 
 public class Session {
     private final String answer;
-    private char[] userAnswer;
+    private final char[] userAnswer;
     private final int maxAttempts;
-    private int attempts;
-    private String gameState;
+    private int attempts = 0;
+    private GameState gameState = GameState.IS_PLAYING;
 
-    public Session(String answer, int maxAttempts) {
-
+    private void constructorArgumentValidation(String answer, int maxAttempts) {
         Objects.requireNonNull(answer);
-
         if (maxAttempts >= answer.length() || maxAttempts < 0) {
             throw new IllegalArgumentException("The maxAttempts should be in range [0; answer.lenght())");
         }
+    }
+
+    public Session(String answer, int maxAttempts) {
+        constructorArgumentValidation(answer, maxAttempts);
 
         this.answer = answer;
         this.maxAttempts = maxAttempts;
-
-        attempts = 0;
-
         userAnswer = new char[answer.length()];
 
         Arrays.fill(userAnswer, '*');
-
-        gameState = GameState.IS_PLAYING.name();
     }
 
     public Session(String answer) {
         this(answer, answer.length() / 2);
     }
 
-    public String getGameState() {
+    public GameState getGameState() {
         return gameState;
     }
 
     public void giveUp() {
-        gameState = GameState.GAME_OVER.name();
+        gameState = GameState.GAME_OVER;
     }
 
     public String getAnswer() {
@@ -49,7 +46,6 @@ public class Session {
     public String getUserAnswer() {
         return String.valueOf(userAnswer);
     }
-
 
     public int getMaxAttempts() {
         return maxAttempts;
@@ -70,47 +66,37 @@ public class Session {
         return flag;
     }
 
-    private boolean checkThatWordCountainStar() {
+    private boolean checkThatWordContainsStar() {
         return new String(userAnswer).contains("*");
     }
 
-    public int validationInput(String result) {
-        int returnResult = Integer.MIN_VALUE;
-        Objects.requireNonNull(result);
-        if (result.equals("-1")) {
+    public ValidationInputState validationInput(String result) {
+        ValidationInputState returnResult = ValidationInputState.RESULT_THAT_INCORRECT_VALIDATION;
+        if ("-1".equals(result)) {
             giveUp();
-            returnResult = -1;
+            returnResult = ValidationInputState.RESULT_FOR_LOST;
 
         } else if (result.length() == 1) {
             char symbol = result.charAt(0);
-
             if (isSymbolInAnswer(symbol)) {
-
-                if (checkThatWordCountainStar()) {
-
-                    returnResult = 1;
+                if (checkThatWordContainsStar()) {
+                    returnResult = ValidationInputState.RESULT_THAT_CHAR_IN_WORD;
                 } else {
-                    gameState = GameState.GAME_OVER.name();
-                    returnResult = 2;
+                    gameState = GameState.GAME_OVER;
+                    returnResult = ValidationInputState.RESULT_THAT_WORD_IS_GUESSED;
                 }
-
-
             } else {
                 attempts += 1;
                 if (attempts == maxAttempts) {
                     giveUp();
-                    returnResult = -1;
-
+                    returnResult = ValidationInputState.RESULT_FOR_LOST;
                 } else {
-
-                    returnResult = 0;
+                    returnResult = ValidationInputState.RESULT_THAT_CHAR_NOT_IN_WORD;
                 }
-
             }
         }
         return returnResult;
     }
-
 
 
 }

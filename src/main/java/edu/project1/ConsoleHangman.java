@@ -12,7 +12,7 @@ public class ConsoleHangman {
     }
 
     public void setCharacter(String inputChar) {
-        if (!session.getGameState().equals(GameState.GAME_OVER.name())) {
+        if (!(session.getGameState() == GameState.GAME_OVER)) {
 
             iOSystem.printGuessLetter();
             iOSystem.scannerUserCharacter(inputChar);
@@ -21,17 +21,13 @@ public class ConsoleHangman {
 
     public void run() {
 
-        while (!session.getGameState().equals(GameState.GAME_OVER.name())) {
+        while (!(session.getGameState() == GameState.GAME_OVER)) {
 
             iOSystem.printGuessLetter();
             iOSystem.scannerUserCharacter();
 
         }
 
-    }
-
-    public Session getSession() {
-        return session;
     }
 
 }

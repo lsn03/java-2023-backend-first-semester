@@ -3,18 +3,16 @@ package edu.project1;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HangmanGame6Test {
     private static ConsoleHangman game;
+    private static Session session;
 
     @BeforeAll
     public static void before() {
-
-
         Dictionary dictionary = new MyDictionaryImpl("abradcadabra");
-        Session session = new Session(dictionary.randomWord());
+        session = new Session(dictionary.randomWord());
         game = new ConsoleHangman(session);
 
 
@@ -39,19 +37,19 @@ public class HangmanGame6Test {
                     "r, 2, GAME_OVER, abradcadabra",
             }
     )
-    public void testThatGameReturnLost(String inputChar,
+    public void testThatGameReturnWin(String inputChar,
                                        int exceptedAttempts,
-                                       String exceptedGameState,
+                                       GameState exceptedGameState,
                                        String exceptedUserAnswer) {
 //        Arrange
 
 //        Act
         game.setCharacter(inputChar);
 //        Assert
-        Session gameSession = game.getSession();
-        assertEquals(exceptedAttempts, gameSession.getAttempts());
-        assertEquals(exceptedGameState, gameSession.getGameState());
-        assertEquals(exceptedUserAnswer, gameSession.getUserAnswer());
+
+        assertEquals(exceptedAttempts, session.getAttempts());
+        assertEquals(exceptedGameState, session.getGameState());
+        assertEquals(exceptedUserAnswer, session.getUserAnswer());
 
     }
 }
