@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("MultipleStringLiterals")
 public class InputOutputSystemImpl implements InputOutputSystem {
 
-    private final static Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String SYSTEM_GAME_OVER = "[SYSTEM]: GAME OVER";
     private static final String SYSTEM_THE_WORD = "[SYSTEM]: The word: ";
 
