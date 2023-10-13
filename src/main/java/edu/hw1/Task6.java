@@ -3,8 +3,6 @@ package edu.hw1;
 import java.util.Arrays;
 
 public class Task6 {
-    private int cnt = 0;
-
     private static final int THAUSEND_FOR_NORMAL_FORM = 1000; // 1234 = 1*1000
     private static final int THUNDREED_FOR_NORMAL_FORM = 100; // 1234 = 2*100
     private static final int DECADE_FOR_NORMAL_FORM = 10; // 1234 = 3*10
@@ -15,6 +13,8 @@ public class Task6 {
     private static final int FIRST_DIGIT_IN_NUMBER = 0;
     private static final int LOW_BORDER_OF_NUMBER = 1000;
     private static final int HIGH_BORDER_OF_NUMBER = 9999;
+
+    private int cnt = 0;
 
     public int countK(int number) {
 

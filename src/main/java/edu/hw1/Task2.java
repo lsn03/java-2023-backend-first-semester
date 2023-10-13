@@ -4,8 +4,6 @@ package edu.hw1;
 public class Task2 {
     @SuppressWarnings("MagicNumber")
     public int countDigits(int number) {
-
-
         if (number == 0) {
             return 1;
         } else if (number == Integer.MIN_VALUE) {

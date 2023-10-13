@@ -92,4 +92,24 @@ public class Task1Test {
 //		Assert
 		assertEquals(50, result);
 	}
+	@Test
+	public void testThatNumberOfMinutesMoreThanMaxMinutes() {
+//		Arrange
+		var task = new Task1();
+		String inputString = "1000005:00";
+//		Act
+		var result = task.minutesToSeconds(inputString);
+//		Assert
+		assertEquals(-1, result);
+	}
+	@Test
+	public void testThatNumberOfMinutesIsEqualMaxMinutes() {
+//		Arrange
+		var task = new Task1();
+		String inputString = "1000000:00";
+//		Act
+		var result = task.minutesToSeconds(inputString);
+//		Assert
+		assertEquals(60000000, result);
+	}
 }

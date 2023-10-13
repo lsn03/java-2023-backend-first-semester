@@ -1,36 +1,38 @@
 package edu.hw1;
 
 public class Task3 {
+
     public boolean isNestable(int[] a, int[] b) {
 
         if (a == null || b == null || a.length == 0 || b.length == 0) {
             return false;
         }
-        boolean expressionOne = getMinValueInArray(a) > getMinValueInArray(b);
-        boolean expressionTwo = getMaxValueInArray(a) < getMaxValueInArray(b);
+        int[] valueInA = getMinMaxValueInArrya(a);
+        int minInA = valueInA[0];
+        int maxInA = valueInA[1];
+
+        int[] valueInB = getMinMaxValueInArrya(b);
+        int minInB = valueInB[0];
+        int maxInB = valueInB[1];
+
+        boolean expressionOne = minInA > minInB;
+        boolean expressionTwo = maxInA < maxInB;
+
         return expressionOne && expressionTwo;
     }
 
-    private int getMinValueInArray(int[] x) {
-        int res = Integer.MAX_VALUE;
+    private int[] getMinMaxValueInArrya(int[] x) {
+        int minValue = Integer.MAX_VALUE;
+        int maxValue = Integer.MIN_VALUE;
 
         for (int i = 0; i < x.length; i++) {
-            if (x[i] < res) {
-                res = x[i];
+            if (x[i] < minValue) {
+                minValue = x[i];
+            }
+            if (maxValue < x[i]) {
+                maxValue = x[i];
             }
         }
-        return res;
+        return new int[]{minValue, maxValue};
     }
-
-    private int getMaxValueInArray(int[] x) {
-        int res = Integer.MIN_VALUE;
-
-        for (int i = 0; i < x.length; i++) {
-            if (res < x[i]) {
-                res = x[i];
-            }
-        }
-        return res;
-    }
-
 }
