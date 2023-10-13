@@ -2,13 +2,14 @@ package edu.hw1;
 
 
 public class Task7 {
+    private final static int MAX_AVAILABLE_SHIFT = 32;
+
     public int rotateLeft(int n, int shift) {
         checkTheCorrectInputData(n, shift);
         int res = 0;
         int module = (int) Math.floor(log2(n)) + 1;
         for (int i = 0; i < module; i++) {
             res |= ((n >> i) & 1) << ((i + shift) % module);
-
         }
         return res;
     }
@@ -34,7 +35,7 @@ public class Task7 {
     }
 
     private void checkTheCorrectInputData(int n, int shift) {
-        final int MAX_AVAILABLE_SHIFT = 32;
+
         if (n < 0 || shift < 0 || shift > MAX_AVAILABLE_SHIFT) {
             throw new IllegalArgumentException("The value n and shift must be positive");
         }
