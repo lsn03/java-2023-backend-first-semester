@@ -12,13 +12,9 @@ public class HangmanGame3Test {
 
     @BeforeAll
     public static void before() {
-
-
         Dictionary dictionary = new MyDictionaryImpl("tinkoff");
         Session session = new Session(dictionary.randomWord());
         game = new ConsoleHangman(session);
-
-
     }
     @ParameterizedTest(name =
             "Test # {index}: " +

@@ -1,8 +1,6 @@
 package edu.project1;
 
 public class ConsoleHangman {
-
-
     private final Session session;
     private final InputOutputSystem iOSystem;
 

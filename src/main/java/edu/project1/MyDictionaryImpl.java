@@ -23,6 +23,12 @@ public class MyDictionaryImpl implements Dictionary {
         this(new String[]{word});
     }
 
+    @Override
+    public @NotNull String randomWord() {
+        int randomIndex = random.nextInt(words.length);
+        return words[randomIndex];
+    }
+
     private void stringValidator(String[] words) {
         Objects.requireNonNull(words);
         for (String str : words) {
@@ -35,9 +41,4 @@ public class MyDictionaryImpl implements Dictionary {
         }
     }
 
-    @Override
-    public @NotNull String randomWord() {
-        int randomIndex = random.nextInt(words.length);
-        return words[randomIndex];
-    }
 }

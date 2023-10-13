@@ -14,8 +14,6 @@ public class HangmanGame6Test {
         Dictionary dictionary = new MyDictionaryImpl("abradcadabra");
         session = new Session(dictionary.randomWord());
         game = new ConsoleHangman(session);
-
-
     }
 
     @ParameterizedTest(name =

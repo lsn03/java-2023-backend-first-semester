@@ -10,13 +10,6 @@ public class Session {
     private int attempts = 0;
     private GameState gameState = GameState.IS_PLAYING;
 
-    private void constructorArgumentValidation(String answer, int maxAttempts) {
-        Objects.requireNonNull(answer);
-        if (maxAttempts >= answer.length() || maxAttempts < 0) {
-            throw new IllegalArgumentException("The maxAttempts should be in range [0; answer.lenght())");
-        }
-    }
-
     public Session(String answer, int maxAttempts) {
         constructorArgumentValidation(answer, maxAttempts);
 
@@ -55,21 +48,6 @@ public class Session {
         return attempts;
     }
 
-    private boolean isSymbolInAnswer(char symbol) {
-        boolean flag = false;
-        for (int i = 0; i < answer.length(); i++) {
-            if (answer.charAt(i) == symbol) {
-                userAnswer[i] = symbol;
-                flag = true;
-            }
-        }
-        return flag;
-    }
-
-    private boolean checkThatWordContainsStar() {
-        return new String(userAnswer).contains("*");
-    }
-
     public ValidationInputState validationInput(String result) {
         ValidationInputState returnResult = ValidationInputState.RESULT_THAT_INCORRECT_VALIDATION;
         if ("-1".equals(result)) {
@@ -97,6 +75,29 @@ public class Session {
         }
         return returnResult;
     }
+
+    private boolean isSymbolInAnswer(char symbol) {
+        boolean flag = false;
+        for (int i = 0; i < answer.length(); i++) {
+            if (answer.charAt(i) == symbol) {
+                userAnswer[i] = symbol;
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    private void constructorArgumentValidation(String answer, int maxAttempts) {
+        Objects.requireNonNull(answer);
+        if (maxAttempts >= answer.length() || maxAttempts < 0) {
+            throw new IllegalArgumentException("The maxAttempts should be in range [0; answer.lenght())");
+        }
+    }
+
+    private boolean checkThatWordContainsStar() {
+        return new String(userAnswer).contains("*");
+    }
+
 
 
 }
