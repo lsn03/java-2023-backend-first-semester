@@ -16,13 +16,13 @@ public class Task1ExprTest {
             "-30, -30",
             "9999, 9999"
     })
-    public void testThatTheConstantWork(double value, double excpectedValue){
+    public void testThatTheConstantWork(double value, double excpectedValue) {
 //        Arrange
         var expr = new Constant(value);
 //        Act
         var result = expr.evaluate();
 //        Assert
-        assertEquals(excpectedValue,result);
+        assertEquals(excpectedValue, result);
     }
 
     @ParameterizedTest(name = "{0} given - {1} expected")
@@ -32,14 +32,14 @@ public class Task1ExprTest {
             "-30, 30",
             "9999, -9999"
     })
-    public void testThatNegateWork(double value, double excpectedValue){
+    public void testThatNegateWork(double value, double excpectedValue) {
 //        Arrange
         var constant = new Constant(value);
 //        Act
-        var action = new  Negate(constant);
+        var action = new Negate(constant);
         var result = action.evaluate();
 //        Assert
-        assertEquals(excpectedValue,result);
+        assertEquals(excpectedValue, result);
     }
 
     @ParameterizedTest(name = "{0} left; {1} right; sum = {2}")
@@ -51,14 +51,14 @@ public class Task1ExprTest {
             "-30, 1, -30",
 
     })
-    public void testThatExponentWork(double left,int exponent, double expectedValue){
+    public void testThatExponentWork(double left, int exponent, double expectedValue) {
 //        Arrange
         var left1 = new Constant(left);
 //        Act
-        var action = new Exponent(left1,exponent);
+        var action = new Exponent(left1, exponent);
         var result = action.evaluate();
 //        Assert
-        assertEquals(expectedValue,result);
+        assertEquals(expectedValue, result);
     }
 
     @ParameterizedTest(name = "{0} left; {1} right; sum = {2}")
@@ -70,15 +70,15 @@ public class Task1ExprTest {
             "-30, -30, -60",
             "-40, 30, -10",
     })
-    public void testThatAdditionWork(double left,double right, double expectedValue){
+    public void testThatAdditionWork(double left, double right, double expectedValue) {
 //        Arrange
         var left1 = new Constant(left);
         var right1 = new Constant(right);
 //        Act
-        var action = new  Addition(left1,right1);
+        var action = new Addition(left1, right1);
         var result = action.evaluate();
 //        Assert
-        assertEquals(expectedValue,result);
+        assertEquals(expectedValue, result);
     }
 
     @ParameterizedTest(name = "{0} left; {1} right; sum = {2}")
@@ -92,15 +92,15 @@ public class Task1ExprTest {
             "-30, -30, 900",
             "-40, 30, -1200",
     })
-    public void testThatMultiplicationWork(double left,double right, double expectedValue){
+    public void testThatMultiplicationWork(double left, double right, double expectedValue) {
 //        Arrange
         var left1 = new Constant(left);
         var right1 = new Constant(right);
 //        Act
-        var action = new  Multiplication(left1,right1);
+        var action = new Multiplication(left1, right1);
         var result = action.evaluate();
 //        Assert
-        assertEquals(expectedValue,result);
+        assertEquals(expectedValue, result);
     }
 
 }

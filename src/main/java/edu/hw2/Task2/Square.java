@@ -4,7 +4,7 @@ public class Square implements Shape {
     private final int width;
     private final int height;
 
-    public Square(int side){
+    public Square(int side) {
         width = side;
         height = side;
     }
@@ -19,6 +19,6 @@ public class Square implements Shape {
 
     @Override
     public double area() {
-        return width*height;
+        return width * height;
     }
 }

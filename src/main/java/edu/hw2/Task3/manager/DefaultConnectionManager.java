@@ -3,7 +3,6 @@ package edu.hw2.Task3.manager;
 import edu.hw2.Task3.connection.Connection;
 import edu.hw2.Task3.connection.FaultyConnection;
 import edu.hw2.Task3.connection.StableConnection;
-
 import java.util.Random;
 
 public class DefaultConnectionManager implements ConnectionManager {

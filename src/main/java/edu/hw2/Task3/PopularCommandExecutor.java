@@ -11,6 +11,7 @@ public final class PopularCommandExecutor {
     private final ConnectionManager manager;
     private final int maxAttempts;
     private int attempts = 0;
+
     public PopularCommandExecutor(ConnectionManager manager, int maxAttempts) {
         this.manager = manager;
         this.maxAttempts = maxAttempts;

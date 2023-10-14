@@ -1,13 +1,13 @@
 package edu.hw2.Task3.connection;
 
+import java.util.Random;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Random;
 
 public class FaultyConnection implements Connection {
-    private final Random random;
     private static final Logger LOGGER = LogManager.getLogger();
+    private final Random random;
 
     public FaultyConnection() {
         random = new Random();
