@@ -1,5 +1,6 @@
 package edu.hw2.Task1;
 
+@SuppressWarnings("MultipleStringLiterals")
 public sealed interface Expr {
     double evaluate();
 
@@ -52,9 +53,10 @@ public sealed interface Expr {
 
         @Override
         public String toString() {
-            return "Addition{" +
-                    "left = " + left.evaluate() + "; right = " + right.evaluate() + "; result = " + evaluate() +
-                    '}';
+            return "Addition{"
+                    + "left = " + left.evaluate()
+                    + "; right = " + right.evaluate()
+                    + "; result = " + evaluate() + '}';
         }
     }
 
@@ -66,9 +68,10 @@ public sealed interface Expr {
 
         @Override
         public String toString() {
-            return "Multiplication{" +
-                    "left = " + left.evaluate() + "; right = " + right.evaluate() + "; result = " + evaluate() +
-                    '}';
+            return "Multiplication{"
+                    + "left = " + left.evaluate()
+                    + "; right = " + right.evaluate()
+                    + "; result = " + evaluate() + '}';
         }
     }
 }

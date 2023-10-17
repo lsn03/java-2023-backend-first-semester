@@ -21,4 +21,9 @@ public final class Rectangle implements Shape {
     public double area() {
         return width * height;
     }
+
+    @Override
+    public String toString() {
+        return "Rectangle{" + "width=" + width + ", height=" + height + '}';
+    }
 }
