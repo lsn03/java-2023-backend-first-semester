@@ -3,18 +3,19 @@ package edu.hw2.Task3.manager;
 import edu.hw2.Task3.connection.Connection;
 import edu.hw2.Task3.connection.FaultyConnection;
 import edu.hw2.Task3.connection.StableConnection;
-import java.util.Random;
+import edu.hw2.Task3.randomizer.RandomNumberGenerator;
+
 
 public class DefaultConnectionManager implements ConnectionManager {
-    private final Random random;
+    private final RandomNumberGenerator random;
 
-    public DefaultConnectionManager() {
-        this.random = new Random();
+    public DefaultConnectionManager(RandomNumberGenerator randomNumberGenerator) {
+        this.random = randomNumberGenerator;
     }
 
     @Override
     public Connection getConnection() {
         int value = random.nextInt();
-        return value % 2 == 0 ? new StableConnection() : new FaultyConnection();
+        return value % 2 == 0 ? new StableConnection() : new FaultyConnection(random);
     }
 }

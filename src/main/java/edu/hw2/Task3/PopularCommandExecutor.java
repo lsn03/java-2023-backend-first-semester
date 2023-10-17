@@ -1,7 +1,8 @@
 package edu.hw2.Task3;
 
 import edu.hw2.Task3.connection.Connection;
-import edu.hw2.Task3.connection.ConnectionException;
+import edu.hw2.Task3.exceptions.ConnectionException;
+import edu.hw2.Task3.exceptions.MaxAttemptsException;
 import edu.hw2.Task3.manager.ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,12 +41,15 @@ public final class PopularCommandExecutor {
                 connection.execute(command);
                 LOGGER.info("while connection.execute");
                 break;
-            } catch (Exception e) {
-                LOGGER.info("catch ConnectionException");
+            } catch (ConnectionException e) {
+                LOGGER.error("Catch ConnectionException", e);
                 attempts++;
                 if (attempts >= maxAttempts) {
 
-                    throw new ConnectionException("Failed execute command after " + maxAttempts + " attempts.", e);
+                    MaxAttemptsException exception =
+                            new MaxAttemptsException("Failed execute command after " + maxAttempts + " attempts.", e);
+                    LOGGER.error("Throw MaxAttemptsException ", e);
+                    throw exception;
 
                 }
             } finally {
