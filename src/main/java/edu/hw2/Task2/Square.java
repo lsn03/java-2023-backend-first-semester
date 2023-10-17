@@ -21,4 +21,9 @@ public class Square implements Shape {
     public double area() {
         return width * height;
     }
+
+    @Override
+    public String toString() {
+        return "Square{" + "width=" + width + ", height=" + height + '}';
+    }
 }
