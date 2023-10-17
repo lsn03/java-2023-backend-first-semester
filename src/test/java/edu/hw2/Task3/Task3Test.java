@@ -34,4 +34,22 @@ public class Task3Test {
 
 
     }
+    @Test
+    public void testThatStateChangesSuccessful() {
+        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 1, 1, 1});
+        ConnectionManager manager = new FaultyConnectionManager(random);
+        int maxAttempts = 5;
+        PopularCommandExecutor executor = new PopularCommandExecutor(manager, maxAttempts);
+        try {
+            executor.updatePackages();
+        } catch (Exception e) {
+            assertEquals(e.getCause().getClass(), ConnectionException.class);
+        }
+        finally {
+            int result =  executor.getAttempts();
+            assertEquals(3,result);
+        }
+
+
+    }
 }
