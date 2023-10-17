@@ -27,11 +27,13 @@ public final class Server {
 
     @SuppressWarnings({"MagicNumber", "uncommentedmain"})
     public static void main(String[] args) {
-        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{1, 2, 3, 4, 5});
+        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 2, 2, 5});
         ConnectionManager manager = new FaultyConnectionManager(random);
         int maxAttempts = 10;
         PopularCommandExecutor popularCommandExecutor = new PopularCommandExecutor(manager, maxAttempts);
         Server server = new Server(popularCommandExecutor);
         server.execute();
+
+        
     }
 }

@@ -9,7 +9,6 @@ public class FaultyConnection implements Connection {
     private static final Logger LOGGER = LogManager.getLogger();
     private final RandomNumberGenerator random;
 
-
     public FaultyConnection(RandomNumberGenerator generator) {
         random = generator;
     }

@@ -18,16 +18,12 @@ public final class PopularCommandExecutor {
         this.maxAttempts = maxAttempts;
     }
 
-    public ConnectionManager getManager() {
-        return manager;
-    }
-
-    public int getMaxAttempts() {
-        return maxAttempts;
-    }
-
     public void updatePackages() throws Exception {
         tryExecute("apt update && apt upgrade -y");
+    }
+
+    public int getAttempts() {
+        return attempts;
     }
 
     void tryExecute(String command) throws Exception {
@@ -57,8 +53,6 @@ public final class PopularCommandExecutor {
                 connection.close();
             }
         }
-        LOGGER.info("Close after while");
-        connection.close();
 
     }
 }

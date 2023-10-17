@@ -11,7 +11,7 @@ public class TestRandomNumberGenerator implements RandomNumberGenerator {
     @Override
     public int nextInt() {
         if (index < values.length) {
-            return values[index];
+            return values[index++];
         }
         return 0;
     }
