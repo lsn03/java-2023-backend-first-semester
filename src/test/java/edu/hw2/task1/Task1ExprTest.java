@@ -37,6 +37,7 @@ public class Task1ExprTest {
         var constant = new Constant(value);
 //        Act
         var action = new Negate(constant);
+
         var result = action.evaluate();
 //        Assert
         assertEquals(excpectedValue, result);
@@ -56,6 +57,7 @@ public class Task1ExprTest {
         var left1 = new Constant(left);
 //        Act
         var action = new Exponent(left1, exponent);
+
         var result = action.evaluate();
 //        Assert
         assertEquals(expectedValue, result);
@@ -98,6 +100,7 @@ public class Task1ExprTest {
         var right1 = new Constant(right);
 //        Act
         var action = new Multiplication(left1, right1);
+
         var result = action.evaluate();
 //        Assert
         assertEquals(expectedValue, result);
