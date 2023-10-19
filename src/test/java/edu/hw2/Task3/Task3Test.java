@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 public class Task3Test {
     @Test
     public void testThatAfterNTriesThrowMaxAttemptsException() {
-        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 2, 2, 2, 2});
+        int errorFreq = 2;
+        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 2, 2, 2, 2}, errorFreq);
         ConnectionManager manager = new FaultyConnectionManager(random);
         int maxAttempts = 5;
         PopularCommandExecutor executor = new PopularCommandExecutor(manager, maxAttempts);
@@ -22,7 +23,8 @@ public class Task3Test {
 
     @Test
     public void testThatAfterNTriesSaveConnectionException() {
-        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 2, 2, 2, 2});
+        int errorFreq = 2;
+        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 2, 2, 2, 2}, errorFreq);
         ConnectionManager manager = new FaultyConnectionManager(random);
         int maxAttempts = 5;
         PopularCommandExecutor executor = new PopularCommandExecutor(manager, maxAttempts);
@@ -34,9 +36,11 @@ public class Task3Test {
 
 
     }
+
     @Test
     public void testThatStateChangesSuccessful() {
-        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 1, 1, 1});
+        int errorFreq = 2;
+        RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 1, 1, 1}, errorFreq);
         ConnectionManager manager = new FaultyConnectionManager(random);
         int maxAttempts = 5;
         PopularCommandExecutor executor = new PopularCommandExecutor(manager, maxAttempts);
@@ -44,10 +48,9 @@ public class Task3Test {
             executor.updatePackages();
         } catch (Exception e) {
             assertEquals(e.getCause().getClass(), ConnectionException.class);
-        }
-        finally {
-            int result =  executor.getAttempts();
-            assertEquals(3,result);
+        } finally {
+            int result = executor.getAttempts();
+            assertEquals(3, result);
         }
 
 

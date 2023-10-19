@@ -16,6 +16,6 @@ public class DefaultConnectionManager implements ConnectionManager {
     @Override
     public Connection getConnection() {
         int value = random.nextInt();
-        return value % 2 == 0 ? new StableConnection() : new FaultyConnection(random);
+        return random.isError(value) ? new FaultyConnection(random) : new StableConnection();
     }
 }

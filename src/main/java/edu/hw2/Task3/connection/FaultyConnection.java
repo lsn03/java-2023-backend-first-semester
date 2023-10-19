@@ -18,7 +18,7 @@ public class FaultyConnection implements Connection {
         int value = random.nextInt();
         LOGGER.info("Call execute({}) at FaultyConnection", command);
 
-        if (value % 2 == 0) {
+        if (random.isError(value)) {
             LOGGER.warn("Throw ConnectionException at FaultyConnection");
             throw new ConnectionException("Cannot connect to server");
         }
