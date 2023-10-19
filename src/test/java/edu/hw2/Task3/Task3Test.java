@@ -13,11 +13,15 @@ import org.junit.jupiter.api.Test;
 public class Task3Test {
     @Test
     public void testThatAfterNTriesThrowMaxAttemptsException() {
+//        Arrange
         int errorFreq = 2;
         RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 2, 2, 2, 2}, errorFreq);
         ConnectionManager manager = new FaultyConnectionManager(random);
+
         int maxAttempts = 5;
-        PopularCommandExecutor executor = new PopularCommandExecutor(manager, maxAttempts);
+        Retrier retrier = new Retrier(maxAttempts);
+        PopularCommandExecutor executor = new PopularCommandExecutor(manager, retrier);
+//        Act && Assert
         assertThrows(MaxAttemptsException.class, executor::updatePackages);
     }
 
@@ -27,7 +31,8 @@ public class Task3Test {
         RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 2, 2, 2, 2}, errorFreq);
         ConnectionManager manager = new FaultyConnectionManager(random);
         int maxAttempts = 5;
-        PopularCommandExecutor executor = new PopularCommandExecutor(manager, maxAttempts);
+        Retrier retrier = new Retrier(maxAttempts);
+        PopularCommandExecutor executor = new PopularCommandExecutor(manager, retrier);
         try {
             executor.updatePackages();
         } catch (Exception e) {
@@ -43,7 +48,10 @@ public class Task3Test {
         RandomNumberGenerator random = new TestRandomNumberGenerator(new int[]{2, 2, 2, 1, 1, 1}, errorFreq);
         ConnectionManager manager = new FaultyConnectionManager(random);
         int maxAttempts = 5;
-        PopularCommandExecutor executor = new PopularCommandExecutor(manager, maxAttempts);
+
+        Retrier retrier = new Retrier(maxAttempts);
+        PopularCommandExecutor executor = new PopularCommandExecutor(manager, retrier);
+
         try {
             executor.updatePackages();
         } catch (Exception e) {
