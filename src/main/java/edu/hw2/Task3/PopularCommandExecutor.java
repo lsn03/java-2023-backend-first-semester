@@ -31,6 +31,11 @@ public final class PopularCommandExecutor {
 
         attempts = 0;
         Connection connection = manager.getConnection();
+        procceed(connection, command);
+        connection.close();
+    }
+
+    private void procceed(Connection connection, String command) throws Exception {
         while (attempts < maxAttempts) {
             try {
 
@@ -53,6 +58,5 @@ public final class PopularCommandExecutor {
                 connection.close();
             }
         }
-
     }
 }
