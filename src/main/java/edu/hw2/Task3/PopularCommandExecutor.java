@@ -19,10 +19,6 @@ public final class PopularCommandExecutor {
         tryExecute("apt update && apt upgrade -y");
     }
 
-    public int getAttempts() {
-        return retrier.getAttempts();
-    }
-
     void tryExecute(String command) throws Exception {
 
         Connection connection = manager.getConnection();

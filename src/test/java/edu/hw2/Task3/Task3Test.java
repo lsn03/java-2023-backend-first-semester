@@ -57,7 +57,7 @@ public class Task3Test {
         } catch (Exception e) {
             assertEquals(e.getCause().getClass(), ConnectionException.class);
         } finally {
-            int result = executor.getAttempts();
+            int result = retrier.getAttempts();
             assertEquals(3, result);
         }
 
