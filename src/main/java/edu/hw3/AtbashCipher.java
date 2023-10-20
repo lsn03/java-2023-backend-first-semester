@@ -1,5 +1,7 @@
 package edu.hw3;
 
+import java.util.Objects;
+
 public class AtbashCipher {
 
     private static final int LOWER_OFFSET = 97;
@@ -8,9 +10,11 @@ public class AtbashCipher {
     private static final int HIGH_OFFSET = 65;
     private static final int MIN_HIGH_VALUE = 65;
     private static final int MAX_HIGH_VALUE = 90;
-    private static final int LENGHT_OF_LATIN_ALPHABET = 90;
+    private static final int LENGHT_OF_LATIN_ALPHABET = 25;
+
     public String atbash(String word) {
 
+        Objects.requireNonNull(word);
 
         char[] newWord = new char[word.length()];
         for (int i = 0; i < word.length(); i++) {
@@ -29,7 +33,7 @@ public class AtbashCipher {
                 continue;
             }
 
-            char newSymbol = (char) ( ( LENGHT_OF_LATIN_ALPHABET -  ((int)symbol - currentOffset ))+currentOffset);
+            char newSymbol = (char) ((LENGHT_OF_LATIN_ALPHABET - ((int) symbol - currentOffset)) + currentOffset);
 
             newWord[i] = newSymbol;
         }
