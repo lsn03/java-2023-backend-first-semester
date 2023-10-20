@@ -14,9 +14,9 @@ public class ClasterizationTest {
             "((()))(())()()(()()), '((())),(()),(),(),(()())'",
             "((())())(()(()())), '((())()),(()(()()))'"
     })
-    public void testThatWork(String word, String expectedResult){
+    public void testThatWork(String word, String expectedResult) {
         Clasterization clasterization = new Clasterization();
-        List<String> res =  clasterization.clusterize(word);
+        List<String> res = clasterization.clusterize(word);
         List<String> expected = Arrays.asList(expectedResult.split(","));
         assertEquals(expected, res);
     }

@@ -2,7 +2,6 @@ package edu.hw3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class Clasterization {
     public List<String> clusterize(String cluster) {
@@ -25,9 +24,4 @@ public class Clasterization {
         return answer;
     }
 
-    public static void main(String[] args) {
-        Clasterization clasterization = new Clasterization();
-        List<String> res = clasterization.clusterize("((())())(()(()()))");
-        System.out.println(res);
-    }
 }

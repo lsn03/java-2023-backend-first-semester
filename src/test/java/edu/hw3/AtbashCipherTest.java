@@ -20,6 +20,7 @@ public class AtbashCipherTest {
 //        Assert
         assertEquals(expectedWord, res);
     }
+
     @Test
     public void testThatNull() {
 //        Arrange
@@ -27,11 +28,12 @@ public class AtbashCipherTest {
         AtbashCipher cipher = new AtbashCipher();
 //        Act && Assert
 
-        assertThrows(NullPointerException.class,()->{
+        assertThrows(NullPointerException.class, () -> {
             cipher.atbash(word);
         });
 
     }
+
     @Test
     public void testThatEmpty() {
 //        Arrange
