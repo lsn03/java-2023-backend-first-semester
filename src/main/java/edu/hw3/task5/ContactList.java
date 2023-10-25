@@ -1,7 +1,6 @@
 package edu.hw3.task5;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,7 +10,7 @@ public class ContactList {
 
     public List<Contact> parseContacts(String[] stringContacts, SortType sortType) {
 
-        if (stringContacts == null){
+        if (stringContacts == null) {
             return new ArrayList<>();
         }
 
@@ -50,17 +49,4 @@ public class ContactList {
 
     }
 
-    public static void main(String[] args) {
-        String[] str = new String[]{"Paul Erdos", "Leonhard Euler", "Carl Gauss"};
-        ContactList contactList = new ContactList();
-        List<Contact> list = contactList.parseContacts(str, SortType.DESC );
-        System.out.println(list);
-
-//        Contact contact = new Contact("Aboba bobod");
-//        Contact contact2 = new Contact("boba Dolboebov");
-//        Contact contact3 = new Contact("Aloba Yikogdabov");
-//        Contact contact4 = new Contact("oba Nikogdabov");
-
-
-    }
 }

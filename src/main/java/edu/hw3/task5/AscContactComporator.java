@@ -8,10 +8,10 @@ public class AscContactComporator implements Comparator<Contact> {
         String lastName1 = o1.getLastName();
         String lastName2 = o2.getLastName();
 
-        if(lastName1 == null){
+        if (lastName1 == null) {
             lastName1 = o1.getFirstName();
         }
-        if(lastName2 == null){
+        if (lastName2 == null) {
             lastName2 = o2.getFirstName();
         }
 

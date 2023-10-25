@@ -1,5 +1,6 @@
 package edu.hw3;
 
+@SuppressWarnings("MagicNumber")
 public class RomanNumber {
     public String convertToRoman(int number) {
         if (number <= 0 || number > 3999) {
@@ -12,24 +13,16 @@ public class RomanNumber {
         StringBuilder romanNumber = new StringBuilder();
 
         int i = 0;
-        while (number > 0) {
-            if (number >= arabicValues[i]) {
+        int numberWhile = number;
+        while (numberWhile > 0) {
+            if (numberWhile >= arabicValues[i]) {
                 romanNumber.append(romanSymbols[i]);
-                number -= arabicValues[i];
+                numberWhile -= arabicValues[i];
             } else {
                 i++;
             }
         }
 
         return romanNumber.toString();
-    }
-
-    public static void main(String[] args) {
-        RomanNumber rn = new RomanNumber();
-        System.out.println(rn.convertToRoman(5));
-        System.out.println(rn.convertToRoman(10));
-        System.out.println(rn.convertToRoman(15));
-        System.out.println(rn.convertToRoman(19));
-        System.out.println(rn.convertToRoman(147));
     }
 }

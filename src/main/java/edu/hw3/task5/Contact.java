@@ -1,8 +1,5 @@
 package edu.hw3.task5;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Contact {
     private String firstName;
     private String lastName;
@@ -28,10 +25,9 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return "Contact{" + "firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\''
+                + '}';
     }
 
     public String getFirstName() {
