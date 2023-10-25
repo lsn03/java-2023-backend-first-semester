@@ -50,8 +50,12 @@ public class Contact {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Contact contact = (Contact) o;
         return Objects.equals(firstName, contact.firstName) && Objects.equals(lastName, contact.lastName);
     }
