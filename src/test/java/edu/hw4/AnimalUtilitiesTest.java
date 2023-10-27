@@ -2,36 +2,52 @@ package edu.hw4;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AnimalUtilitiesTest {
+    List<Animal> list;
+    Animal birdZyblik = new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.M, 10, 154, 25, true);
+    Animal catFantik = new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true);
+    Animal spiderGosha = new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.M, 3, 100, 19, true);
+    Animal spiderPetya = new Animal("Petya", Animal.Type.SPIDER, Animal.Sex.F, 4, 80, 45, true);
+    Animal dogMaksim = new Animal("Maksim", Animal.Type.DOG, Animal.Sex.M, 5, 130, 27, true);
+    Animal fishBebra = new Animal("Bebra", Animal.Type.FISH, Animal.Sex.F, 2, 120, 105, true);
+
+    @BeforeEach
+    public void initializer() {
+        list = new ArrayList<>(Arrays.asList(
+                birdZyblik,
+                catFantik,
+                spiderGosha,
+                spiderPetya,
+                dogMaksim,
+                fishBebra
+        ));
+    }
+
     @Test
     public void testThatHeightSortedCorrectTask1() {
 //        Arrange
-        List<Animal> list = List.of(new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.M, 10, 154, 25, true),
-                new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 10, 90, 25, true),
-                new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.M, 10, 120, 25, true)
-        );
+
 //        Act
         list = AnimalUtilities.sortHeightTask1(list);
 //        Assert
         for (int i = 0; i < list.size() - 1; i++) {
-            assertTrue(list.get(i).height() < list.get(i + 1).height());
+            assertTrue(list.get(i).height() <= list.get(i + 1).height());
         }
     }
 
     @Test
     public void testThatWeightSortedCorrectTask2() {
 //        Arrange
-        List<Animal> list = List.of(new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.M, 10, 154, 25, true),
-                new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true),
-                new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.M, 3, 120, 19, true),
-                new Animal("Petya", Animal.Type.SPIDER, Animal.Sex.M, 4, 120, 45, true),
-                new Animal("Maksim", Animal.Type.DOG, Animal.Sex.M, 1, 120, 35, true),
-                new Animal("Bebra", Animal.Type.FISH, Animal.Sex.M, 2, 120, 105, true)
-        );
+
         int k1 = 2;
         int k2 = 3;
 //        Act
@@ -49,16 +65,6 @@ public class AnimalUtilitiesTest {
     @Test
     public void testThatTypeCounterIsCorrect() {
 //        Arrange
-        List<Animal> list = List.of(new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.M, 10, 154, 25, true),
-                new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true),
-                new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.M, 3, 120, 19, true),
-                new Animal("Petya", Animal.Type.SPIDER, Animal.Sex.M, 4, 120, 45, true),
-                new Animal("Maksim", Animal.Type.DOG, Animal.Sex.M, 1, 120, 35, true),
-                new Animal("Bebra", Animal.Type.FISH, Animal.Sex.M, 2, 120, 105, true)
-        );
-
-//        Act
-        var mapResult = AnimalUtilities.getCounterOfAnimalTypeTask3(list);
         var mapExpected = new HashMap<Animal.Type, Integer>();
 
         mapExpected.put(Animal.Type.SPIDER, 2);
@@ -66,6 +72,10 @@ public class AnimalUtilitiesTest {
         mapExpected.put(Animal.Type.CAT, 1);
         mapExpected.put(Animal.Type.DOG, 1);
         mapExpected.put(Animal.Type.FISH, 1);
+
+//        Act
+        var mapResult = AnimalUtilities.getCounterOfAnimalTypeTask3(list);
+
 //        Assert
         assertEquals(mapExpected, mapResult);
     }
@@ -73,18 +83,9 @@ public class AnimalUtilitiesTest {
     @Test
     public void testThatMaxNameLenghtCorrect() {
 //        Arrange
-        Animal expectedAnimal = new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.M, 10, 154, 25, true);
-        List<Animal> list = List.of(expectedAnimal,
-                new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true),
-                new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.M, 3, 120, 19, true),
-                new Animal("Petya", Animal.Type.SPIDER, Animal.Sex.M, 4, 120, 45, true),
-                new Animal("Maksim", Animal.Type.DOG, Animal.Sex.F, 1, 120, 35, true),
-                new Animal("Bebra", Animal.Type.FISH, Animal.Sex.M, 2, 120, 105, true)
-        );
-
+        Animal expectedAnimal = list.get(0);
 //        Act
-        Animal res = AnimalUtilities.getTheLongestName(list);
-
+        Animal res = AnimalUtilities.getTheLongestNameTask4(list);
 //        Assert
         assertEquals(expectedAnimal, res);
     }
@@ -92,42 +93,50 @@ public class AnimalUtilitiesTest {
     @Test
     public void testThatSexMCounterIsCorrectCorrect() {
 //        Arrange
-        Animal zyblik = new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.M, 10, 154, 25, true);
         Animal.Sex sexExpected = Animal.Sex.M;
-        List<Animal> list = List.of(zyblik,
-                new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true),
-                new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.M, 3, 120, 19, true),
-                new Animal("Petya", Animal.Type.SPIDER, Animal.Sex.M, 4, 120, 45, true),
-                new Animal("Maksim", Animal.Type.DOG, Animal.Sex.F, 1, 120, 35, true),
-                new Animal("Bebra", Animal.Type.FISH, Animal.Sex.M, 2, 120, 105, true)
-        );
-
 //        Act
-        Animal.Sex sexRes = AnimalUtilities.getTheMostPopularSex(list);
-
+        Animal.Sex sexRes = AnimalUtilities.getTheMostPopularSexTask5(list);
 //        Assert
         assertEquals(sexExpected, sexRes);
-
-
     }
+
     @Test
     public void testThatSexFCounterIsCorrectCorrect() {
 //        Arrange
-        Animal zyblik = new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.F, 10, 154, 25, true);
         Animal.Sex sexExpected = Animal.Sex.F;
-        List<Animal> list = List.of(zyblik,
-                new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true),
-                new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.F, 3, 120, 19, true),
-                new Animal("Petya", Animal.Type.SPIDER, Animal.Sex.M, 4, 120, 45, true),
-                new Animal("Maksim", Animal.Type.DOG, Animal.Sex.F, 1, 120, 35, true),
-                new Animal("Bebra", Animal.Type.FISH, Animal.Sex.M, 2, 120, 105, true)
-        );
-
+        list.add(new Animal("ds", Animal.Type.BIRD, Animal.Sex.F, 5, 15, 30, false));
+        list.add(new Animal("fdsad", Animal.Type.SPIDER, Animal.Sex.F, 4, 15, 20, false));
 //        Act
-        Animal.Sex sexRes = AnimalUtilities.getTheMostPopularSex(list);
-
+        Animal.Sex sexRes = AnimalUtilities.getTheMostPopularSexTask5(list);
 //        Assert
         assertEquals(sexExpected, sexRes);
+    }
 
+    @Test
+    public void testThatHeightAndTypeIsCorrect() {
+//        Arrange
+        Map<Animal.Type, Animal> expectedMap = new HashMap<>();
+
+        expectedMap.put(Animal.Type.DOG, dogMaksim);
+        expectedMap.put(Animal.Type.CAT, catFantik);
+        expectedMap.put(Animal.Type.BIRD, birdZyblik);
+        expectedMap.put(Animal.Type.FISH, fishBebra);
+        expectedMap.put(Animal.Type.SPIDER, spiderPetya);
+
+//        Act
+        var mapRes = AnimalUtilities.getTheWeightAnimalOfTypeTask6(list);
+//        Assert
+        assertEquals(expectedMap, mapRes);
+    }
+
+    @Test
+    public void testThatKYheOldestAnimalIsCorrect() {
+//        Arrange
+        Animal animalExpected = birdZyblik;
+//        Act
+        var animalRes = AnimalUtilities.getTheKTheMostOldAnimalTask7(list, 1);
+//        Assert
+        assertEquals(animalExpected, animalRes);
+        IdentityHashMap
     }
 }
