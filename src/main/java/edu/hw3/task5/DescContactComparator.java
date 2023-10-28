@@ -2,7 +2,8 @@ package edu.hw3.task5;
 
 import java.util.Comparator;
 
-public class AscContactComporator implements Comparator<Contact> {
+public class DescContactComparator implements Comparator<Contact> {
+
     @Override
     public int compare(Contact o1, Contact o2) {
         String lastName1 = o1.getLastName();
@@ -16,7 +17,7 @@ public class AscContactComporator implements Comparator<Contact> {
         }
 
 
-        return lastName1.compareTo(lastName2);
+        return lastName2.compareTo(lastName1);
 
     }
 }

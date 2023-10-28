@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class BackwardIterator<T> implements Iterator<T> {
-    private List<T> elements;
+    private final List<T> elements;
     private int currentIndex;
 
     public BackwardIterator(List<T> elements) {
@@ -24,6 +24,7 @@ public class BackwardIterator<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return elements.get(currentIndex--);
+       var iterator =  elements.listIterator(currentIndex--);
+       return iterator.next();
     }
 }

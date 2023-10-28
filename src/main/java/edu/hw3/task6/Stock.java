@@ -1,15 +1,15 @@
 package edu.hw3.task6;
 
 public class Stock {
-    private final int price;
+    private final Integer price;
     private final String company;
 
-    public Stock(int price, String company) {
+    public Stock(Integer price, String company) {
         this.price = price;
         this.company = company;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

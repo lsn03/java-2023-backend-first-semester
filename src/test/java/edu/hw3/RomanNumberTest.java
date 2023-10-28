@@ -16,14 +16,13 @@ public class RomanNumberTest {
             "8, VIII",
 
     })
-    public void TestThatCorrectConverter(int sourceValue,String expectedValue){
-//        Arrange
-        RomanNumber rn = new RomanNumber();
+    public void TestThatCorrectConverter(int sourceValue, String expectedValue) {
 //        Act
-        String res = rn.convertToRoman(sourceValue);
+        String res = RomanNumber.convertToRoman(sourceValue);
 //        Assert
-        assertEquals(expectedValue,res);
+        assertEquals(expectedValue, res);
     }
+
     @ParameterizedTest
     @CsvSource(value = {
             "-1",
@@ -32,12 +31,19 @@ public class RomanNumberTest {
             "4000",
             "5000"
     })
-    public void testThatIlligalArgumentExeption(int sourceValue){
-        //        Arrange
-        RomanNumber rn = new RomanNumber();
+    public void testThatIllegalArgumentException(int sourceValue) {
+
 //        Act && Assert
-        assertThrows(IllegalArgumentException.class, ()->{
-            rn.convertToRoman(sourceValue);
+        assertThrows(IllegalArgumentException.class, () -> {
+            RomanNumber.convertToRoman(sourceValue);
+        });
+    }
+
+    @Test
+    public void testThatNullInteger() {
+        Integer sourceValue = null;
+        assertThrows(NullPointerException.class, () -> {
+            RomanNumber.convertToRoman(sourceValue);
         });
     }
 }

@@ -14,14 +14,19 @@ public class ContactsTest {
         ContactList contactList = new ContactList();
         String[] str = new String[]{"John Locke", "Thomas Aquinas", "David Hume", "Rene Descartes"};
         SortType sortType = SortType.ASC;
-        String[] str2 = new String[]{"Thomas Aquinas", "Rene Descartes", "David Hume", "John Locke"};
-        List<Contact> listExpected = ContactList.getListOfContacts(str2);
+
+        List<Contact> listExpected = List.of(
+                Contact.getContact("Thomas Aquinas"),
+                Contact.getContact("Rene Descartes"),
+                Contact.getContact("David Hume"),
+                Contact.getContact("John Locke")
+        );
 
 //        Act
-        List<Contact> list = contactList.parseContacts(str, sortType);
+        List<Contact> result = contactList.parseContacts(str, sortType);
 //        Assert
 
-        assertEquals(listExpected, list);
+        assertEquals(listExpected, result);
     }
 
     @Test
@@ -30,8 +35,13 @@ public class ContactsTest {
         ContactList contactList = new ContactList();
         String[] strSource = new String[]{"John Locke", "Thomas Aquinas", "David Hume", "Rene Descartes"};
         SortType sortType = SortType.DESC;
-        String[] strExpected = new String[]{"John Locke", "David Hume", "Rene Descartes", "Thomas Aquinas"};
-        List<Contact> listExpected = ContactList.getListOfContacts(strExpected);
+        List<Contact> listExpected = List.of(
+                Contact.getContact("John Locke"),
+                Contact.getContact("David Hume"),
+                Contact.getContact("Rene Descartes"),
+                Contact.getContact("Thomas Aquinas")
+        );
+
 
 //        Act
         List<Contact> list = contactList.parseContacts(strSource, sortType);
@@ -46,8 +56,13 @@ public class ContactsTest {
         ContactList contactList = new ContactList();
         String[] strSource = new String[]{"John", "Thomas Aquinas", "David", "Rene Descartes"};
         SortType sortType = SortType.DESC;
-        String[] strExpected = new String[]{"John", "Rene Descartes", "David", "Thomas Aquinas"};
-        List<Contact> listExpected = ContactList.getListOfContacts(strExpected);
+
+        List<Contact> listExpected = List.of(
+                Contact.getContact("John"),
+                Contact.getContact("Rene Descartes"),
+                Contact.getContact("David"),
+                Contact.getContact("Thomas Aquinas")
+        );
 
 //        Act
         List<Contact> list = contactList.parseContacts(strSource, sortType);
@@ -62,8 +77,15 @@ public class ContactsTest {
         ContactList contactList = new ContactList();
         String[] strSource = new String[]{"John", "Thomas Aquinas", "David", "Rene Descartes"};
         SortType sortType = SortType.ASC;
-        String[] strExpected = new String[]{"Thomas Aquinas", "David", "Rene Descartes", "John"};
-        List<Contact> listExpected = ContactList.getListOfContacts(strExpected);
+
+
+        List<Contact> listExpected = List.of(
+                Contact.getContact("Thomas Aquinas"),
+                Contact.getContact("David"),
+                Contact.getContact("Rene Descartes"),
+                Contact.getContact("John")
+        );
+
 
 //        Act
         List<Contact> list = contactList.parseContacts(strSource, sortType);

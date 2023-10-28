@@ -1,9 +1,20 @@
 package edu.hw3;
 
+import java.util.Objects;
+
 @SuppressWarnings("MagicNumber")
 public class RomanNumber {
-    public String convertToRoman(int number) {
-        if (number <= 0 || number > 3999) {
+    private static final int LOW_BORDER = 0;
+    private static final int HIGH_BORDER = 3999;
+
+    private RomanNumber() {
+
+    }
+
+    public static String convertToRoman(Integer number) {
+        Objects.requireNonNull(number);
+
+        if (number <= LOW_BORDER || number > HIGH_BORDER) {
             throw new IllegalArgumentException("Value should be in range [1,3999]");
         }
 

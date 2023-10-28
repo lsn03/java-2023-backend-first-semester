@@ -2,11 +2,15 @@ package edu.hw3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class AtbashCipherTest {
+
+
     @ParameterizedTest
     @CsvSource(value = {
             "Hello world!, Svool dliow!",
@@ -14,33 +18,25 @@ public class AtbashCipherTest {
     })
     public void testingAtbash(String word, String expectedWord) {
 //        Arrange
-        AtbashCipher cipher = new AtbashCipher();
+
 //        Act
-        String res = cipher.atbash(word);
+        String res = AtbashCipher.atbash(word);
 //        Assert
         assertEquals(expectedWord, res);
     }
 
     @Test
-    public void testThatNull() {
+    public void testThatNullOrEmpty() {
 //        Arrange
         String word = null;
-        AtbashCipher cipher = new AtbashCipher();
 //        Act && Assert
 
         assertThrows(NullPointerException.class, () -> {
-            cipher.atbash(word);
+            AtbashCipher.atbash(word);
         });
 
-    }
-
-    @Test
-    public void testThatEmpty() {
-//        Arrange
-        String word = "";
-        AtbashCipher cipher = new AtbashCipher();
-//        Act
-        String res = cipher.atbash(word);
+        //        Act
+        String res = AtbashCipher.atbash(""); // Empty string
 //        Assert
         String expectedWord = "";
         assertEquals(expectedWord, res);

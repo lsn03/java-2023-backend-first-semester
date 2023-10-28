@@ -2,7 +2,7 @@ package edu.hw3;
 
 import java.util.Comparator;
 
-public class NullComporator<T extends Comparable<T>> implements Comparator<T> {
+public class NullComparator<T extends Comparable<T>> implements Comparator<T> {
 
     @Override
     public int compare(T o1, T o2) {

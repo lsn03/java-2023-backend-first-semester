@@ -8,6 +8,33 @@ import java.util.List;
 public class ContactList {
 
 
+    public static List<Contact> getListOfContacts(String[] stringContacts) {
+        List<Contact> contact = new ArrayList<>();
+        for (int i = 0; i < stringContacts.length; i++) {
+            contact.add(Contact.getContact(stringContacts[i]));
+        }
+        return contact;
+
+    }
+
+    public static List<Contact> sortContacts(List<Contact> contacts, SortType sortType) {
+        if (contacts == null || contacts.isEmpty()) {
+            return List.of();
+        }
+
+        Comparator<Contact> comparator;
+        if (sortType == SortType.ASC) {
+            comparator = new AscContactComparator();
+        } else {
+            comparator = new DescContactComparator();
+        }
+
+        Collections.sort(contacts, comparator);
+
+        return contacts;
+
+    }
+
     public List<Contact> parseContacts(String[] stringContacts, SortType sortType) {
 
         if (stringContacts == null) {
@@ -20,33 +47,6 @@ public class ContactList {
 
 
         return contacts;
-    }
-
-    public static List<Contact> getListOfContacts(String[] stringContacts) {
-        List<Contact> contact = new ArrayList<>();
-        for (int i = 0; i < stringContacts.length; i++) {
-            contact.add(Contact.getContact(stringContacts[i]));
-        }
-        return contact;
-
-    }
-
-    public static List<Contact> sortContacts(List<Contact> contacts, SortType sortType) {
-        if (contacts == null || contacts.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        Comparator<Contact> comparator;
-        if (sortType == SortType.ASC) {
-            comparator = new AscContactComporator();
-        } else {
-            comparator = new DescContactComporator();
-        }
-
-        Collections.sort(contacts, comparator);
-
-        return contacts;
-
     }
 
 }
