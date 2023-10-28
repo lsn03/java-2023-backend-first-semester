@@ -2,7 +2,7 @@ package edu.hw3;
 
 import java.util.Objects;
 
-public class AtbashCipher {
+public final class AtbashCipher {
 
     private static final int LOWER_OFFSET = 97;
     private static final int MIN_LOWER_VALUE = 97;

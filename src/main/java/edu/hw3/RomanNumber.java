@@ -3,7 +3,7 @@ package edu.hw3;
 import java.util.Objects;
 
 @SuppressWarnings("MagicNumber")
-public class RomanNumber {
+public final class RomanNumber {
     private static final int LOW_BORDER = 0;
     private static final int HIGH_BORDER = 3999;
 
