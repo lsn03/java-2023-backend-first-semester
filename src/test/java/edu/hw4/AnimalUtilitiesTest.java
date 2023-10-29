@@ -1,35 +1,31 @@
 package edu.hw4;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class AnimalUtilitiesTest {
-    List<Animal> list;
-    Animal birdZyblik = new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.M, 10, 154, 25, true);
-    Animal catFantik = new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true);
-    Animal spiderGosha = new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.M, 3, 100, 19, true);
-    Animal spiderPetya = new Animal("Petya", Animal.Type.SPIDER, Animal.Sex.F, 4, 80, 45, true);
-    Animal dogMaksim = new Animal("Maksim", Animal.Type.DOG, Animal.Sex.M, 5, 130, 27, true);
-    Animal fishBebra = new Animal("Bebra", Animal.Type.FISH, Animal.Sex.F, 2, 120, 105, true);
+    private List<Animal> list;
+    private final Animal birdZyblik = new Animal("Zyblik", Animal.Type.BIRD, Animal.Sex.M, 10, 154, 25, true);
+    private final Animal catFantik = new Animal("Fantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true);
+    private final Animal spiderGosha = new Animal("Gosha", Animal.Type.SPIDER, Animal.Sex.M, 3, 100, 19, true);
+    private final Animal spiderPetya = new Animal("Petya", Animal.Type.SPIDER, Animal.Sex.F, 8, 80, 45, true);
+    private final Animal dogMaksim = new Animal("Maksim", Animal.Type.DOG, Animal.Sex.M, 5, 130, 27, true);
+    private final Animal fishBebra = new Animal("Bebra", Animal.Type.FISH, Animal.Sex.F, 2, 120, 125, false);
 
     @BeforeEach
     public void initializer() {
-        list = new ArrayList<>(Arrays.asList(
-                birdZyblik,
-                catFantik,
-                spiderGosha,
-                spiderPetya,
-                dogMaksim,
-                fishBebra
-        ));
+        list = new ArrayList<>(Arrays.asList(birdZyblik, catFantik, spiderGosha, spiderPetya, dogMaksim, fishBebra));
     }
 
     @Test
@@ -137,6 +133,280 @@ public class AnimalUtilitiesTest {
         var animalRes = AnimalUtilities.getTheKTheMostOldAnimalTask7(list, 1);
 //        Assert
         assertEquals(animalExpected, animalRes);
-        IdentityHashMap
+
+    }
+
+    @Test
+    public void testThatHeaviestAnimalFound() {
+//        Arrange
+        Optional<Animal> animalExpected = Optional.ofNullable(spiderPetya);
+//        Act
+        var animalRes = AnimalUtilities.getTheMostWeightAnimalLessNHeightTask8(list, 100);
+//        Assert
+        assertEquals(animalExpected, animalRes);
+
+    }
+
+    @Test
+    public void testThatHeaviestAnimalNotFound() {
+//        Arrange
+
+//        Act
+        var animalRes = AnimalUtilities.getTheMostWeightAnimalLessNHeightTask8(list, 10);
+//        Assert
+        assertFalse(animalRes.isPresent());
+
+    }
+
+    @Test
+    public void testThatCountingCorrect() {
+//        Arrange
+        Integer expectedResult = 26;
+//        Act
+        var animalRes = AnimalUtilities.getTheCountOFPawsTask9(list);
+//        Assert
+        assertEquals(expectedResult, animalRes);
+
+    }
+
+    @Test
+    public void testThatCountingNotCorrect() {
+//        Arrange
+        list.clear();
+        list = null;
+//        Act
+        assertThrows(NullPointerException.class, () -> {
+            AnimalUtilities.getTheCountOFPawsTask9(list);
+        });
+
+        assertThrows(NullPointerException.class, () -> {
+            list = new ArrayList<>(Arrays.asList((Animal) null));
+
+            AnimalUtilities.getTheCountOFPawsTask9(list);
+        });
+
+
+    }
+
+    @Test
+    public void testThatPawsCorrect() {
+//        Arrange
+        List<Animal> expectedResult = new ArrayList<>(list);
+        expectedResult.remove(spiderPetya);
+//        Act
+        var animalRes = AnimalUtilities.getAnimalWithAgeNotEqualPawsTask10(list);
+//        Assert
+        assertEquals(expectedResult, animalRes);
+
+    }
+
+    @Test
+    public void testAnimalsCanBiteAndToldCorrect() {
+//        Arrange
+        List<Animal> expectedResult = new ArrayList<>();
+        expectedResult.add(birdZyblik);
+        expectedResult.add(dogMaksim);
+//        Act
+        var animalRes = AnimalUtilities.getAnimalsWhoCanBiteAndToldTask11(list);
+//        Assert
+        assertEquals(expectedResult, animalRes);
+
+    }
+
+    @Test
+    public void testThatCountOfAnimalsAtTask12Correct() {
+//        Arrange
+        Integer expectedResult = 1;
+
+//        Act
+        var animalRes = AnimalUtilities.getCountOfAnimalWhereWeightMoreThanHeightTask12(list);
+//        Assert
+        assertEquals(expectedResult, animalRes);
+
+    }
+
+    @Test
+    public void testOfNameAnimalsMoreThan2WordCorrectTest1() {
+//        Arrange
+        List<Animal> expectedResult = List.of();
+
+//        Act
+        var animalRes = AnimalUtilities.getAnimalsWithNameMoreThan2WordTask13(list);
+//        Assert
+        assertEquals(expectedResult, animalRes);
+
+    }
+
+    @Test
+    public void testIsDogWithHeightExist() {
+//        Arrange
+//        Act
+        var animalRes = AnimalUtilities.isExistDogWithKHeightTask14(list, 100);
+//        Assert
+        assertTrue(animalRes);
+
+    }
+
+    @Test
+    public void testIsDogWithHeightNotExist() {
+//        Arrange
+//        Act
+        var animalRes = AnimalUtilities.isExistDogWithKHeightTask14(list, 200);
+//        Assert
+        assertFalse(animalRes);
+
+    }
+
+    @Test
+    public void testOfSummingWeightAnimalsWithRangeByAge() {
+//        Arrange
+        Integer expectedResult = 72;
+
+//        Act
+        var animalRes = AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, 5, 9);
+//        Assert
+        assertEquals(expectedResult, animalRes);
+
+    }
+
+    @Test
+    public void testOfSummingWeightAnimalsWithRangeByAgeNegative() {
+//        Arrange
+
+
+//        Act
+        assertThrows(IllegalArgumentException.class, () -> {
+            AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, 5, 4);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, -1, -10);
+
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, -1, 5);
+
+        });
+
+    }
+
+    @Test
+    public void testOfSortedByTypeSexName() {
+        Animal newCatGantik = new Animal("Gantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true);
+
+        Animal newDogAloha = new Animal("Aloha", Animal.Type.DOG, Animal.Sex.M, 15, 90, 15, true);
+
+//        Arrange
+        var expectedResult = Arrays.asList(
+                catFantik,
+                newCatGantik,
+                newDogAloha,
+                dogMaksim,
+                birdZyblik,
+                fishBebra,
+                spiderGosha,
+                spiderPetya
+        );
+
+        list.add(newCatGantik);
+        list.add(newDogAloha);
+//        Act
+        var animalRes = AnimalUtilities.sortedByTypeThenSexThenNameTask16(list);
+//        Assert
+        assertEquals(expectedResult, animalRes);
+
+    }
+
+
+    @Test
+    public void testThatSpidersBitesMoreThanDogCorrect() {
+//        Arrange
+
+//        Act
+        var animalRes = AnimalUtilities.isSpiderBitesMoreThanDogsTask17(list);
+//        Assert
+        assertTrue(animalRes);
+
+    }
+
+    @Test
+    public void testThatSpidersBitesMoreThanDogCorrect2() {
+//        Arrange
+        list.remove(spiderPetya);
+//        Act
+        var animalRes = AnimalUtilities.isSpiderBitesMoreThanDogsTask17(list);
+//        Assert
+        assertFalse(animalRes);
+
+    }
+
+    @Test
+    public void testThatSpidersBitesMoreThanDogCorrect3() {
+//        Arrange
+        list.remove(spiderPetya);
+
+        list.add(new Animal("dog12", Animal.Type.DOG, Animal.Sex.F,10,10,10,true));
+//        Act
+        var animalRes = AnimalUtilities.isSpiderBitesMoreThanDogsTask17(list);
+//        Assert
+        assertFalse(animalRes);
+
+    }
+
+    @Test
+    public void testTHatFishWasFound() {
+
+
+        Animal newFishGantik = new Animal("Gantik", Animal.Type.FISH, Animal.Sex.F, 15, 90, 150, true);
+
+        Animal newDogAloha = new Animal("Aloha", Animal.Type.DOG, Animal.Sex.M, 15, 90, 15, true);
+
+//        Arrange
+        var secondListToAdd = Arrays.asList(
+                catFantik,
+                newFishGantik,
+                newDogAloha,
+                dogMaksim,
+                birdZyblik,
+                fishBebra,
+                spiderGosha,
+                spiderPetya
+        );
+
+        List<List<Animal>> sourceList = new ArrayList<>(Arrays.asList(list, secondListToAdd));
+
+        var expectedResult = newFishGantik;
+//        Act
+        var animalRes = AnimalUtilities.getTheMostWeightFishTask18(sourceList);
+//        Assert
+        assertEquals(expectedResult, animalRes);
+
+    }
+
+    @Test
+    public void testTHatFishWasNotFound() {
+
+
+        Animal newDogGantik = new Animal("Gantik", Animal.Type.DOG, Animal.Sex.F, 15, 90, 150, true);
+
+        Animal newDogAloha = new Animal("Aloha", Animal.Type.DOG, Animal.Sex.M, 15, 90, 15, true);
+
+//        Arrange
+        var secondListToAdd = Arrays.asList(
+
+                newDogGantik,
+                newDogAloha
+
+        );
+        list.remove(fishBebra);
+        List<List<Animal>> sourceList = new ArrayList<>(Arrays.asList(list, secondListToAdd));
+
+
+//        Act
+        var animalRes = AnimalUtilities.getTheMostWeightFishTask18(sourceList);
+//        Assert
+        assertNull(animalRes);
+
     }
 }
