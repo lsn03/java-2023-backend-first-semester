@@ -63,7 +63,14 @@ public final class AnimalUtilities {
     public static Map<Animal.Type, Animal> getTheWeightAnimalOfTypeTask6(List<Animal> list) {
 
         nullChecker(list);
-        return list.stream().collect(Collectors.toMap(Animal::type, animal -> animal, (existing, replacement) -> existing.weight() >= replacement.weight() ? existing : replacement));
+        return list.stream().collect(
+                Collectors.toMap(
+                        Animal::type,
+                        animal -> animal,
+                        (existing, replacement) ->
+                                existing.weight() >= replacement.weight() ? existing : replacement
+                )
+        );
 
     }
 
@@ -102,6 +109,7 @@ public final class AnimalUtilities {
 
     }
 
+    @SuppressWarnings("magicnumber")
     public static List<Animal> getAnimalsWhoCanBiteAndToldTask11(List<Animal> list) {
 
         nullChecker(list);
@@ -130,7 +138,9 @@ public final class AnimalUtilities {
 
         nullChecker(list);
 
-        return !(list.stream().filter(animal -> animal.type() == Animal.Type.DOG && animal.height() > k).toList().isEmpty());
+        return !(list.stream().filter(
+                animal -> animal.type() == Animal.Type.DOG && animal.height() > k
+        ).toList().isEmpty());
 
     }
 
@@ -141,7 +151,9 @@ public final class AnimalUtilities {
             throw new IllegalArgumentException("The left and right should be in range [left,right] and left >= 0");
         }
 
-        return list.stream().filter(animal -> animal.age() >= left && animal.age() <= right).mapToInt(Animal::weight).sum();
+        return list.stream().filter(
+                animal -> animal.age() >= left && animal.age() <= right
+        ).mapToInt(Animal::weight).sum();
 
     }
 
@@ -161,7 +173,9 @@ public final class AnimalUtilities {
 
         nullChecker(list);
         long dogCount = list.stream().filter(animal -> animal.type() == Animal.Type.DOG && animal.bites()).count();
-        long spiderCount = list.stream().filter(animal -> animal.type() == Animal.Type.SPIDER && animal.bites()).count();
+        long spiderCount = list.stream().filter(
+                animal -> animal.type() == Animal.Type.SPIDER && animal.bites()
+        ).count();
         return spiderCount > dogCount;
 
     }
@@ -169,7 +183,10 @@ public final class AnimalUtilities {
     public static Animal getTheMostWeightFishTask18(List<List<Animal>> list) {
         Objects.requireNonNull(list);
 
-        return list.stream().flatMap(List::stream).filter(animal -> animal.type() == Animal.Type.FISH).max(Comparator.comparingInt(Animal::weight)).orElse(null);
+        return list.stream().flatMap(
+                List::stream).filter(
+                animal -> animal.type() == Animal.Type.FISH
+        ).max(Comparator.comparingInt(Animal::weight)).orElse(null);
 
     }
 
