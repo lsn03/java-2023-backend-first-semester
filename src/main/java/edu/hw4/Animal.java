@@ -18,13 +18,18 @@ public record Animal(
         M, F
     }
 
-    @SuppressWarnings("MagicNumber")
+    private static final int MAX_PAWS_DOG_CAT = 4;
+    private static final int MAX_PAWS_BIRD = 2;
+    private static final int MAX_PAWS_SPIDER = 8;
+    private static final int MAX_PAWS_FISH = 0;
+
     public int paws() {
+
         return switch (type) {
-            case CAT, DOG -> 4;
-            case BIRD -> 2;
-            case FISH -> 0;
-            case SPIDER -> 8;
+            case CAT, DOG -> MAX_PAWS_DOG_CAT;
+            case BIRD -> MAX_PAWS_BIRD;
+            case FISH -> MAX_PAWS_FISH;
+            case SPIDER -> MAX_PAWS_SPIDER;
         };
     }
 }
