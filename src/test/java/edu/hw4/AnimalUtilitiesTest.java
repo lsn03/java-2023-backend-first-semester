@@ -29,7 +29,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatHeightSortedCorrectTask1() {
+    public void heightSortedCorrectTask1() {
 //        Arrange
 
 //        Act
@@ -41,7 +41,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatWeightSortedCorrectTask2() {
+    public void weightSortedCorrectTask2() {
 //        Arrange
 
         int k1 = 2;
@@ -59,7 +59,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatTypeCounterIsCorrect() {
+    public void typeCounterIsCorrect() {
 //        Arrange
         var mapExpected = new HashMap<Animal.Type, Integer>();
 
@@ -77,7 +77,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatMaxNameLenghtCorrect() {
+    public void maxNameLenghtCorrect() {
 //        Arrange
         Animal expectedAnimal = list.get(0);
 //        Act
@@ -87,7 +87,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatSexMCounterIsCorrectCorrect() {
+    public void sexMCounterIsCorrect() {
 //        Arrange
         Animal.Sex sexExpected = Animal.Sex.M;
 //        Act
@@ -97,7 +97,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatSexFCounterIsCorrectCorrect() {
+    public void sexFCounterIsCorrect() {
 //        Arrange
         Animal.Sex sexExpected = Animal.Sex.F;
         list.add(new Animal("ds", Animal.Type.BIRD, Animal.Sex.F, 5, 15, 30, false));
@@ -109,7 +109,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatHeightAndTypeIsCorrect() {
+    public void heightAndTypeIsCorrect() {
 //        Arrange
         Map<Animal.Type, Animal> expectedMap = new HashMap<>();
 
@@ -126,7 +126,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatKYheOldestAnimalIsCorrect() {
+    public void theOldestAnimalIsCorrect() {
 //        Arrange
         Animal animalExpected = birdZyblik;
 //        Act
@@ -137,7 +137,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatHeaviestAnimalFound() {
+    public void heaviestAnimalFound() {
 //        Arrange
         Optional<Animal> animalExpected = Optional.ofNullable(spiderPetya);
 //        Act
@@ -148,7 +148,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatHeaviestAnimalNotFound() {
+    public void heaviestAnimalNotFound() {
 //        Arrange
 
 //        Act
@@ -159,7 +159,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatCountingCorrect() {
+    public void countingCorrect() {
 //        Arrange
         Integer expectedResult = 26;
 //        Act
@@ -170,7 +170,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatCountingNotCorrect() {
+    public void countingNotCorrect() {
 //        Arrange
         list.clear();
         list = null;
@@ -189,7 +189,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatPawsCorrect() {
+    public void pawsCorrect() {
 //        Arrange
         List<Animal> expectedResult = new ArrayList<>(list);
         expectedResult.remove(spiderPetya);
@@ -201,7 +201,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testAnimalsCanBiteAndToldCorrect() {
+    public void canBiteAndToldCorrect() {
 //        Arrange
         List<Animal> expectedResult = new ArrayList<>();
         expectedResult.add(birdZyblik);
@@ -214,7 +214,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatCountOfAnimalsAtTask12Correct() {
+    public void countOfAnimalsAtTask12Correct() {
 //        Arrange
         Integer expectedResult = 1;
 
@@ -226,7 +226,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testOfNameAnimalsMoreThan2WordCorrectTest1() {
+    public void nameAnimalsMoreThan2WordCorrectTest1() {
 //        Arrange
         List<Animal> expectedResult = List.of();
 
@@ -238,7 +238,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testIsDogWithHeightExist() {
+    public void isDogWithHeightExist() {
 //        Arrange
 //        Act
         var animalRes = AnimalUtilities.isExistDogWithKHeightTask14(list, 100);
@@ -248,7 +248,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testIsDogWithHeightNotExist() {
+    public void isDogWithHeightNotExist() {
 //        Arrange
 //        Act
         var animalRes = AnimalUtilities.isExistDogWithKHeightTask14(list, 200);
@@ -258,41 +258,20 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testOfSummingWeightAnimalsWithRangeByAge() {
+    public void summingWeightAnimalsWithRangeByAge() {
 //        Arrange
         Integer expectedResult = 72;
-
+        Range range = new Range(5, 9);
 //        Act
-        var animalRes = AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, 5, 9);
+        var animalRes = AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, range);
 //        Assert
         assertEquals(expectedResult, animalRes);
 
     }
 
-    @Test
-    public void testOfSummingWeightAnimalsWithRangeByAgeNegative() {
-//        Arrange
-
-
-//        Act
-        assertThrows(IllegalArgumentException.class, () -> {
-            AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, 5, 4);
-        });
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, -1, -10);
-
-        });
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            AnimalUtilities.getAnimalWeightWithRangeOfAgeTask15(list, -1, 5);
-
-        });
-
-    }
 
     @Test
-    public void testOfSortedByTypeSexName() {
+    public void sortedByTypeSexName() {
         Animal newCatGantik = new Animal("Gantik", Animal.Type.CAT, Animal.Sex.F, 15, 90, 15, true);
 
         Animal newDogAloha = new Animal("Aloha", Animal.Type.DOG, Animal.Sex.M, 15, 90, 15, true);
@@ -320,7 +299,7 @@ public class AnimalUtilitiesTest {
 
 
     @Test
-    public void testThatSpidersBitesMoreThanDogCorrect() {
+    public void spidersBitesMoreThanDogCorrect() {
 //        Arrange
 
 //        Act
@@ -331,7 +310,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatSpidersBitesMoreThanDogCorrect2() {
+    public void spidersBitesMoreThanDogCorrect2() {
 //        Arrange
         list.remove(spiderPetya);
 //        Act
@@ -342,11 +321,11 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testThatSpidersBitesMoreThanDogCorrect3() {
+    public void spidersBitesMoreThanDogCorrect3() {
 //        Arrange
         list.remove(spiderPetya);
 
-        list.add(new Animal("dog12", Animal.Type.DOG, Animal.Sex.F,10,10,10,true));
+        list.add(new Animal("dog12", Animal.Type.DOG, Animal.Sex.F, 10, 10, 10, true));
 //        Act
         var animalRes = AnimalUtilities.isSpiderBitesMoreThanDogsTask17(list);
 //        Assert
@@ -355,7 +334,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testTHatFishWasFound() {
+    public void fishWasFound() {
 
 
         Animal newFishGantik = new Animal("Gantik", Animal.Type.FISH, Animal.Sex.F, 15, 90, 150, true);
@@ -385,7 +364,7 @@ public class AnimalUtilitiesTest {
     }
 
     @Test
-    public void testTHatFishWasNotFound() {
+    public void fishWasNotFound() {
 
 
         Animal newDogGantik = new Animal("Gantik", Animal.Type.DOG, Animal.Sex.F, 15, 90, 150, true);

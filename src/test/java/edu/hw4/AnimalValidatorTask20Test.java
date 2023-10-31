@@ -1,5 +1,18 @@
 package edu.hw4;
 
+import static edu.hw4.ErrorMessages.ERROR_AGE_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_AGE_IS_NEGATIVE;
+import static edu.hw4.ErrorMessages.ERROR_HEIGHT_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_HEIGHT_IS_NEGATIVE;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_BLANK;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_INVALID;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_NULL;
+import static edu.hw4.ErrorMessages.ERROR_WEIGHT_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_WEIGHT_IS_NEGATIVE;
+import static edu.hw4.ErrorsFields.FIELD_AGE;
+import static edu.hw4.ErrorsFields.FIELD_HEIGHT;
+import static edu.hw4.ErrorsFields.FIELD_NAME;
+import static edu.hw4.ErrorsFields.FIELD_WEIGHT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +62,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_NAME_IS_INVALID, Errors.FIELD_NAME);
+        ValidationError error = new ValidationError(ERROR_NAME_IS_INVALID, FIELD_NAME);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -64,7 +77,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_NAME_IS_BLANK, Errors.FIELD_NAME);
+        ValidationError error = new ValidationError(ERROR_NAME_IS_BLANK, FIELD_NAME);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -79,7 +92,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_NAME_IS_NULL, Errors.FIELD_NAME);
+        ValidationError error = new ValidationError(ERROR_NAME_IS_NULL, FIELD_NAME);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -94,7 +107,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_AGE_IS_NEGATIVE, Errors.FIELD_AGE);
+        ValidationError error = new ValidationError(ERROR_AGE_IS_NEGATIVE, FIELD_AGE);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -109,7 +122,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_AGE_IS_HUGE, Errors.FIELD_AGE);
+        ValidationError error = new ValidationError(ERROR_AGE_IS_HUGE, FIELD_AGE);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -124,7 +137,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_HEIGHT_IS_NEGATIVE, Errors.FIELD_HEIGHT);
+        ValidationError error = new ValidationError(ERROR_HEIGHT_IS_NEGATIVE, FIELD_HEIGHT);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -139,7 +152,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_HEIGHT_IS_HUGE, Errors.FIELD_HEIGHT);
+        ValidationError error = new ValidationError(ERROR_HEIGHT_IS_HUGE, FIELD_HEIGHT);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -154,7 +167,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_WEIGHT_IS_NEGATIVE, Errors.FIELD_WEIGHT);
+        ValidationError error = new ValidationError(ERROR_WEIGHT_IS_NEGATIVE, FIELD_WEIGHT);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -169,7 +182,7 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_WEIGHT_IS_HUGE, Errors.FIELD_WEIGHT);
+        ValidationError error = new ValidationError(ERROR_WEIGHT_IS_HUGE, FIELD_WEIGHT);
 
 
         assertEquals(error.getMessage(), result.get(name));
@@ -187,9 +200,9 @@ public class AnimalValidatorTask20Test {
         var result = animalValidator.validateTask20(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_WEIGHT_IS_HUGE, Errors.FIELD_WEIGHT);
-        ValidationError error2 = new ValidationError(Errors.ERROR_NAME_IS_BLANK, Errors.FIELD_NAME);
-        ValidationError error3 = new ValidationError(Errors.ERROR_AGE_IS_NEGATIVE, Errors.FIELD_AGE);
+        ValidationError error = new ValidationError(ERROR_WEIGHT_IS_HUGE, FIELD_WEIGHT);
+        ValidationError error2 = new ValidationError(ERROR_NAME_IS_BLANK, FIELD_NAME);
+        ValidationError error3 = new ValidationError(ERROR_AGE_IS_NEGATIVE, FIELD_AGE);
 
         String str = error2.getMessage() + ", " + error3.getMessage() + ", " + error.getMessage();
 

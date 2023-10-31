@@ -3,23 +3,23 @@ package edu.hw4;
 import java.util.Objects;
 
 public class ValidationError {
-    private final String message;
-    private String field;
+    private final ErrorMessages message;
+    private ErrorsFields field;
 
-    public ValidationError(String message) {
+    public ValidationError(ErrorMessages message) {
 
-        this(message, "");
+        this(message, null);
     }
 
-    public ValidationError(String message, String field) {
+    public ValidationError(ErrorMessages message, ErrorsFields field) {
         this.message = message;
-        this.field = field.isBlank() ? "" : "field: " + field;
+        this.field =  field;
 
     }
 
     public String getMessage() {
 
-        return message + " " + field;
+        return message.name() + " " + field.name();
     }
 
     @Override

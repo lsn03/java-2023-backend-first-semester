@@ -8,9 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public final class AnimalUtilities {
-
-    private AnimalUtilities() {
-    }
+    private static final int MIN_HEIGHT_TO_BITE = 100;
 
     public static List<Animal> sortHeightTask1(List<Animal> list) {
         nullChecker(list);
@@ -48,8 +46,13 @@ public final class AnimalUtilities {
 
     public static Animal.Sex getTheMostPopularSexTask5(List<Animal> list) {
         nullChecker(list);
-        long males = list.stream().filter(animal -> animal.sex() == Animal.Sex.M).count();
-        long females = list.stream().filter(animal -> animal.sex() == Animal.Sex.F).count();
+
+        Map<Animal.Sex, Long> map = list.stream().collect(
+                Collectors.groupingBy(Animal::sex, Collectors.counting())
+        );
+
+        long males = map.getOrDefault(Animal.Sex.M, 0L);
+        long females = map.getOrDefault(Animal.Sex.F, 0L);
 
         if (males >= females) {
             return Animal.Sex.M;
@@ -109,12 +112,12 @@ public final class AnimalUtilities {
 
     }
 
-    @SuppressWarnings("magicnumber")
+
     public static List<Animal> getAnimalsWhoCanBiteAndToldTask11(List<Animal> list) {
 
         nullChecker(list);
-        int height = 100;
-        return list.stream().filter(animal -> animal.bites() && animal.height() > height).toList();
+
+        return list.stream().filter(animal -> animal.bites() && animal.height() > MIN_HEIGHT_TO_BITE).toList();
 
     }
 
@@ -144,15 +147,13 @@ public final class AnimalUtilities {
 
     }
 
-    public static Integer getAnimalWeightWithRangeOfAgeTask15(List<Animal> list, int left, int right) {
+    public static Integer getAnimalWeightWithRangeOfAgeTask15(List<Animal> list, Range range) {
 
         nullChecker(list);
-        if (left > right || left < 0) {
-            throw new IllegalArgumentException("The left and right should be in range [left,right] and left >= 0");
-        }
+
 
         return list.stream().filter(
-                animal -> animal.age() >= left && animal.age() <= right
+                animal -> animal.age() >= range.getMin() && animal.age() <= range.getMax()
         ).mapToInt(Animal::weight).sum();
 
     }
@@ -196,4 +197,8 @@ public final class AnimalUtilities {
             throw new NullPointerException();
         }
     }
+
+    private AnimalUtilities() {
+    }
 }
+

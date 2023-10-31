@@ -1,5 +1,14 @@
 package edu.hw4;
 
+import static edu.hw4.ErrorMessages.ERROR_AGE_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_AGE_IS_NEGATIVE;
+import static edu.hw4.ErrorMessages.ERROR_HEIGHT_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_HEIGHT_IS_NEGATIVE;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_BLANK;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_INVALID;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_NULL;
+import static edu.hw4.ErrorMessages.ERROR_WEIGHT_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_WEIGHT_IS_NEGATIVE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +60,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_NAME_IS_INVALID);
+        ValidationError error = new ValidationError(ERROR_NAME_IS_INVALID);
 
         set.add(error);
 
@@ -67,7 +76,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_NAME_IS_BLANK);
+        ValidationError error = new ValidationError(ERROR_NAME_IS_BLANK);
 
         set.add(error);
 
@@ -83,7 +92,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_NAME_IS_NULL);
+        ValidationError error = new ValidationError(ERROR_NAME_IS_NULL);
 
         set.add(error);
 
@@ -99,7 +108,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_AGE_IS_NEGATIVE);
+        ValidationError error = new ValidationError(ERROR_AGE_IS_NEGATIVE);
 
         set.add(error);
 
@@ -115,7 +124,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_AGE_IS_HUGE);
+        ValidationError error = new ValidationError(ERROR_AGE_IS_HUGE);
 
         set.add(error);
 
@@ -131,7 +140,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_HEIGHT_IS_NEGATIVE);
+        ValidationError error = new ValidationError(ERROR_HEIGHT_IS_NEGATIVE);
 
         set.add(error);
 
@@ -147,7 +156,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_HEIGHT_IS_HUGE);
+        ValidationError error = new ValidationError(ERROR_HEIGHT_IS_HUGE);
 
         set.add(error);
 
@@ -163,7 +172,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_WEIGHT_IS_NEGATIVE);
+        ValidationError error = new ValidationError(ERROR_WEIGHT_IS_NEGATIVE);
 
         set.add(error);
 
@@ -179,7 +188,7 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_WEIGHT_IS_HUGE);
+        ValidationError error = new ValidationError(ERROR_WEIGHT_IS_HUGE);
 
         set.add(error);
 
@@ -198,9 +207,9 @@ public class AnimalValidatorTask19Test {
         var result = animalValidator.validateTask19(list);
 
 
-        ValidationError error = new ValidationError(Errors.ERROR_WEIGHT_IS_HUGE);
-        ValidationError error2 = new ValidationError(Errors.ERROR_NAME_IS_BLANK);
-        ValidationError error3 = new ValidationError(Errors.ERROR_AGE_IS_NEGATIVE);
+        ValidationError error = new ValidationError(ERROR_WEIGHT_IS_HUGE);
+        ValidationError error2 = new ValidationError(ERROR_NAME_IS_BLANK);
+        ValidationError error3 = new ValidationError(ERROR_AGE_IS_NEGATIVE);
         set.add(error);
         set.add(error2);
         set.add(error3);

@@ -1,25 +1,28 @@
 package edu.hw4;
 
+
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import static edu.hw4.Errors.ERROR_AGE_IS_HUGE;
-import static edu.hw4.Errors.ERROR_AGE_IS_NEGATIVE;
-import static edu.hw4.Errors.ERROR_HEIGHT_IS_HUGE;
-import static edu.hw4.Errors.ERROR_HEIGHT_IS_NEGATIVE;
-import static edu.hw4.Errors.ERROR_NAME_IS_BLANK;
-import static edu.hw4.Errors.ERROR_NAME_IS_INVALID;
-import static edu.hw4.Errors.ERROR_NAME_IS_NULL;
-import static edu.hw4.Errors.ERROR_WEIGHT_IS_HUGE;
-import static edu.hw4.Errors.ERROR_WEIGHT_IS_NEGATIVE;
-import static edu.hw4.Errors.FIELD_AGE;
-import static edu.hw4.Errors.FIELD_HEIGHT;
-import static edu.hw4.Errors.FIELD_NAME;
-import static edu.hw4.Errors.FIELD_WEIGHT;
+import static edu.hw4.ErrorMessages.ERROR_AGE_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_AGE_IS_NEGATIVE;
+import static edu.hw4.ErrorMessages.ERROR_HEIGHT_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_HEIGHT_IS_NEGATIVE;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_BLANK;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_INVALID;
+import static edu.hw4.ErrorMessages.ERROR_NAME_IS_NULL;
+import static edu.hw4.ErrorMessages.ERROR_WEIGHT_IS_HUGE;
+import static edu.hw4.ErrorMessages.ERROR_WEIGHT_IS_NEGATIVE;
+import static edu.hw4.ErrorsFields.FIELD_AGE;
+import static edu.hw4.ErrorsFields.FIELD_HEIGHT;
+import static edu.hw4.ErrorsFields.FIELD_NAME;
+import static edu.hw4.ErrorsFields.FIELD_WEIGHT;
 
 
 public class AnimalValidator {
@@ -55,7 +58,7 @@ public class AnimalValidator {
     }
 
     private Set<ValidationError> validateAnimalTask19(Animal animal) {
-        Set<ValidationError> errors = new HashSet<>();
+        Set<ValidationError> errors = new LinkedHashSet<>();
 
         if (animal.name() == null) {
             errors.add(new ValidationError(ERROR_NAME_IS_NULL));
@@ -97,7 +100,7 @@ public class AnimalValidator {
     }
 
     private Set<ValidationError> validateAnimalTask20(Animal animal) {
-        Set<ValidationError> errors = new HashSet<>();
+        Set<ValidationError> errors = new LinkedHashSet<>();
 
         if (animal.name() == null) {
             errors.add(new ValidationError(ERROR_NAME_IS_NULL, FIELD_NAME));
