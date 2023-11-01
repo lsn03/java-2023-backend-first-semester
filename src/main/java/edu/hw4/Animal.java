@@ -9,14 +9,15 @@ public record Animal(
         int weight,
         boolean bites
 ) {
-
-    private static final int MAX_PAWS_DOG_CAT = 4;
-    private static final int MAX_PAWS_BIRD = 2;
-    private static final int MAX_PAWS_SPIDER = 8;
-    private static final int MAX_PAWS_FISH = 0;
-
     enum Type {
-        CAT, DOG, BIRD, FISH, SPIDER
+        CAT(4), DOG(4), BIRD(2), FISH(0), SPIDER(8);
+        private final int paw;
+        Type(int paw){
+            this.paw = paw;
+        }
+        public int getPaw(){
+            return paw;
+        }
     }
 
     enum Sex {
@@ -25,12 +26,6 @@ public record Animal(
     }
 
     public int paws() {
-
-        return switch (type) {
-            case CAT, DOG -> MAX_PAWS_DOG_CAT;
-            case BIRD -> MAX_PAWS_BIRD;
-            case FISH -> MAX_PAWS_FISH;
-            case SPIDER -> MAX_PAWS_SPIDER;
-        };
+        return type.getPaw();
     }
 }

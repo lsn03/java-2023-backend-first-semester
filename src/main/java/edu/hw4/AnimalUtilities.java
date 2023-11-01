@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 public final class AnimalUtilities {
     private static final int MIN_HEIGHT_TO_BITE = 100;
 
+    private AnimalUtilities() {
+    }
+
     public static List<Animal> sortHeightTask1(List<Animal> list) {
         nullChecker(list);
         return list.stream().sorted((o1, o2) -> {
@@ -198,7 +201,5 @@ public final class AnimalUtilities {
         }
     }
 
-    private AnimalUtilities() {
-    }
 }
 
