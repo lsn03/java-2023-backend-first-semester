@@ -12,10 +12,12 @@ public record Animal(
     enum Type {
         CAT(4), DOG(4), BIRD(2), FISH(0), SPIDER(8);
         private final int paw;
-        Type(int paw){
+
+        Type(int paw) {
             this.paw = paw;
         }
-        public int getPaw(){
+
+        public int getPaw() {
             return paw;
         }
     }
