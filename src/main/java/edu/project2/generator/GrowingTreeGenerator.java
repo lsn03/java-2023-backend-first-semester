@@ -1,5 +1,7 @@
-package edu.project2;
+package edu.project2.generator;
 
+import edu.project2.maze_sekelet.Cell;
+import edu.project2.maze_sekelet.Maze;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,6 +19,7 @@ public final class GrowingTreeGenerator implements Generator {
 
     @Override
     public Maze generate(int height, int width) {
+        validateArgs(height, width);
         Cell[][] grid = initializeGrid(height, width);
 
         int startRow = random.nextInt(height);
@@ -60,6 +63,12 @@ public final class GrowingTreeGenerator implements Generator {
             }
         }
         return grid;
+    }
+
+    private void validateArgs(int height, int width) {
+        if (height <= 0 || width <= 0 || height > 100 || width > 100) {
+            throw new IllegalArgumentException("Incorrect height and width arguments");
+        }
     }
 
     private List<Cell> getUnvisitedNeighbors(Cell currentCell, Cell[][] grid) {
