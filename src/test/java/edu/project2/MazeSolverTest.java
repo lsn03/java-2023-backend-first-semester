@@ -65,8 +65,7 @@ public class MazeSolverTest {
         Maze maze = generator.generate(height, width);
 
         var res = solver.solve(maze, start, end);
-        System.out.println(renderer.render(maze));
-        System.out.println(renderer.render(maze, res));
+
         assertFalse(res.isEmpty());
 
         List<Coordinate> expected = List.of(
@@ -89,8 +88,7 @@ public class MazeSolverTest {
         Maze maze = generator.generate(height, width);
 
         var res = solver.solve(maze, start, end);
-        System.out.println(renderer.render(maze));
-        System.out.println(renderer.render(maze, res));
+       
         assertFalse(res.isEmpty());
 
         List<Coordinate> expected = List.of(
