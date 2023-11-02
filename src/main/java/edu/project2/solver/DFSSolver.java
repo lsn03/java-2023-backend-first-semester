@@ -4,6 +4,7 @@ import edu.project2.maze_sekelet.Cell;
 import edu.project2.maze_sekelet.Coordinate;
 import edu.project2.maze_sekelet.Maze;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DFSSolver implements Solver {
@@ -23,7 +24,7 @@ public class DFSSolver implements Solver {
         boolean[][] visited = new boolean[height][width];
 
         if (dfs(start, end, visited, path)) {
-
+            Collections.reverse(path);
             return path;
         }
 
@@ -35,11 +36,8 @@ public class DFSSolver implements Solver {
         int col = current.col();
 
 
-        if (checkThatCellNotInTheMaze(row, col) || visited[row][col]) {
-            return false;
-        }
-
-        if (grid[row][col].type() == Cell.Type.WALL) {
+        if (checkThatCellNotInTheMaze(row, col)
+                || visited[row][col] || grid[row][col].type() == Cell.Type.WALL) {
             return false;
         }
 
@@ -53,10 +51,10 @@ public class DFSSolver implements Solver {
         visited[row][col] = true;
 
 
-        if (dfs(new Coordinate(row - 1, col), end, visited, path) ||
-                dfs(new Coordinate(row + 1, col), end, visited, path) ||
-                dfs(new Coordinate(row, col - 1), end, visited, path) ||
-                dfs(new Coordinate(row, col + 1), end, visited, path)) {
+        if (dfs(new Coordinate(row - 1, col), end, visited, path)
+                || dfs(new Coordinate(row + 1, col), end, visited, path)
+                || dfs(new Coordinate(row, col - 1), end, visited, path)
+                || dfs(new Coordinate(row, col + 1), end, visited, path)) {
             path.add(current);
             return true;
         }

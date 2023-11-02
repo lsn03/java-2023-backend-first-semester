@@ -75,7 +75,7 @@ public class BFSSolver implements Solver {
     }
 
     private void checkNeighbors(int currentRow, int currentCol) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < directionCol.length; i++) {
             int newRow = currentRow + directionRow[i];
             int newCol = currentCol + directionCol[i];
 

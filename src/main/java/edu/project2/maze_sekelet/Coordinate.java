@@ -2,7 +2,7 @@ package edu.project2.maze_sekelet;
 
 public record Coordinate(int row, int col) {
     public Coordinate(int row, int col) {
-        validateArgs(row,col);
+        validateArgs(row, col);
         this.row = row;
         this.col = col;
     }

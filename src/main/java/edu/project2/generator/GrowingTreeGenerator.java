@@ -8,6 +8,10 @@ import java.util.Random;
 
 public final class GrowingTreeGenerator implements Generator {
     private final Random random;
+    private final static int MAX_HEIGHT = 100;
+    private final static int MAX_WIDTH = 100;
+    private final static int MIN_HEIGHT = 0;
+    private final static int MIN_WIDTH = 0;
 
     public GrowingTreeGenerator(Random random) {
         this.random = random;
@@ -66,7 +70,7 @@ public final class GrowingTreeGenerator implements Generator {
     }
 
     private void validateArgs(int height, int width) {
-        if (height <= 0 || width <= 0 || height > 100 || width > 100) {
+        if (height <= MIN_HEIGHT || width <= MIN_WIDTH || height > MAX_HEIGHT || width > MAX_WIDTH) {
             throw new IllegalArgumentException("Incorrect height and width arguments");
         }
     }

@@ -6,6 +6,7 @@ import edu.project2.maze_sekelet.Maze;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings("MultipleStringLiterals")
 public class PrettyRenderer implements Renderer {
     @Override
     public String render(Maze maze) {
@@ -42,7 +43,8 @@ public class PrettyRenderer implements Renderer {
         char wall = '\u2591';
         char passage = '\u2593';
         char pathMarker = '*';
-
+//        char start = '\u25CB';
+//        char end = '\u25D0';
         stringBuilder.append("wall - ").append(wall).append("\n");
         stringBuilder.append("passage - ").append(passage).append("\n\n");
 
@@ -50,8 +52,14 @@ public class PrettyRenderer implements Renderer {
             for (int j = 0; j < maze.getWidth(); j++) {
                 Cell currentCell = grid[i][j];
                 Coordinate currentCoordinate = new Coordinate(i, j);
-
-
+//
+//                if (!path.isEmpty() && currentCoordinate.equals(path.get(0))) {
+//                    stringBuilder.append(start);
+//                }
+//
+//                else if (!path.isEmpty() && currentCoordinate.equals(path.get(path.size() - 1))) {
+//                    stringBuilder.append(end);
+//                }else
                 if (path.contains(currentCoordinate)) {
                     stringBuilder.append(pathMarker);
                 } else if (currentCell.type() == Cell.Type.WALL) {
