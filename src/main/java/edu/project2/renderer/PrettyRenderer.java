@@ -6,30 +6,31 @@ import edu.project2.maze_sekelet.Maze;
 import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings("MultipleStringLiterals")
+
 public class PrettyRenderer implements Renderer {
+
+
+    private final char pathMarker = '*';
+    private final String newLine = System.lineSeparator();
+
+    private StringBuilder stringBuilder;
+
     @Override
     public String render(Maze maze) {
         validate(maze);
         Cell[][] grid = maze.getGrid();
-        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder = new StringBuilder();
 
-        char wall = '\u2591';
-        char passage = '\u2593';
-        stringBuilder.append("wall - ").append(wall).append("\n");
-        stringBuilder.append("passage - ").append(passage).append("\n\n");
+        renderWallPassageMessage();
+
 
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
                 Cell currentCell = grid[i][j];
-                if (currentCell.type() == Cell.Type.WALL) {
-                    stringBuilder.append(wall); // ░ - wall
+                stringBuilder.append(currentCell.getCellChar());
 
-                } else {
-                    stringBuilder.append(passage); // ▓  - passage
-                }
             }
-            stringBuilder.append("\n");
+            stringBuilder.append(newLine);
         }
         return stringBuilder.toString();
     }
@@ -38,39 +39,31 @@ public class PrettyRenderer implements Renderer {
     public String render(Maze maze, List<Coordinate> path) {
         validate(maze, path);
         Cell[][] grid = maze.getGrid();
-        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder = new StringBuilder();
 
-        char wall = '\u2591';
-        char passage = '\u2593';
-        char pathMarker = '*';
-//        char start = '\u25CB';
-//        char end = '\u25D0';
-        stringBuilder.append("wall - ").append(wall).append("\n");
-        stringBuilder.append("passage - ").append(passage).append("\n\n");
+
+        renderWallPassageMessage();
 
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
                 Cell currentCell = grid[i][j];
                 Coordinate currentCoordinate = new Coordinate(i, j);
-//
-//                if (!path.isEmpty() && currentCoordinate.equals(path.get(0))) {
-//                    stringBuilder.append(start);
-//                }
-//
-//                else if (!path.isEmpty() && currentCoordinate.equals(path.get(path.size() - 1))) {
-//                    stringBuilder.append(end);
-//                }else
+
                 if (path.contains(currentCoordinate)) {
                     stringBuilder.append(pathMarker);
-                } else if (currentCell.type() == Cell.Type.WALL) {
-                    stringBuilder.append(wall); // ░ - wall
                 } else {
-                    stringBuilder.append(passage); // ▓  - passage
+                    stringBuilder.append(currentCell.getCellChar());
                 }
             }
-            stringBuilder.append("\n");
+            stringBuilder.append(newLine);
         }
         return stringBuilder.toString();
+    }
+
+    private void renderWallPassageMessage() {
+        stringBuilder.append("wall - ").append(Cell.WALL_CHAR).append(newLine);
+        stringBuilder.append("passage - ").append(Cell.PASSAGE_CHAR).append(newLine).append(newLine);
+
     }
 
     private void validate(Maze maze) {

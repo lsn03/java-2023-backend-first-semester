@@ -1,6 +1,8 @@
 package edu.project2.maze_sekelet;
 
 public record Coordinate(int row, int col) {
+    private static final int MIN_AVAIVABLE_VALUE_FOR_ROW_AND_COL = -1;
+
     public Coordinate(int row, int col) {
         validateArgs(row, col);
         this.row = row;
@@ -8,8 +10,8 @@ public record Coordinate(int row, int col) {
     }
 
     private void validateArgs(int row, int col) {
-//        -1 because DFS can call 0 - 1 = -1
-        if (row < -1 || col < -1) {
+
+        if (row < MIN_AVAIVABLE_VALUE_FOR_ROW_AND_COL || col < MIN_AVAIVABLE_VALUE_FOR_ROW_AND_COL) {
             throw new IllegalArgumentException("Incorrect Cell arguments");
         }
     }

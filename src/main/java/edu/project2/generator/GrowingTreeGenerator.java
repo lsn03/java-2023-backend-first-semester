@@ -18,7 +18,7 @@ public final class GrowingTreeGenerator implements Generator {
     }
 
     public GrowingTreeGenerator() {
-        random = new Random();
+        this(new Random());
     }
 
     @Override

@@ -8,18 +8,32 @@ import java.util.Collections;
 import java.util.List;
 
 public class DFSSolver implements Solver {
-    Cell[][] grid;
-    int height;
-    int width;
+    private Maze maze;
+    private Cell[][] grid;
+    private int height;
+    private int width;
 
-    @Override
-    public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
-        List<Coordinate> path = new ArrayList<>();
+    private DFSSolver() {
 
+        grid = null;
+        height = Integer.MIN_VALUE;
+        width = Integer.MIN_VALUE;
+    }
 
+    public DFSSolver(Maze maze) {
+        setMaze(maze);
+    }
+
+    public void setMaze(Maze maze) {
+        this.maze = maze;
         height = maze.getHeight();
         width = maze.getWidth();
         grid = maze.getGrid();
+    }
+
+    @Override
+    public List<Coordinate> solve(Coordinate start, Coordinate end) {
+        List<Coordinate> path = new ArrayList<>();
 
         boolean[][] visited = new boolean[height][width];
 
@@ -28,7 +42,7 @@ public class DFSSolver implements Solver {
             return path;
         }
 
-        return new ArrayList<>();
+        return List.of();
     }
 
     private boolean dfs(Coordinate current, Coordinate end, boolean[][] visited, List<Coordinate> path) {

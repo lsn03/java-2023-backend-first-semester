@@ -10,37 +10,46 @@ import java.util.Queue;
 
 public class BFSSolver implements Solver {
 
-    private int height;
-    private int width;
-    private Cell[][] grid;
+    private final int height;
+    private final int width;
+    private final Cell[][] grid;
     private boolean[][] visited;
     private Queue<Coordinate> queue;
     private int[][] parentRow;
     private int[][] parentCol;
-    private int[] directionRow;
-    private int[] directionCol;
+    private final int[] directionRow;
+    private final int[] directionCol;
 
-    @Override
-    public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
+    public BFSSolver(Maze maze) {
         height = maze.getHeight();
         width = maze.getWidth();
         grid = maze.getGrid();
 
-        visited = new boolean[height][width];
-        queue = new LinkedList<>();
-        parentRow = new int[height][width];
-        parentCol = new int[height][width];
+        directionRow = new int[]{-1, 1, 0, 0};
+        directionCol = new int[]{0, 0, -1, 1};
+    }
+
+    private BFSSolver() {
+        grid = null;
+        height = Integer.MIN_VALUE;
+        width = Integer.MIN_VALUE;
+        directionRow = null;
+        directionCol = null;
+    }
+
+    @Override
+    public List<Coordinate> solve(Coordinate start, Coordinate end) {
+
+        initializer();
 
         int startRow = start.row();
         int startCol = start.col();
+
         int endRow = end.row();
         int endCol = end.col();
 
         queue.add(new Coordinate(startRow, startCol));
         visited[startRow][startCol] = true;
-
-        directionRow = new int[]{-1, 1, 0, 0};
-        directionCol = new int[]{0, 0, -1, 1};
 
         while (!queue.isEmpty()) {
             Coordinate current = queue.poll();
@@ -71,7 +80,14 @@ public class BFSSolver implements Solver {
         }
 
 
-        return new ArrayList<>();
+        return List.of();
+    }
+
+    private void initializer() {
+        visited = new boolean[height][width];
+        queue = new LinkedList<>();
+        parentRow = new int[height][width];
+        parentCol = new int[height][width];
     }
 
     private void checkNeighbors(int currentRow, int currentCol) {

@@ -24,7 +24,7 @@ public class MazeSolverTest {
     Generator generator = new GrowingTreeGenerator(random);
     Renderer renderer = new PrettyRenderer();
     Solver solver;
-
+    Maze maze = generator.generate(height, width);
     Coordinate start;
     Coordinate end;
 
@@ -32,11 +32,10 @@ public class MazeSolverTest {
     public void pathNotFoundDFS() {
         start = new Coordinate(0, 0);
         end = new Coordinate(8, 12);
-        solver = new DFSSolver();
 
-        Maze maze = generator.generate(height, width);
 
-        var res = solver.solve(maze, start, end);
+        solver = new DFSSolver(maze);
+        var res = solver.solve(start, end);
 
         assertTrue(res.isEmpty());
 
@@ -46,11 +45,11 @@ public class MazeSolverTest {
     public void pathNotFoundBFS() {
         start = new Coordinate(0, 0);
         end = new Coordinate(8, 12);
-        solver = new BFSSolver();
 
-        Maze maze = generator.generate(height, width);
 
-        var res = solver.solve(maze, start, end);
+        solver = new BFSSolver(maze);
+
+        var res = solver.solve(start, end);
 
         assertTrue(res.isEmpty());
 
@@ -60,11 +59,10 @@ public class MazeSolverTest {
     public void pathFoundDFS() {
         start = new Coordinate(1, 1);
         end = new Coordinate(3, 4);
-        solver = new DFSSolver();
 
-        Maze maze = generator.generate(height, width);
+        solver = new DFSSolver(maze);
 
-        var res = solver.solve(maze, start, end);
+        var res = solver.solve(start, end);
 
         assertFalse(res.isEmpty());
 
@@ -83,12 +81,12 @@ public class MazeSolverTest {
     public void pathFoundBFS() {
         start = new Coordinate(1, 1);
         end = new Coordinate(3, 4);
-        solver = new BFSSolver();
 
-        Maze maze = generator.generate(height, width);
 
-        var res = solver.solve(maze, start, end);
-       
+        solver = new BFSSolver(maze);
+
+        var res = solver.solve(start, end);
+
         assertFalse(res.isEmpty());
 
         List<Coordinate> expected = List.of(
@@ -99,6 +97,8 @@ public class MazeSolverTest {
                 new Coordinate(3, 3),
                 new Coordinate(3, 4)
         );
+        System.out.println( renderer.render(maze,res));
         assertEquals(expected, res);
+
     }
 }
