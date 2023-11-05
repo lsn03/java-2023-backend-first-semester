@@ -1,11 +1,13 @@
 package edu.hw2.Task3;
 
-import edu.hw2.Task3.exceptions.ConnectionException;
-import edu.hw2.Task3.exceptions.MaxAttemptsException;
-import edu.hw2.Task3.manager.ConnectionManager;
-import edu.hw2.Task3.manager.FaultyConnectionManager;
-import edu.hw2.Task3.randomizer.RandomNumberGenerator;
-import edu.hw2.Task3.randomizer.TestRandomNumberGenerator;
+import edu.homework.hw2.Task3.PopularCommandExecutor;
+import edu.homework.hw2.Task3.Retrier;
+import edu.homework.hw2.Task3.exceptions.ConnectionException;
+import edu.homework.hw2.Task3.exceptions.MaxAttemptsException;
+import edu.homework.hw2.Task3.manager.ConnectionManager;
+import edu.homework.hw2.Task3.manager.FaultyConnectionManager;
+import edu.homework.hw2.Task3.randomizer.RandomNumberGenerator;
+import edu.homework.hw2.Task3.randomizer.TestRandomNumberGenerator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;

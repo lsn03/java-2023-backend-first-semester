@@ -1,5 +1,6 @@
 package edu.hw3;
 
+import edu.homework.hw3.BackwardIterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;

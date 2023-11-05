@@ -1,5 +1,6 @@
 package edu.hw1;
 
+import edu.homework.hw1.Task5;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

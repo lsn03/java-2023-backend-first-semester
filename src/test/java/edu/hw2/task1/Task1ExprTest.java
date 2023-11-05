@@ -1,8 +1,5 @@
 package edu.hw2.task1;
 
-import edu.hw2.Task1.Expr;
-import edu.hw2.Task1.Expr.*;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

@@ -1,8 +1,8 @@
 package edu.hw3;
 
-import edu.hw3.task5.Contact;
-import edu.hw3.task5.ContactList;
-import edu.hw3.task5.SortType;
+import edu.homework.hw3.task5.Contact;
+import edu.homework.hw3.task5.ContactList;
+import edu.homework.hw3.task5.SortType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import java.util.List;

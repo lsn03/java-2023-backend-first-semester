@@ -1,14 +1,17 @@
 package edu.hw4;
 
-import static edu.hw4.ErrorMessages.ERROR_AGE_IS_HUGE;
-import static edu.hw4.ErrorMessages.ERROR_AGE_IS_NEGATIVE;
-import static edu.hw4.ErrorMessages.ERROR_HEIGHT_IS_HUGE;
-import static edu.hw4.ErrorMessages.ERROR_HEIGHT_IS_NEGATIVE;
-import static edu.hw4.ErrorMessages.ERROR_NAME_IS_BLANK;
-import static edu.hw4.ErrorMessages.ERROR_NAME_IS_INVALID;
-import static edu.hw4.ErrorMessages.ERROR_NAME_IS_NULL;
-import static edu.hw4.ErrorMessages.ERROR_WEIGHT_IS_HUGE;
-import static edu.hw4.ErrorMessages.ERROR_WEIGHT_IS_NEGATIVE;
+import edu.homework.hw4.Animal;
+import edu.homework.hw4.AnimalValidator;
+import static edu.homework.hw4.ErrorMessages.ERROR_AGE_IS_HUGE;
+import static edu.homework.hw4.ErrorMessages.ERROR_AGE_IS_NEGATIVE;
+import static edu.homework.hw4.ErrorMessages.ERROR_HEIGHT_IS_HUGE;
+import static edu.homework.hw4.ErrorMessages.ERROR_HEIGHT_IS_NEGATIVE;
+import static edu.homework.hw4.ErrorMessages.ERROR_NAME_IS_BLANK;
+import static edu.homework.hw4.ErrorMessages.ERROR_NAME_IS_INVALID;
+import static edu.homework.hw4.ErrorMessages.ERROR_NAME_IS_NULL;
+import static edu.homework.hw4.ErrorMessages.ERROR_WEIGHT_IS_HUGE;
+import static edu.homework.hw4.ErrorMessages.ERROR_WEIGHT_IS_NEGATIVE;
+import edu.homework.hw4.ValidationError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

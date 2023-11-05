@@ -1,5 +1,10 @@
 package edu.project1;
 
+import edu.project.project1.ConsoleHangman;
+import edu.project.project1.Dictionary;
+import edu.project.project1.GameState;
+import edu.project.project1.MyDictionaryImpl;
+import edu.project.project1.Session;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

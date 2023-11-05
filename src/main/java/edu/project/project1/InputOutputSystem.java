@@ -1,0 +1,17 @@
+package edu.project.project1;
+
+public interface InputOutputSystem {
+    void printUserWin();
+
+    void printUserLost();
+
+    void printGuessLetter();
+
+    void scannerUserCharacter();
+
+    void printGuessFailedLetter();
+
+    void printGuessSuccessLetter();
+
+    void scannerUserCharacter(String inputChar);
+}

@@ -1,5 +1,8 @@
 package edu.hw4;
 
+import edu.homework.hw4.Animal;
+import edu.homework.hw4.AnimalUtilities;
+import edu.homework.hw4.Range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;

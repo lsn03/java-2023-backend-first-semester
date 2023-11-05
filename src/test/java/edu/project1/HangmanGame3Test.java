@@ -1,6 +1,10 @@
 package edu.project1;
 
 
+import edu.project.project1.ConsoleHangman;
+import edu.project.project1.Dictionary;
+import edu.project.project1.MyDictionaryImpl;
+import edu.project.project1.Session;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

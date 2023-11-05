@@ -1,6 +1,6 @@
 package edu.hw2.task4;
 
-import edu.hw2.Task4.CallingInfoUtil;
+import edu.homework.hw2.Task4.CallingInfoUtil;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
