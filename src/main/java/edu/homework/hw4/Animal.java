@@ -9,7 +9,7 @@ public record Animal(
         int weight,
         boolean bites
 ) {
-    enum Type {
+    public enum Type {
         CAT(4), DOG(4), BIRD(2), FISH(0), SPIDER(8);
         private final int paw;
 
@@ -22,7 +22,7 @@ public record Animal(
         }
     }
 
-    enum Sex {
+    public enum Sex {
 
         M, F
     }

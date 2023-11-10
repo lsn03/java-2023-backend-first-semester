@@ -4,11 +4,19 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-//TODO: final private constructor
-public class ClubAnalytic {
+
+public final class Task1ClubAnalytic {
+    private Task1ClubAnalytic() {
+
+    }
+
     public static String getTime(String rawString) {
-        var parsed = parseString(rawString);
+        validate(rawString);
+
+        var parsed = rawString.split(" - ");
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm");
         var startTime = LocalDateTime.parse(parsed[0], dateTimeFormatter);
@@ -26,6 +34,7 @@ public class ClubAnalytic {
 
         return buildAnswer(days, hours, minutes);
     }
+
 
     private static String buildAnswer(long days, long hours, long minutes) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -45,20 +54,19 @@ public class ClubAnalytic {
         return stringBuilder.toString();
     }
 
-    private static String[] parseString(String rawString) {
+
+    private static void validate(String rawString) {
         Objects.requireNonNull(rawString);
-        var result = rawString.split(" - ");
-        if (result.length != 2) {
-            throw new IllegalArgumentException("Incorrect input format. Required = ");
+        if (rawString.isEmpty() || rawString.isBlank()) {
+            throw new IllegalArgumentException();
         }
-        return result;
+        String regExp = "\\d{4}-\\d{2}-\\d{2},\\s\\d{2}:\\d{2}\\s-\\s\\d{4}-\\d{2}-\\d{2},\\s\\d{2}:\\d{2}";
+        Pattern pattern = Pattern.compile(regExp);
+        Matcher matcher = pattern.matcher(rawString);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public static void main(String[] args) {
-        System.out.println(getTime("2022-03-12, 20:20 - 2022-03-12, 23:50"));
-        System.out.println(getTime("2022-04-01, 21:30 - 2022-04-02, 01:20"));
-        System.out.println(getTime("2022-04-01, 21:30 - 2022-04-03, 01:20"));
-        System.out.println(getTime("2020-04-01, 21:30 - 2022-04-03, 01:20"));
-        System.out.println(getTime("2022-04-02, 21:30 - 2022-04-01, 01:20"));
-    }
+
 }

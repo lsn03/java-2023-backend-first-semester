@@ -23,17 +23,17 @@ import java.util.Set;
 
 public class AnimalValidatorTask19Test {
 
-    static AnimalValidator animalValidator;
-    List<Animal> list;
-    Set<ValidationError> set;
+    private static AnimalValidator animalValidator;
+    private List<Animal> list;
+    private Set<ValidationError> set;
 
-    String name;
-    Animal.Type type;
-    Animal.Sex sex;
-    int age;
-    int height;
-    int weight;
-    boolean bites = true;
+    private String name;
+    private Animal.Type type;
+    private Animal.Sex sex;
+    private int age;
+    private int height;
+    private int weight;
+    private boolean bites = true;
 
     @BeforeAll
     public static void validatorInitializer() {

@@ -1,9 +1,14 @@
 package edu.hw2.task1;
 
+import edu.homework.hw2.Task1.Expr;
+import edu.homework.hw2.Task1.Expr.Addition;
+import edu.homework.hw2.Task1.Expr.Constant;
+import edu.homework.hw2.Task1.Expr.Exponent;
+import edu.homework.hw2.Task1.Expr.Multiplication;
+import edu.homework.hw2.Task1.Expr.Negate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Task1ExprTest {
     @ParameterizedTest(name = "{0} given - {1} expected")
@@ -15,7 +20,7 @@ public class Task1ExprTest {
     })
     public void testThatTheConstantWork(double value, double excpectedValue) {
 //        Arrange
-        var expr = new Constant(value);
+        var expr = new Expr.Constant(value);
 //        Act
         var result = expr.evaluate();
 //        Assert

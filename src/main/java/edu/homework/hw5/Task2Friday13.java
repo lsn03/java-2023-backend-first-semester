@@ -6,10 +6,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-//TODO: final private constructor
-public class Friday13 {
-    public static List<LocalDate> getListOfFriday13(int year) {
+
+public final class Task2Friday13 {
+    private Task2Friday13() {
+
+    }
+
+    public static List<LocalDate> getListOfFriday13(Integer year) {
+        Objects.requireNonNull(year);
+
         List<LocalDate> resultList = new ArrayList<>();
         for (int month = 1; month <= 12; month++) {
             LocalDate date = LocalDate.of(year, month, 13);
@@ -21,6 +28,7 @@ public class Friday13 {
     }
 
     public static LocalDate getNextFriday13(String date) {
+        Objects.requireNonNull(date);
         String pattern = "yyyy-MM-dd";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
 
