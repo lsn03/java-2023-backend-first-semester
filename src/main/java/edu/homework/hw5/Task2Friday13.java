@@ -11,13 +11,13 @@ import java.util.regex.Pattern;
 
 
 public final class Task2Friday13 {
-    private Task2Friday13() {
-
-    }
-
     private final static int MAX_MONTH_NUMERATION = 12;
     private final static int MIN_MONTH_NUMERATION = 1;
     private final static int FRIDAY_13_DAY = 13;
+
+    private Task2Friday13() {
+
+    }
 
     public static List<LocalDate> getListOfFriday13(Integer year) {
         Objects.requireNonNull(year);
