@@ -81,6 +81,7 @@ public class Task7Test {
             Task7.validateStringLenghtInRange(null);
         });
     }
+
     @Test
     public void emptyBlankChecker() {
         String blank = "   ";
@@ -106,6 +107,7 @@ public class Task7Test {
             Task7.validateStringLenghtInRange(empty);
         });
     }
+
     @ParameterizedTest
     @CsvSource(value = {
             "000",

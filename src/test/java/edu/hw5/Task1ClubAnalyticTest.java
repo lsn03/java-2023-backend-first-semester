@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public class Task1ClubAnalyticTest {
 
-    static Stream<Arguments> validTimeProvider() {
+    private static Stream<Arguments> validTimeProvider() {
         return Stream.of(
                 Arguments.of("2022-03-12, 20:20 - 2022-03-12, 23:50", "3ч 30м"),
                 Arguments.of("2022-04-01, 21:30 - 2022-04-02, 01:20", "3ч 50м"),
@@ -24,7 +24,7 @@ public class Task1ClubAnalyticTest {
     @MethodSource("validTimeProvider")
     public void getValidTime(String source, String answer) {
 
-        System.out.println(source + "\t ans= " + answer);
+//        System.out.println(source + "\t ans= " + answer);
         assertEquals(answer, Task1ClubAnalytic.getTime(source));
 
     }

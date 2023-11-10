@@ -3,7 +3,7 @@ package edu.homework.hw5;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class Task8 {
+public final class Task8 {
     private Task8() {
 
     }

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class CarSignPatternTest {
+public class Task5CarSignPatternTest {
 
     @ParameterizedTest
     @CsvSource(value = {
@@ -16,9 +16,10 @@ public class CarSignPatternTest {
             "О777ОО177",
             "А123ВЕ77",
     })
-    public void validSign(String rawString){
+    public void validSign(String rawString) {
         assertTrue(Task5CarSignPattern.isSignValid(rawString));
     }
+
     @ParameterizedTest
     @CsvSource(value = {
             "А123ВГ777",
@@ -28,18 +29,19 @@ public class CarSignPatternTest {
             "АА123В78",
             "А12345ВА78",
     })
-    public void notValidSign(String rawString){
+    public void notValidSign(String rawString) {
         assertFalse(Task5CarSignPattern.isSignValid(rawString));
     }
 
     @Test
-    public void nullChecker(){
+    public void nullChecker() {
         assertThrows(NullPointerException.class, () -> {
             Task5CarSignPattern.isSignValid(null);
         });
     }
+
     @Test
-    public void emptyBlankChecker(){
+    public void emptyBlankChecker() {
         assertThrows(IllegalArgumentException.class, () -> {
             Task5CarSignPattern.isSignValid("");
         });

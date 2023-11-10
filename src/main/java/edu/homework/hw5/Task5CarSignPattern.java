@@ -30,12 +30,5 @@ public final class Task5CarSignPattern {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(isSignValid("А123ВЕ777"));
-        System.out.println(isSignValid("О777ОО177"));
-        System.out.println(isSignValid("А123ВЕ77"));
 
-        System.out.println(isSignValid("123АВЕ777"));
-        System.out.println(isSignValid("А123ВЕ7777"));
-    }
 }
