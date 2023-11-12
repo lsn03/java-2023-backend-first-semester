@@ -36,7 +36,13 @@ public final class Task3DateFormatParser {
 //        n day(s) ago
         nDaysFormatValidation();
 
-        return answer == null ? Optional.empty() : Optional.of(answer);
+        if (isAnswerNotFound) {
+            return Optional.empty();
+        } else {
+            return Optional.of(answer);
+        }
+
+
     }
 
     private static void buildPatternAndMatcher() {
@@ -52,6 +58,7 @@ public final class Task3DateFormatParser {
         if (matcher.matches() && isAnswerNotFound) {
             int daysAgo = Integer.parseInt(matcher.group(1));
             answer = LocalDate.now().minusDays(daysAgo);
+            isAnswerNotFound = false;
         }
     }
 
