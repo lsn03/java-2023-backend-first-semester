@@ -9,6 +9,14 @@ import java.util.regex.Pattern;
 
 
 public final class Task1ClubAnalytic {
+
+    private static final StringBuilder STRING_BUILDER = new StringBuilder();
+    private static String[] parsed;
+    private final static String DATE_TIME_PATTERN = "yyyy-MM-dd, HH:mm";
+    private static long days;
+    private static long hours;
+    private static long minutes;
+
     private Task1ClubAnalytic() {
 
     }
@@ -16,9 +24,9 @@ public final class Task1ClubAnalytic {
     public static String getTime(String rawString) {
         validate(rawString);
 
-        var parsed = rawString.split(" - ");
+        parsed = rawString.split(" - ");
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
         var startTime = LocalDateTime.parse(parsed[0], dateTimeFormatter);
         var endTime = LocalDateTime.parse(parsed[1], dateTimeFormatter);
 
@@ -28,19 +36,21 @@ public final class Task1ClubAnalytic {
             throw new IllegalArgumentException("The result of evaluation is negative");
         }
 
-        long days = duration.toDays();
-        long hours = duration.minusDays(days).toHours();
-        long minutes = duration.minusDays(days).minusHours(hours).toMinutes();
+        days = duration.toDays();
+        hours = duration.minusDays(days).toHours();
+        minutes = duration.minusDays(days).minusHours(hours).toMinutes();
 
-        return buildAnswer(days, hours, minutes);
+        return buildAnswer();
     }
 
 
-    private static String buildAnswer(long days, long hours, long minutes) {
-        StringBuilder stringBuilder = new StringBuilder();
+    private static String buildAnswer() {
+        STRING_BUILDER.setLength(0);
+
         String daysAns = "";
         String hoursAns = "";
         String minutesAns = "";
+
         if (days != 0) {
             daysAns = days + "д ";
         }
@@ -50,8 +60,10 @@ public final class Task1ClubAnalytic {
         if (minutes != 0) {
             minutesAns = minutes + "м";
         }
-        stringBuilder.append(daysAns).append(hoursAns).append(minutesAns);
-        return stringBuilder.toString();
+
+        STRING_BUILDER.append(daysAns).append(hoursAns).append(minutesAns);
+
+        return STRING_BUILDER.toString();
     }
 
 

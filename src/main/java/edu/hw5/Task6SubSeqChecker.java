@@ -9,19 +9,23 @@ public final class Task6SubSeqChecker {
     }
 
     public static boolean isSubsequence(String s, String t) {
-        validate(s);
-        validate(t);
+        validate(s, t);
 
         String regExp = ".*" + s + ".*";
+
         var pattern = Pattern.compile(regExp);
-        var macther = pattern.matcher(t);
-        return macther.matches();
+        var matcher = pattern.matcher(t);
+        return matcher.matches();
     }
 
-    private static void validate(String rawString) {
-        Objects.requireNonNull(rawString);
-        if (rawString.isEmpty() || rawString.isBlank()) {
+    private static void validate(String one, String two) {
+
+        Objects.requireNonNull(one);
+        Objects.requireNonNull(two);
+
+        if (one.isEmpty() || one.isBlank() || two.isEmpty() || two.isBlank()) {
             throw new IllegalArgumentException();
         }
     }
+
 }
