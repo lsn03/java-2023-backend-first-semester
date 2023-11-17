@@ -15,7 +15,7 @@ public class FilterTest {
     public void getAllTxtRegularFile() {
         Path dir = Path.of(TEST_RESOURCE_FOLDER);
         AbstractFilter filter = AbstractFilter.IS_REGULAR_FILE
-                .and(AbstractFilter.IS_WRITABLE_FILE)
+                .and(AbstractFilter.IS_READABLE_FILE)
                 .and(AbstractFilter.globMatches("*.txt"));
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(dir, filter)) {
             entries.forEach(System.out::println);

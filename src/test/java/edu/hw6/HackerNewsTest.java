@@ -1,6 +1,7 @@
 package edu.hw6;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,5 +26,11 @@ public class HackerNewsTest {
     public void topStoriesTest() {
         long[] arr = HACKER_NEWS.hackerNewsTopStories();
         assertTrue(arr.length > 0);
+    }
+
+    @Test
+    public void getBadNews() {
+        assertNull(HACKER_NEWS.news(-1));
+
     }
 }

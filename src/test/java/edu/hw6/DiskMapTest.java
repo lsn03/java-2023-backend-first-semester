@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: exception check
+
 public class DiskMapTest {
     DiskMap diskMap;
     String source_info_file_readOnly = "hw6/diskmap/source_info.txt";
@@ -108,14 +108,14 @@ public class DiskMapTest {
             new DiskMap("hw6/diskmap/wrong.txt", true);
         });
     }
-    @Test
-    public void fotExistFileData() {
 
-       try{
+    @Test
+    public void fileNotExistFileData() {
+
+        try {
             new DiskMap("hw6/diskmap/1.txt", true);
+        } catch (Exception e) {
+            assertEquals(e.getCause().getClass(), NullPointerException.class);
         }
-       catch (Exception e){
-        assertEquals(e.getCause().getClass(), NullPointerException.class);
-       }
     }
 }
