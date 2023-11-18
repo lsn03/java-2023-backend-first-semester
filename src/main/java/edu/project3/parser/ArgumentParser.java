@@ -1,5 +1,6 @@
-package edu.project3;
+package edu.project3.parser;
 
+import edu.project3.CommandLineArguments;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -41,7 +42,7 @@ public final class ArgumentParser {
         }
         LocalDateTime toDate;
         if (toMatcher.find()) {
-            toDate = parseISO8601Date(fromMatcher.group(1));
+            toDate = parseISO8601Date(toMatcher.group(1));
         } else {
             toDate = LocalDateTime.now().plusYears(UNREACHEABLE_YEAR);
         }

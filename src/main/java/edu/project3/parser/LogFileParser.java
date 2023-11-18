@@ -1,5 +1,7 @@
-package edu.project3;
+package edu.project3.parser;
 
+import edu.project3.StatusCode;
+import edu.project3.log.LogRecord;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public final class LogFileParser {
 
@@ -36,9 +39,18 @@ public final class LogFileParser {
             String pattern = allPath.getFileName().toString();
 
             return parseLogsByTemplate(directory, pattern);
+        } else {
+            try {
+                return Files.lines(Paths.get(path))
+                        .map(LogRecord::parse)
+                        .collect(Collectors.toList());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-        return List.of();
+
     }
+
 
     private static List<LogRecord> parseLogsByTemplate(String directory, String pattern) {
         PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:" + pattern);

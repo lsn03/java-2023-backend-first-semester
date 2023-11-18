@@ -1,5 +1,6 @@
-package edu.project3;
+package edu.project3.log;
 
+import edu.project3.StatusCode;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;

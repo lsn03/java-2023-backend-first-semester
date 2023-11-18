@@ -1,5 +1,10 @@
 package edu.project3;
 
+import edu.project3.log.LogAnalyzer;
+import edu.project3.log.LogRecord;
+import edu.project3.log.LogReport;
+import edu.project3.parser.ArgumentParser;
+import edu.project3.parser.LogFileParser;
 import java.util.List;
 
 public final class Application {
@@ -15,7 +20,7 @@ public final class Application {
 
     public static void main(String[] args) {
 
-        if (args.length < 2) {
+        if (args.length == 0) {
             throw new IllegalArgumentException();
         }
         commandLineArguments = ArgumentParser.parseDataFromArgs(args);

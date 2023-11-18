@@ -1,4 +1,4 @@
-package edu.project3;
+package edu.project3.log;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
