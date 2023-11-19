@@ -44,14 +44,4 @@ public final class CloneFile {
 
     }
 
-    public static void main(String[] args) {
-        Path path = Paths.get("src/main/resources/text_file_regular_readable.txt");
-//        CloneFile.cloneFile(path);
-        try {
-            Files.delete(Path.of("src/main/resources/tin - копия(2).txt"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 }

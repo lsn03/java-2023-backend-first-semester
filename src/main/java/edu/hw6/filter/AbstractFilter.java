@@ -26,14 +26,18 @@ public interface AbstractFilter extends DirectoryStream.Filter<Path> {
                 byte[] fileBytes = Files.readAllBytes(entry);
                 if (fileBytes.length >= magicBytes.length) {
                     for (int i = 0; i < magicBytes.length; i++) {
+
+
                         if ((byte) magicBytes[i] != fileBytes[i]) {
-                            return false;
+
+                                return false;
+
                         }
                     }
                     return true;
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return false;
             }
             return false;
         };
@@ -41,7 +45,12 @@ public interface AbstractFilter extends DirectoryStream.Filter<Path> {
 
 
     static AbstractFilter largerThan(long size) {
+
         return entry -> Files.size(entry) > size;
+//        {
+//            System.out.println(entry + "\t" + Files.size(entry)+"\t"+size +"\t"+(Files.size(entry) > size));
+//            return
+//        };
     }
 
 

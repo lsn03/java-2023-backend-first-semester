@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
-public class OutputComposition {
+public final class OutputComposition {
 
     private OutputComposition() {
     }
@@ -38,10 +38,9 @@ public class OutputComposition {
         ) {
 
             printWriter.println("Programming is learned by writing programs. ― Brian Kernighan");
-        }catch (FileSystemException e){
+        } catch (FileSystemException e) {
             throw new RuntimeException(e);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

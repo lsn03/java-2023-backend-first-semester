@@ -21,27 +21,30 @@ public class PortScanner {
 
     private static final int AVAILABLE_PORTS = 49151;
 
+    public static final String BUSY = "\tЗанят\t";
+
+
     public String getPortsInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int port = 0; port <= AVAILABLE_PORTS; port++) {
             try (ServerSocket serverSocket = new ServerSocket(port);) {
-
+                serverSocket.close();
             } catch (IOException e) {
 
                 stringBuilder.append("TCP\t")
                         .append(port)
-                        .append("\tЗанят\t")
+                        .append(BUSY)
                         .append(getCommonService(port))
                         .append(System.lineSeparator());
 
             }
 
             try (DatagramSocket datagramSocket = new DatagramSocket(port);) {
-
+                datagramSocket.close();
             } catch (IOException e) {
                 stringBuilder.append("UDP\t")
                         .append(port)
-                        .append("\tЗанят\t")
+                        .append(BUSY)
                         .append(getCommonService(port))
                         .append(System.lineSeparator());
             }
@@ -68,10 +71,6 @@ public class PortScanner {
 
     }
 
-    public static void main(String[] args) {
-        PortScanner portScanner = new PortScanner();
-        System.out.println((portScanner.getPortsInfo()));
-    }
 }
 
 

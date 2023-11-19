@@ -1,23 +1,23 @@
 package edu.hw6.disk_map_package;
 
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class DiskMap implements Map<String, String> {
     private String filePath;
     private Map<String, String> inMemoryMap;
-    private String pathToResources;
+
     private boolean isTesting;
 
     public DiskMap(String filePath) {
@@ -28,13 +28,6 @@ public class DiskMap implements Map<String, String> {
     public DiskMap(String filePath, boolean isTesting) {
         this.isTesting = isTesting;
         this.filePath = filePath;
-
-        if (isTesting) {
-            pathToResources = "src/test/resources/";
-        } else {
-            pathToResources = "src/main/resources/";
-        }
-
 
         inMemoryMap = new HashMap<>();
         loadFromFile();
@@ -124,7 +117,7 @@ public class DiskMap implements Map<String, String> {
 
     public void saveToFile() {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathToResources + filePath))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
 
             for (var entry : inMemoryMap.entrySet()) {
                 String res = entry.getKey() + ":" + entry.getValue() + System.lineSeparator();
@@ -138,8 +131,9 @@ public class DiskMap implements Map<String, String> {
     }
 
     public void loadFromFile() {
-        InputStream inputStream = this.getClass().getResourceAsStream("/" + filePath);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+        Path path = Path.of(filePath);
+
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
             String line = reader.readLine();
 
             int countOfLines = 0;

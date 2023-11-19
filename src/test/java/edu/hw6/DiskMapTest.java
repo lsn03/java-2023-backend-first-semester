@@ -7,13 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import java.nio.file.NoSuchFileException;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class DiskMapTest {
     DiskMap diskMap;
-    String source_info_file_readOnly = "hw6/diskmap/source_info.txt";
+    String source_info_file_readOnly = "src/test/resources/hw6/diskmap/source_info.txt";
 
     @Test
     public void readFromFileSourceInfo() {
@@ -43,7 +44,7 @@ public class DiskMapTest {
                 "добавить", "убавить",
                 "aboba", "bob"
         ));
-        diskMap.setFilePath("hw6/diskmap/removed_key.txt");
+        diskMap.setFilePath("src/test/resources/hw6/diskmap/removed_key.txt");
         diskMap.remove("тест_кей_2");
         var actual = diskMap.getInMemoryMap();
 
@@ -55,7 +56,7 @@ public class DiskMapTest {
     public void removeAllFromFileByClear() {
         diskMap = new DiskMap(source_info_file_readOnly, true);
 
-        diskMap.setFilePath("hw6/diskmap/removed_all_key_by_clear.txt");
+        diskMap.setFilePath("src/test/resources/hw6/diskmap/removed_all_key_by_clear.txt");
         diskMap.clear();
 
 
@@ -66,7 +67,7 @@ public class DiskMapTest {
     public void removeAllFromFileByRemove() {
         diskMap = new DiskMap(source_info_file_readOnly, true);
 
-        diskMap.setFilePath("hw6/diskmap/removed_all_key_by_remove.txt");
+        diskMap.setFilePath("src/test/resources/hw6/diskmap/removed_all_key_by_remove.txt");
         diskMap.remove("aboba");
         diskMap.remove("тест_кей_2");
         diskMap.remove("ключ");
@@ -81,7 +82,7 @@ public class DiskMapTest {
         diskMap = new DiskMap(source_info_file_readOnly, true);
 
 
-        diskMap.setFilePath("hw6/diskmap/add_keys_to_file.txt");
+        diskMap.setFilePath("src/test/resources/hw6/diskmap/add_keys_to_file.txt");
         diskMap.clear();
         diskMap.put("4", "4");
         diskMap.put("3", "3");
@@ -105,7 +106,7 @@ public class DiskMapTest {
     public void wrongFileData() {
 
         assertThrows(ParseFileException.class, () -> {
-            new DiskMap("hw6/diskmap/wrong.txt", true);
+            new DiskMap("src/test/resources/hw6/diskmap/wrong.txt", true);
         });
     }
 
@@ -113,9 +114,9 @@ public class DiskMapTest {
     public void fileNotExistFileData() {
 
         try {
-            new DiskMap("hw6/diskmap/1.txt", true);
+            new DiskMap("src/test/resources/hw6/diskmap/1.txt", true);
         } catch (Exception e) {
-            assertEquals(e.getCause().getClass(), NullPointerException.class);
+            assertEquals(NoSuchFileException.class, e.getCause().getClass());
         }
     }
 }

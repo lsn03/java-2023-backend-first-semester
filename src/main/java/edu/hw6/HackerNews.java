@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +16,7 @@ public class HackerNews {
 
     private HttpResponse<String> makeResponse(String url) {
         HttpClient client;
-        try  {
+        try {
             client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
             return client.send(request, HttpResponse.BodyHandlers.ofString());
