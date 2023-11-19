@@ -36,17 +36,17 @@ public class LogRecordTest {
 
         assertEquals(expected, result);
 
-        assertEquals(expectedResources,result.getResource());
+        assertEquals(expectedResources, result.getResource());
 
     }
 
     @Test
     public void parseLogException() {
-        assertThrows(NullPointerException.class, () ->{
-                LogRecord.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            LogRecord.parse(null);
         });
-        assertThrows(IllegalArgumentException.class, () ->{
-           LogRecord.parse("invalid");
+        assertThrows(IllegalArgumentException.class, () -> {
+            LogRecord.parse("invalid");
         });
     }
 

@@ -9,6 +9,7 @@ public class LogStatistics {
     private Map<Integer, Long> responseCodeCount;
     private Map<String, Long> uniqueIpCounts;
     private Map<String, Long> httpUserAgentCount;
+
     public Map<String, Long> getUniqueIpCounts() {
         return uniqueIpCounts;
     }

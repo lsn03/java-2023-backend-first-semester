@@ -92,7 +92,8 @@ public class LogRecord {
 
     @Override
     public int hashCode() {
-        return Objects.hash(remoteAddr, remoteUser, timeLocal, request, status, bodyBytesSent, httpReferer, httpUserAgent);
+        return Objects.hash(remoteAddr, remoteUser, timeLocal, request,
+                status, bodyBytesSent, httpReferer, httpUserAgent);
     }
 
     public String getRemoteAddr() {
@@ -135,6 +136,7 @@ public class LogRecord {
                 + ", httpUserAgent='" + httpUserAgent + '\''
                 + '}';
     }
+
     private static LocalDateTime parseLocalDateTime(String timeLocal) {
 
         return LocalDateTime.parse(

@@ -27,7 +27,12 @@ public final class Application {
 
 
         logRecords = LogFileParser.parseLogs(commandLineArguments.getLogPath());
-        logReport = LogAnalyzer.analyzeLogs(logRecords, commandLineArguments.getFromDate(), commandLineArguments.getToDate(), commandLineArguments.getLogPath());
+        logReport = LogAnalyzer.analyzeLogs(
+                logRecords,
+                commandLineArguments.getFromDate(),
+                commandLineArguments.getToDate(),
+                commandLineArguments.getLogPath()
+        );
 
         print(logReport);
 
