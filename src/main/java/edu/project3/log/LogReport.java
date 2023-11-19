@@ -8,6 +8,10 @@ import java.util.Map;
 public class LogReport {
 
 
+    public static final String USING_HTTP_USER_AGENT = "Используемые  http_user_agent";
+    public static final String HTTP_USER_AGENT = "Http_user_agent";
+    public static final String USING_REMOTE_ADDRESS = "Используемые удаленные адреса";
+    public static final String ADDRESS = "Адрес";
     private final String logPath;
     private final LocalDateTime fromDate;
     private final LocalDateTime toDate;
@@ -16,6 +20,9 @@ public class LogReport {
     private final Map<String, Long> resourceCounts;
     private final Map<Integer, Long> responseCodeCounts;
     private final Map<Integer, String> responseCodeDescriptions;
+    private final Map<String, Long> remoteAddresCounts;
+    private final Map<String, Long> httpUserAgentCount;
+
 
     public static final StringBuilder MARKDOWN_REPORT = new StringBuilder();
     public static final StringBuilder ASCII_DOC_REPORT = new StringBuilder();
@@ -52,17 +59,17 @@ public class LogReport {
     public LogReport(String logPath,
                      LocalDateTime fromDate,
                      LocalDateTime toDate,
-                     long totalRequests,
-                     double avgResponseSize,
-                     Map<String, Long> resourceCounts,
-                     Map<Integer, Long> responseCodeCounts) {
+                     LogStatistics logStatistics) {
         this.logPath = logPath;
         this.fromDate = fromDate;
         this.toDate = toDate;
-        this.totalRequests = totalRequests;
-        this.avgResponseSize = avgResponseSize;
-        this.resourceCounts = resourceCounts;
-        this.responseCodeCounts = responseCodeCounts;
+
+        this.totalRequests = logStatistics.getTotalRequests();
+        this.avgResponseSize = logStatistics.getAvgResponseSize();
+        this.resourceCounts = logStatistics.getResourceCounts();
+        this.responseCodeCounts = logStatistics.getResponseCodeCounts();
+        this.remoteAddresCounts = logStatistics.getUniqueIpCounts();
+        this.httpUserAgentCount = logStatistics.getHttpUserAgentCount();
 
         responseCodeDescriptions = new HashMap<>();
         responseCodeDescriptions.put(StatusCode.SUCCESS_STATUS_CODE, "OK");
@@ -70,12 +77,44 @@ public class LogReport {
         responseCodeDescriptions.put(StatusCode.NOT_MODIFIED, "Not Modified");
     }
 
-    private static String buildLine(Object... elems) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Object elem : elems) {
-            stringBuilder.append(elem);
-        }
-        return stringBuilder.toString();
+    public Map<String, Long> getRemoteAddresCounts() {
+        return remoteAddresCounts;
+    }
+
+    public Map<String, Long> getHttpUserAgentCount() {
+        return httpUserAgentCount;
+    }
+
+    public String getLogPath() {
+        return logPath;
+    }
+
+    public LocalDateTime getFromDate() {
+        return fromDate;
+    }
+
+    public LocalDateTime getToDate() {
+        return toDate;
+    }
+
+    public long getTotalRequests() {
+        return totalRequests;
+    }
+
+    public double getAvgResponseSize() {
+        return avgResponseSize;
+    }
+
+    public Map<String, Long> getResourceCounts() {
+        return resourceCounts;
+    }
+
+    public Map<Integer, Long> getResponseCodeCounts() {
+        return responseCodeCounts;
+    }
+
+    public Map<Integer, String> getResponseCodeDescriptions() {
+        return responseCodeDescriptions;
     }
 
     public String toMarkdown() {
@@ -87,7 +126,94 @@ public class LogReport {
 
         loadResponseCodeMd();
 
+        loadUniqueIpCountMd();
+        loadHttpAgentCountMd();
+
         return MARKDOWN_REPORT.toString();
+    }
+
+
+    public String toAsciiDoc() {
+
+        ASCII_DOC_REPORT.setLength(0);
+        loadMetricsAscii();
+        loadResourcesAscii();
+        loadResponseCodeAscii();
+        loadUniqueIpCountAscii();
+        loadHttpAgentCountAscii();
+        return ASCII_DOC_REPORT.toString();
+    }
+
+    private void loadUniqueIpCountAscii() {
+        ASCII_DOC_REPORT.append(buildLine(HEADER_ASCII, USING_REMOTE_ADDRESS, NEW_LINE));
+        ASCII_DOC_REPORT.append(buildLine(TWO_COLLUMN_ASCII_DOC, NEW_LINE));
+        ASCII_DOC_REPORT.append(buildLine(START_END_ASCII_BLOCK, NEW_LINE));
+        ASCII_DOC_REPORT.append(buildLine(WALL, ADDRESS, WALL, COUNT, NEW_LINE));
+
+        for (Map.Entry<String, Long> entry : remoteAddresCounts.entrySet()) {
+            ASCII_DOC_REPORT.append(buildLine(
+                    WALL, ELEMENT_OF_PATH,
+                    entry.getKey(), ELEMENT_OF_PATH,
+                    WALL, entry.getValue(), NEW_LINE)
+            );
+        }
+        ASCII_DOC_REPORT.append(buildLine(START_END_ASCII_BLOCK, DOUBLE_NEW_LINE));
+
+    }
+
+    private void loadHttpAgentCountAscii() {
+        ASCII_DOC_REPORT.append(buildLine(HEADER_ASCII, USING_HTTP_USER_AGENT, NEW_LINE));
+        ASCII_DOC_REPORT.append(buildLine(TWO_COLLUMN_ASCII_DOC, NEW_LINE));
+        ASCII_DOC_REPORT.append(buildLine(START_END_ASCII_BLOCK, NEW_LINE));
+        ASCII_DOC_REPORT.append(buildLine(WALL, HTTP_USER_AGENT, WALL, COUNT, NEW_LINE));
+
+        for (Map.Entry<String, Long> entry : httpUserAgentCount.entrySet()) {
+            ASCII_DOC_REPORT.append(buildLine(
+                    WALL, ELEMENT_OF_PATH,
+                    entry.getKey(), ELEMENT_OF_PATH,
+                    WALL, entry.getValue(), NEW_LINE)
+            );
+        }
+        ASCII_DOC_REPORT.append(buildLine(START_END_ASCII_BLOCK, DOUBLE_NEW_LINE));
+
+    }
+
+    private void loadUniqueIpCountMd() {
+        MARKDOWN_REPORT.append(buildLine(HEADER_MD, USING_REMOTE_ADDRESS, DOUBLE_NEW_LINE));
+        MARKDOWN_REPORT.append(buildLine(WALL, ADDRESS, WALL, COUNT, WALL, NEW_LINE));
+        MARKDOWN_REPORT.append(buildLine(TWO_COLLUMN_MD, NEW_LINE));
+        for (Map.Entry<String, Long> entry : remoteAddresCounts.entrySet()) {
+            MARKDOWN_REPORT.append(buildLine(
+                    WALL, ELEMENT_OF_PATH,
+                    entry.getKey(), ELEMENT_OF_PATH,
+                    WALL, entry.getValue(), WALL,
+                    NEW_LINE)
+            );
+        }
+        MARKDOWN_REPORT.append(NEW_LINE);
+    }
+
+    private void loadHttpAgentCountMd() {
+        MARKDOWN_REPORT.append(buildLine(HEADER_MD, USING_HTTP_USER_AGENT, DOUBLE_NEW_LINE));
+        MARKDOWN_REPORT.append(buildLine(WALL, HTTP_USER_AGENT, WALL, COUNT, WALL, NEW_LINE));
+        MARKDOWN_REPORT.append(buildLine(TWO_COLLUMN_MD, NEW_LINE));
+        for (Map.Entry<String, Long> entry : httpUserAgentCount.entrySet()) {
+            MARKDOWN_REPORT.append(buildLine(
+                    WALL, ELEMENT_OF_PATH,
+                    entry.getKey(), ELEMENT_OF_PATH,
+                    WALL, entry.getValue(), WALL,
+                    NEW_LINE)
+            );
+        }
+        MARKDOWN_REPORT.append(NEW_LINE);
+    }
+
+    private static String buildLine(Object... elems) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Object elem : elems) {
+            stringBuilder.append(elem);
+        }
+        return stringBuilder.toString();
     }
 
 
@@ -131,17 +257,9 @@ public class LogReport {
             var desc = responseCodeDescriptions.getOrDefault(entry.getKey(), "-");
             MARKDOWN_REPORT.append(buildLine(WALL, entry.getKey(), WALL, desc, WALL, entry.getValue(), WALL, NEW_LINE));
         }
+        MARKDOWN_REPORT.append(NEW_LINE);
     }
 
-    public String toAsciiDoc() {
-
-        ASCII_DOC_REPORT.setLength(0);
-        loadMetricsAscii();
-        loadResourcesAscii();
-        loadResponseCodeAscii();
-
-        return ASCII_DOC_REPORT.toString();
-    }
 
     private void loadResponseCodeAscii() {
         ASCII_DOC_REPORT.append(buildLine(HEADER_ASCII, RESPONSE_CODE, NEW_LINE));

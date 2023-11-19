@@ -3,6 +3,7 @@ package edu.project3.log;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +31,7 @@ public class LogRecord {
     private String httpUserAgent;
 
     @SuppressWarnings("ParameterNumber")
-    public LogRecord(String remoteAddr,
+    public LogRecord(String remoteAddress,
                      String remoteUser,
                      LocalDateTime timeLocal,
                      String request,
@@ -38,7 +39,7 @@ public class LogRecord {
                      long bodyBytesSent,
                      String httpReferer,
                      String httpUserAgent) {
-        this.remoteAddr = remoteAddr;
+        this.remoteAddr = remoteAddress;
         this.remoteUser = remoteUser;
         this.timeLocal = timeLocal;
         this.request = request;
@@ -49,6 +50,8 @@ public class LogRecord {
     }
 
     public static LogRecord parse(String logLine) {
+        Objects.requireNonNull(logLine);
+
         Matcher matcher = LOG_PATTERN.matcher(logLine);
         if (matcher.matches()) {
 
@@ -68,11 +71,37 @@ public class LogRecord {
         }
     }
 
-    private static LocalDateTime parseLocalDateTime(String timeLocal) {
-        return LocalDateTime.parse(
-                timeLocal, DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        LogRecord logRecord = (LogRecord) o;
+        return status == logRecord.status
+                && bodyBytesSent == logRecord.bodyBytesSent
+                && Objects.equals(remoteAddr, logRecord.remoteAddr)
+                && Objects.equals(remoteUser, logRecord.remoteUser)
+                && Objects.equals(timeLocal, logRecord.timeLocal)
+                && Objects.equals(request, logRecord.request)
+                && Objects.equals(httpReferer, logRecord.httpReferer)
+                && Objects.equals(httpUserAgent, logRecord.httpUserAgent);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(remoteAddr, remoteUser, timeLocal, request, status, bodyBytesSent, httpReferer, httpUserAgent);
+    }
+
+    public String getRemoteAddr() {
+        return remoteAddr;
+    }
+
+    public String getHttpUserAgent() {
+        return httpUserAgent;
+    }
 
     public LocalDateTime getDateTime() {
 
@@ -106,4 +135,10 @@ public class LogRecord {
                 + ", httpUserAgent='" + httpUserAgent + '\''
                 + '}';
     }
+    private static LocalDateTime parseLocalDateTime(String timeLocal) {
+
+        return LocalDateTime.parse(
+                timeLocal, DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH));
+    }
+
 }

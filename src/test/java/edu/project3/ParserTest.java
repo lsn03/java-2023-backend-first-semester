@@ -107,4 +107,15 @@ public class ParserTest {
         String expectedPath = "src/test/resources/nginx_d";
         assertThrows(RuntimeException.class, () -> LogFileParser.parseLogs(expectedPath));
     }
+
+    @Test
+    public void parseHttpSucces() {
+        String expectedPath = "https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs";
+        assertDoesNotThrow(() -> LogFileParser.parseLogs(expectedPath));
+    }
+    @Test
+    public void parseHttpUnSuccess() {
+        String expectedPath = "https://123dsaghajdaJK";
+        assertThrows( RuntimeException.class, () -> LogFileParser.parseLogs(expectedPath));
+    }
 }

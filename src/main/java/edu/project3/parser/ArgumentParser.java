@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public final class ArgumentParser {
 
     private final static int YEAR_OF_START = 1970;
-    private final static int UNREACHEABLE_YEAR = 10000;
+
 
     private ArgumentParser() {
 
@@ -44,12 +44,12 @@ public final class ArgumentParser {
         if (toMatcher.find()) {
             toDate = parseISO8601Date(toMatcher.group(1));
         } else {
-            toDate = LocalDateTime.now().plusYears(UNREACHEABLE_YEAR);
+            toDate = LocalDateTime.now();
         }
 
         String outputFormat = formatMatcher.find() ? formatMatcher.group(1) : "markdown";
 
-        return  new CommandLineArguments(logPath,fromDate,toDate,outputFormat);
+        return new CommandLineArguments(logPath, fromDate, toDate, outputFormat);
     }
 
     private static LocalDateTime parseISO8601Date(String dateString) throws DateTimeParseException {
