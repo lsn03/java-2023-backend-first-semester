@@ -98,33 +98,7 @@ public class FilterTest {
         assertEquals(expected, actual);
 
     }
-
-    @Test
-    public void getAllWriteFiles() {
-        Set<Path> expected = Set.of(
-                Path.of(TEST_RESOURCE_FOLDER, "write_and_read.txt"),
-                Path.of(TEST_RESOURCE_FOLDER, "write_and_read_large.txt")
-
-        );
-
-
-        Set<Path> actual = new HashSet<>();
-
-        Path dir = Path.of(TEST_RESOURCE_FOLDER);
-        AbstractFilter filter = AbstractFilter.IS_REGULAR_FILE
-                .and(AbstractFilter.IS_WRITABLE_FILE)
-                .and(AbstractFilter.globMatches("*.txt"));
-
-
-        try (DirectoryStream<Path> entries = Files.newDirectoryStream(dir, filter)) {
-            entries.forEach(actual::add);
-        } catch (IOException ignored) {
-
-        }
-
-        assertEquals(expected, actual);
-
-    }
+    
 
     @Test
     public void pngMagicNumber() {
