@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -38,8 +37,6 @@ public final class OutputComposition {
         ) {
 
             printWriter.println("Programming is learned by writing programs. ― Brian Kernighan");
-        } catch (FileSystemException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

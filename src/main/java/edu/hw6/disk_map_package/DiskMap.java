@@ -1,6 +1,5 @@
 package edu.hw6.disk_map_package;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -18,15 +17,8 @@ public class DiskMap implements Map<String, String> {
     private String filePath;
     private Map<String, String> inMemoryMap;
 
-    private boolean isTesting;
-
     public DiskMap(String filePath) {
-        this(filePath, false);
-    }
 
-
-    public DiskMap(String filePath, boolean isTesting) {
-        this.isTesting = isTesting;
         this.filePath = filePath;
 
         inMemoryMap = new HashMap<>();
@@ -115,7 +107,7 @@ public class DiskMap implements Map<String, String> {
         return inMemoryMap.entrySet();
     }
 
-    public void saveToFile() {
+    private void saveToFile() {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
 
@@ -130,7 +122,7 @@ public class DiskMap implements Map<String, String> {
 
     }
 
-    public void loadFromFile() {
+    private void loadFromFile() {
         Path path = Path.of(filePath);
 
         try (BufferedReader reader = Files.newBufferedReader(path)) {
@@ -150,7 +142,7 @@ public class DiskMap implements Map<String, String> {
                 line = reader.readLine();
             }
 
-        } catch (IOException | NullPointerException ex) {
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
 

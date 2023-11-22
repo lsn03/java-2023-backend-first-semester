@@ -29,10 +29,8 @@ public final class CloneFile {
             try {
                 if (!Files.exists(dir.resolve(newFileName))) {
                     Files.copy(path, dir.resolve(newFileName));
-
                     break;
                 }
-
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

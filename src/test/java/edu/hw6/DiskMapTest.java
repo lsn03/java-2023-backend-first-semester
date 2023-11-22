@@ -20,7 +20,7 @@ public class DiskMapTest {
     public void readFromFileSourceInfo() {
 
 
-        diskMap = new DiskMap(source_info_file_readOnly, true);
+        diskMap = new DiskMap(source_info_file_readOnly);
 
         var expected = new HashMap<>(Map.of(
                 "aboba", "bob",
@@ -36,7 +36,7 @@ public class DiskMapTest {
 
     @Test
     public void removeFromFile() {
-        diskMap = new DiskMap(source_info_file_readOnly, true);
+        diskMap = new DiskMap(source_info_file_readOnly);
 
         var expected = new HashMap<>(Map.of(
 
@@ -54,7 +54,7 @@ public class DiskMapTest {
 
     @Test
     public void removeAllFromFileByClear() {
-        diskMap = new DiskMap(source_info_file_readOnly, true);
+        diskMap = new DiskMap(source_info_file_readOnly);
 
         diskMap.setFilePath("src/test/resources/hw6/diskmap/removed_all_key_by_clear.txt");
         diskMap.clear();
@@ -65,7 +65,7 @@ public class DiskMapTest {
 
     @Test
     public void removeAllFromFileByRemove() {
-        diskMap = new DiskMap(source_info_file_readOnly, true);
+        diskMap = new DiskMap(source_info_file_readOnly);
 
         diskMap.setFilePath("src/test/resources/hw6/diskmap/removed_all_key_by_remove.txt");
         diskMap.remove("aboba");
@@ -79,7 +79,7 @@ public class DiskMapTest {
 
     @Test
     public void addKeysToFile() {
-        diskMap = new DiskMap(source_info_file_readOnly, true);
+        diskMap = new DiskMap(source_info_file_readOnly);
 
 
         diskMap.setFilePath("src/test/resources/hw6/diskmap/add_keys_to_file.txt");
@@ -106,7 +106,7 @@ public class DiskMapTest {
     public void wrongFileData() {
 
         assertThrows(ParseFileException.class, () -> {
-            new DiskMap("src/test/resources/hw6/diskmap/wrong.txt", true);
+            new DiskMap("src/test/resources/hw6/diskmap/wrong.txt");
         });
     }
 
@@ -114,7 +114,7 @@ public class DiskMapTest {
     public void fileNotExistFileData() {
 
         try {
-            new DiskMap("src/test/resources/hw6/diskmap/1.txt", true);
+            new DiskMap("src/test/resources/hw6/diskmap/1.txt");
         } catch (Exception e) {
             assertEquals(NoSuchFileException.class, e.getCause().getClass());
         }
