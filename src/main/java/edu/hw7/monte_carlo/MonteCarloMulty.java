@@ -9,12 +9,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MonteCarloMulty extends MonteCarlo {
 
+    int numThreads;
 
-    public MonteCarloMulty(long iterations, double radius, Coordinate circleCenter) {
+    public MonteCarloMulty(int numThreads, long iterations, double radius, Coordinate circleCenter) {
         super(iterations,
                 radius,
                 circleCenter,
                 null);
+        this.numThreads = numThreads;
     }
 
 
@@ -31,9 +33,9 @@ public class MonteCarloMulty extends MonteCarlo {
     }
 
     @Override
-    public void solve(){
+    public void solve() {
+        LocalDateTime start = LocalDateTime.now();
 
-        int numThreads = 6;
         ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
 
 
@@ -49,7 +51,6 @@ public class MonteCarloMulty extends MonteCarlo {
             });
         }
 
-
         try {
             latch.await();
         } catch (InterruptedException e) {
@@ -60,7 +61,10 @@ public class MonteCarloMulty extends MonteCarlo {
 
         double currentPi = calculatePi();
 
-        System.out.println(currentPi + "\t" + (Math.PI - currentPi));
+        LocalDateTime end = LocalDateTime.now();
+        Duration duration = Duration.between(start, end);
+        Report report = new Report(numThreads, currentPi, iterations, duration);
+        report.showReport();
 
     }
 
@@ -83,10 +87,10 @@ public class MonteCarloMulty extends MonteCarlo {
     }
 
     public static void main(String[] args) {
-        MonteCarlo monteCarlo = new MonteCarloMulty(1_000_000_000, 2, new Coordinate(0, 0));
-        LocalDateTime start = LocalDateTime.now();
+        MonteCarlo monteCarlo = new MonteCarloMulty(1,1_000_000_000, 2, new Coordinate(0, 0));
+
         monteCarlo.solve();
-        LocalDateTime end = LocalDateTime.now();
-        System.out.println(Duration.between(start, end));
+        String s;
+        s.equals()
     }
 }

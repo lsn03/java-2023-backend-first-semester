@@ -20,8 +20,8 @@ public class MonteCarloSingle extends MonteCarlo {
 
     @Override
     public void solve() {
+        LocalDateTime start = LocalDateTime.now();
         Coordinate coordinate;
-
         for (int i = 0; i < iterations; i++) {
             coordinate = generateCoordinate();
             if (checkThatCoordinateInside(coordinate)) {
@@ -29,7 +29,10 @@ public class MonteCarloSingle extends MonteCarlo {
             }
         }
         double currentPi = calculatePi();
-        System.out.println(currentPi + "\t" + (Math.PI - currentPi));
+        LocalDateTime end = LocalDateTime.now();
+        Duration duration = Duration.between(start, end);
+        Report report = new Report(currentPi, iterations, duration);
+        report.showReport();
     }
 
     @Override
@@ -50,10 +53,10 @@ public class MonteCarloSingle extends MonteCarlo {
     }
 
     public static void main(String[] args) {
-        MonteCarlo monteCarlo = new MonteCarloSingle(2, 1_000_000_000);
-        LocalDateTime start = LocalDateTime.now();
+        MonteCarlo monteCarlo = new MonteCarloSingle(1_000_000_000, 2);
+
         monteCarlo.solve();
-        LocalDateTime end = LocalDateTime.now();
-        System.out.println(Duration.between(start, end));
+
     }
+
 }
