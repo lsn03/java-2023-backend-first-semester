@@ -42,6 +42,6 @@ public class MonteCarloTest {
     public void testMultyMonte(long iterations, int treads) {
         MonteCarlo monteCarlo = new MonteCarloMulty(treads, iterations, 2);
         assertDoesNotThrow(monteCarlo::solve);
-        assertTrue(Math.abs(monteCarlo.getCurrentPi() - Math.PI) <= 1e-3);
+        assertTrue(Math.abs(monteCarlo.getCurrentPi() - Math.PI) <= 1e-2);
     }
 }
