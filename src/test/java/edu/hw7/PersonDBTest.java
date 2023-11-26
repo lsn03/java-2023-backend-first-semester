@@ -23,7 +23,6 @@ public class PersonDBTest {
 
     @ParameterizedTest
     @MethodSource("database")
-
     public void cacheDbTest(PersonDatabase database) {
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
@@ -58,6 +57,6 @@ public class PersonDBTest {
                 }
             }
         });
-
+        executorService.close();
     }
 }

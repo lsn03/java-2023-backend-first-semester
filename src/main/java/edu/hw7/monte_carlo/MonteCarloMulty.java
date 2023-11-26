@@ -9,28 +9,35 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MonteCarloMulty extends MonteCarlo {
 
-    int numThreads;
+    private int numThreads;
+
 
     public MonteCarloMulty(int numThreads, long iterations, double radius, Coordinate circleCenter) {
         super(iterations,
                 radius,
-                circleCenter,
-                null);
+                circleCenter);
+        this.numThreads = numThreads;
+
+    }
+
+    public MonteCarloMulty(int numThreads, long iterations, double radius) {
+        this(numThreads, iterations, radius, new Coordinate(0, 0));
+    }
+
+    @Override
+    public void setIterations(long iterations) {
+        super.setIterations(iterations);
+    }
+
+    public void setNumThreads(int numThreads) {
         this.numThreads = numThreads;
     }
 
-
     @Override
-    protected Coordinate generateCoordinate() {
-        double x = ThreadLocalRandom.current().nextDouble(-radius, radius);
-        double y = ThreadLocalRandom.current().nextDouble(-radius, radius);
-        return new Coordinate(x, y);
+    public Duration getDurationBetween() {
+        return super.getDurationBetween();
     }
 
-    @Override
-    protected boolean checkThatCoordinateInside(Coordinate coordinate) {
-        return super.checkThatCoordinateInside(coordinate);
-    }
 
     @Override
     public void solve() {
@@ -59,13 +66,15 @@ public class MonteCarloMulty extends MonteCarlo {
 
         executorService.shutdown();
 
-        double currentPi = calculatePi();
+        currentPi = calculatePi();
 
         LocalDateTime end = LocalDateTime.now();
-        Duration duration = Duration.between(start, end);
-        Report report = new Report(numThreads, currentPi, iterations, duration);
+        durationBetween = Duration.between(start, end);
+
+        Report report = new Report(numThreads, currentPi, iterations, durationBetween);
         report.showReport();
 
+        executorService.close();
     }
 
     private long runMonteCarlo(long iterations) {
@@ -82,15 +91,22 @@ public class MonteCarloMulty extends MonteCarlo {
     }
 
     @Override
-    double calculatePi() {
+    protected double calculatePi() {
         return super.calculatePi();
     }
 
-    public static void main(String[] args) {
-        MonteCarlo monteCarlo = new MonteCarloMulty(1,1_000_000_000, 2, new Coordinate(0, 0));
+    @Override
+    protected Coordinate generateCoordinate() {
 
-        monteCarlo.solve();
-        String s;
-        s.equals()
+        double x = ThreadLocalRandom.current().nextDouble(-radius, radius);
+        double y = ThreadLocalRandom.current().nextDouble(-radius, radius);
+        return new Coordinate(x, y);
     }
+
+    @Override
+    protected boolean checkThatCoordinateInside(Coordinate coordinate) {
+        return super.checkThatCoordinateInside(coordinate);
+    }
+
+
 }

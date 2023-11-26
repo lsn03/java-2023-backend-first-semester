@@ -2,20 +2,26 @@ package edu.hw7.monte_carlo;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MonteCarloSingle extends MonteCarlo {
 
     public MonteCarloSingle(long iterations, double radius, Coordinate circleCenter) {
-        super(iterations, radius, circleCenter, new Random());
+        super(iterations, radius, circleCenter);
     }
 
     public MonteCarloSingle(long iterations, double radius) {
         this(iterations, radius, new Coordinate(0, 0));
     }
 
+    @Override
     public void setIterations(long iterations) {
-        this.iterations = iterations;
+        super.setIterations(iterations);
+    }
+
+    @Override
+    public Duration getDurationBetween() {
+        return super.getDurationBetween();
     }
 
     @Override
@@ -28,17 +34,17 @@ public class MonteCarloSingle extends MonteCarlo {
                 pointsInside++;
             }
         }
-        double currentPi = calculatePi();
+        currentPi = calculatePi();
         LocalDateTime end = LocalDateTime.now();
-        Duration duration = Duration.between(start, end);
-        Report report = new Report(currentPi, iterations, duration);
+        durationBetween = Duration.between(start, end);
+        Report report = new Report(currentPi, iterations, durationBetween);
         report.showReport();
     }
 
     @Override
     protected Coordinate generateCoordinate() {
-        double x = randomGenerator.nextDouble(-radius, radius);
-        double y = randomGenerator.nextDouble(-radius, radius);
+        double x = ThreadLocalRandom.current().nextDouble(-radius, radius);
+        double y = ThreadLocalRandom.current().nextDouble(-radius, radius);
         return new Coordinate(x, y);
     }
 
@@ -48,15 +54,9 @@ public class MonteCarloSingle extends MonteCarlo {
     }
 
     @Override
-    double calculatePi() {
+    protected double calculatePi() {
         return super.calculatePi();
     }
 
-    public static void main(String[] args) {
-        MonteCarlo monteCarlo = new MonteCarloSingle(1_000_000_000, 2);
-
-        monteCarlo.solve();
-
-    }
 
 }

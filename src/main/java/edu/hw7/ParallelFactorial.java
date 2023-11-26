@@ -5,6 +5,9 @@ import java.util.OptionalLong;
 import java.util.stream.LongStream;
 
 public final class ParallelFactorial {
+    private static final int MAX_N = 20;
+    private static final int MIN_N = 1;
+
     private ParallelFactorial() {
     }
 
@@ -17,7 +20,7 @@ public final class ParallelFactorial {
 
     private static void validate(Integer n) {
         Objects.requireNonNull(n);
-        if (n < 1 || n > 20) {
+        if (n < MIN_N || n > MAX_N) {
             throw new IllegalArgumentException();
         }
     }

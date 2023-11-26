@@ -5,12 +5,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Counter {
     private final AtomicInteger value = new AtomicInteger(0);
-    private final int NUM_THREADS;
-    private final int INCREMENTS_PER_THREAD;
+    private final int numThreads;
+    private final int incrementsPerThread;
 
-    public Counter(int NUM_THREADS, int INCREMENTS_PER_THREAD) {
-        this.NUM_THREADS = NUM_THREADS;
-        this.INCREMENTS_PER_THREAD = INCREMENTS_PER_THREAD;
+    public Counter(int numThreads, int incrementsPerThread) {
+        this.numThreads = numThreads;
+        this.incrementsPerThread = incrementsPerThread;
     }
 
     public int getValue() {
@@ -19,12 +19,12 @@ public class Counter {
 
     public void runIncrementThreads() throws InterruptedException {
 
-        CountDownLatch latch = new CountDownLatch(NUM_THREADS);
+        CountDownLatch latch = new CountDownLatch(numThreads);
 
-        Thread[] threads = new Thread[NUM_THREADS];
-        for (int i = 0; i < NUM_THREADS; i++) {
+        Thread[] threads = new Thread[numThreads];
+        for (int i = 0; i < numThreads; i++) {
             threads[i] = new Thread(() -> {
-                for (int j = 0; j < INCREMENTS_PER_THREAD; j++) {
+                for (int j = 0; j < incrementsPerThread; j++) {
                     value.incrementAndGet();
                 }
                 latch.countDown();
