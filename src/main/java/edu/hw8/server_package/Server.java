@@ -101,21 +101,24 @@ public class Server {
             case "оскорбления" ->
                     "Если твои противники перешли на личные оскорбления, будь уверена — твоя победа не за горами";
             case "глупый" ->
-                    "А я тебе говорил, что ты глупый? Так вот, я забираю свои слова обратно... Ты просто бог идиотизма.";
+                    "А я тебе говорил, что ты глупый? "
+                            + "Так вот, я забираю свои слова обратно... Ты просто бог идиотизма.";
             case "интеллект" -> "Чем ниже интеллект, тем громче оскорбления";
             default -> "Неизвестный запрос";
         };
 
     }
 
-    private void validate(Integer portValidate, Integer connectionsValidate) {
-        Objects.requireNonNull(portValidate);
-        Objects.requireNonNull(connectionsValidate);
+    private void validate(Integer port, Integer connections) {
+        Objects.requireNonNull(port);
+        Objects.requireNonNull(connections);
 
-        int port = portValidate;
-        int connection = connectionsValidate;
-        if (port < 0 || port > Configuration.MAX_PORT || connection < 0 || connection > Configuration.DEFAULT_CONNECTIONS) {
+
+        if (port < 0 || port > Configuration.MAX_PORT
+                || connections < 0 || connections > Configuration.DEFAULT_CONNECTIONS) {
+
             throw new IllegalArgumentException();
         }
+
     }
 }
