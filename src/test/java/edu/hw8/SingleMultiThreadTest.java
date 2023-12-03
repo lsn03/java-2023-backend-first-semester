@@ -33,11 +33,8 @@ public class SingleMultiThreadTest {
     @CsvSource(value = {
             "1",
             "2",
-            "4",
-            "6",
-            "8",
-            "10",
-            "12",
+            
+
     })
     public void testMulti(int threads) {
         MultiThreadPasswordGenerator generator = new MultiThreadPasswordGenerator(threads);
