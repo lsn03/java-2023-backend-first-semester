@@ -33,7 +33,7 @@ public class SingleMultiThreadTest {
     @CsvSource(value = {
             "1",
             "2",
-            
+
 
     })
     public void testMulti(int threads) {

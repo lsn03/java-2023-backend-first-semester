@@ -1,7 +1,6 @@
 package edu.hw8;
 
 import edu.hw8.server_package.Client;
-import edu.hw8.server_package.Configuration;
 import edu.hw8.server_package.Server;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
