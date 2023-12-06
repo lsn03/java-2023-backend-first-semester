@@ -13,12 +13,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-public class MultiThreadPasswordGenerator {
+public class MultiThreadPasswordGenerator extends AbstractPasswordGenerator {
 
 
-    private final int length;
-    private final Map<String, String> passwordDatabase;
-    private final Map<String, String> foundPasswords = Collections.synchronizedMap(new HashMap<>());
     private final int threads;
 
     public MultiThreadPasswordGenerator(Integer threads) {
@@ -30,16 +27,16 @@ public class MultiThreadPasswordGenerator {
     }
 
     public MultiThreadPasswordGenerator(Integer length, Integer threads, Map<String, String> passwordDatabase) {
-        validate(length, threads, passwordDatabase);
-        this.length = length;
+        super(length, passwordDatabase);
+
+        validate(threads);
         this.threads = threads;
-        this.passwordDatabase = passwordDatabase;
+        foundPasswords = Collections.synchronizedMap(new HashMap<>());
+
     }
 
 
     public void launch() {
-
-        int maxCombinations = (int) Math.pow(MyUtility.ALPHABET.length(), length);
         int combinationPerThread = maxCombinations / threads;
 
         ExecutorService executorService = Executors.newFixedThreadPool(threads);
@@ -53,37 +50,23 @@ public class MultiThreadPasswordGenerator {
             futures.add(future);
         }
 
-
         executorService.shutdown();
 
         try {
-
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
-    public Map<String, String> getFoundPasswords() {
-        return foundPasswords;
-    }
 
-    private void validate(Integer length, Integer threads, Map<String, String> passwordDatabase) {
-        Objects.requireNonNull(length);
+    private void validate(Integer threads) {
         Objects.requireNonNull(threads);
-        Objects.requireNonNull(length);
 
-        if (length < 0 || length > MyUtility.MAX_PASSWORD_LENGTH) {
-            throw new IllegalArgumentException();
-        }
         if (threads < 0 || threads > Runtime.getRuntime().availableProcessors()) {
             throw new IllegalArgumentException();
         }
-        if (passwordDatabase.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
+
     }
 
     private class PasswordGeneratorTask implements Callable<Void> {
@@ -97,23 +80,7 @@ public class MultiThreadPasswordGenerator {
 
         @Override
         public Void call() {
-            StringBuilder password = new StringBuilder(length);
-            char[] charsetArray = MyUtility.ALPHABET.toCharArray();
-
-            for (int i = start; i < end; i++) {
-                int current = i;
-                password.setLength(0);
-
-                for (int j = 0; j < length; j++) {
-                    password.append(charsetArray[current % MyUtility.ALPHABET.length()]);
-                    current /= MyUtility.ALPHABET.length();
-                }
-
-                String hash = MyUtility.hashMD5(password.toString());
-                if (passwordDatabase.containsKey(hash)) {
-                    foundPasswords.put(passwordDatabase.get(hash), password.toString());
-                }
-            }
+            generatePasswords(start, end);
 
             return null;
         }
