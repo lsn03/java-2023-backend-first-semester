@@ -10,7 +10,10 @@ public class AffineTransformation implements Transformation {
     private double a, b, c, d, e, f;
     private final Random random = ThreadLocalRandom.current();
 
+
+
     public AffineTransformation() {
+
         do {
             a = generateRandom();
             b = generateRandom();

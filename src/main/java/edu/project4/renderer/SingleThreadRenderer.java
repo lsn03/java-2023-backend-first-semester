@@ -15,16 +15,18 @@ public class SingleThreadRenderer implements Renderer {
     public static final int HIGH_BOUND = 256;
     private final Random random;
 
-    public SingleThreadRenderer(long seed) {
-        random = new Random(seed);
-    }
+//    public SingleThreadRenderer(long seed) {
+//        random = new Random(seed);
+//
+//    }
 
     public SingleThreadRenderer() {
         random = ThreadLocalRandom.current();
+
     }
 
     @Override
-    public FractalImage render(FractalImage canvas, Rect world, List<Transformation> variations, int samples, int iterPerSample, long seed) {
+    public FractalImage render(FractalImage canvas, Rect world, List<Transformation> variations, int samples, int iterPerSample) {
 
         for (int num = 0; num < samples; ++num) {
             Point mainPoint = randomPoint(world);
@@ -112,9 +114,12 @@ public class SingleThreadRenderer implements Renderer {
             int updatedG = sourcePixel.g();
             int updatedB = sourcePixel.b();
 
-//            updatedR = (updatedR + direction()) % HIGH_BOUND;
-//            updatedG = (updatedG + direction()) % HIGH_BOUND;
-//            updatedB = (updatedB + direction()) % HIGH_BOUND;
+            if (targetPixel.hitCount() != 0) {
+                updatedR = (updatedR + targetPixel.r()) / 2 + direction() % HIGH_BOUND;
+                updatedG = (updatedG + targetPixel.g()) / 2 + direction() % HIGH_BOUND;
+                updatedB = (updatedB + targetPixel.b()) / 2 + direction() % HIGH_BOUND;
+            }
+
 
             Pixel newPixel = new Pixel(updatedR, updatedG, updatedB, updatedHitCount);
             canvas.data()[y][x] = newPixel;
@@ -124,7 +129,7 @@ public class SingleThreadRenderer implements Renderer {
 
     private int direction() {
         var bool = random.nextBoolean();
-        return bool ? 2 : -2;
+        return bool ? 10 : -2;
     }
 
     private Pixel setPixelColor(Pixel pixel) {

@@ -6,7 +6,7 @@ import edu.project4.transformation.Transformation;
 import java.util.List;
 
 public interface Renderer {
-    default FractalImage render(FractalImage canvas, Rect world, List<Transformation> variations, int samples, int iterPerSample, long seed) {
+    default FractalImage render(FractalImage canvas, Rect world, List<Transformation> variations, int samples, int iterPerSample) {
 //        for (int num = 0; num < samples; ++num) {
 //            Point pw = random(world);
 //
