@@ -1,15 +1,21 @@
 package edu.project4.transformation;
 
 import edu.project4.skelet.Point;
-import static edu.project4.transformation.TransformationUtils.getSumSquare;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import static edu.project4.transformation.TransformationUtils.getSumSquare;
 
 public class AffineTransformation implements Transformation {
 
-    private double a, b, c, d, e, f;
+    public static final int LOW_BOUND = -1;
+    public static final double HIGH_BOUND = 1.01;
+    private double a;
+    private double b;
+    private double c;
+    private double d;
+    private double e;
+    private double f;
     private final Random random = ThreadLocalRandom.current();
-
 
 
     public AffineTransformation() {
@@ -35,7 +41,7 @@ public class AffineTransformation implements Transformation {
     }
 
     private double generateRandom() {
-        return random.nextDouble(-1, 1.01);
+        return random.nextDouble(LOW_BOUND, HIGH_BOUND);
     }
 
     private boolean isValid(double a, double b, double d, double e) {
