@@ -7,6 +7,7 @@ import edu.project4.transformation.TransformationUtils;
 public class HeartTransformation implements Transformation {
     @Override
     public Point apply(Point point) {
+        validate(point);
         var sqrtFromSum = Math.sqrt(TransformationUtils.getSumSquare(point.x(), point.y()));
 
         var x = sqrtFromSum * Math.sin(sqrtFromSum * Math.atan(point.y() / point.x()));

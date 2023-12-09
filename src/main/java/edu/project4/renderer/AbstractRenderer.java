@@ -6,6 +6,7 @@ import edu.project4.skelet.Point;
 import edu.project4.skelet.Rect;
 import edu.project4.transformation.Transformation;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class AbstractRenderer implements Renderer {
@@ -79,6 +80,18 @@ public abstract class AbstractRenderer implements Renderer {
         return new int[]{x, y};
     }
 
+    protected void validateRenderData(FractalImage canvas, Rect world, List<Transformation> variations,
+                                      int samples, int iterPerSample) {
+        Objects.requireNonNull(canvas);
+        Objects.requireNonNull(world);
+        Objects.requireNonNull(variations);
+        if (variations.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        if (samples < 0 || iterPerSample < 0) {
+            throw new IllegalArgumentException();
+        }
+    }
 
     protected int generateRandomColorComponent() {
         return random.nextInt(HIGH_BOUND);

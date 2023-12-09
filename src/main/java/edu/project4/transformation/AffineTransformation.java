@@ -35,6 +35,7 @@ public class AffineTransformation implements Transformation {
 
     @Override
     public Point apply(Point point) {
+        validate(point);
         double x = a * point.x() + b * point.y() + c;
         double y = d * point.x() + e * point.y() + f;
         return new Point(x, y);

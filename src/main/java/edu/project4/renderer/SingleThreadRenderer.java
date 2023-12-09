@@ -30,7 +30,7 @@ public class SingleThreadRenderer extends AbstractRenderer {
     @Override
     public FractalImage render(FractalImage canvas, Rect world, List<Transformation> variations,
                                int samples, int iterPerSample) {
-
+        super.validateRenderData(canvas, world, variations, samples, iterPerSample);
         for (int num = 0; num < samples; ++num) {
             Point mainPoint = randomPoint(world);
 

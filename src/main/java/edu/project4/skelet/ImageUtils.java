@@ -1,10 +1,11 @@
 package edu.project4.skelet;
 
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Objects;
 import javax.imageio.ImageIO;
+
 
 public final class ImageUtils {
     private static final int HIGH_BOUND = 256;
@@ -20,7 +21,7 @@ public final class ImageUtils {
     }
 
     public static void gammaCorrection(FractalImage canvas, double gamma) {
-//        TODO: validate gamma
+        validate(canvas, gamma);
 
         double max = Double.MIN_VALUE;
 
@@ -57,7 +58,10 @@ public final class ImageUtils {
 
     }
 
+
     public static void save(FractalImage image, Path filename, ImageFormat format) {
+        validate(image, filename, format);
+
         BufferedImage bufferedImage = convertToBufferedImage(image);
 
         try {
@@ -77,5 +81,24 @@ public final class ImageUtils {
             }
         }
         return bufferedImage;
+    }
+
+    private static void validate(FractalImage canvas, Path filename, ImageFormat format) {
+        validate(canvas, 1);
+
+        Objects.requireNonNull(filename);
+        Objects.requireNonNull(format);
+        String fileNameString = filename.toString();
+        if (fileNameString.isBlank() || fileNameString.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+
+    private static void validate(FractalImage canvas, double gamma) {
+        Objects.requireNonNull(canvas);
+        if (gamma < 0) {
+            throw new IllegalArgumentException();
+        }
     }
 }

@@ -7,6 +7,8 @@ import edu.project4.skelet.Rect;
 import edu.project4.transformation.Transformation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -23,14 +25,22 @@ public class MultiThreadRenderer extends AbstractRenderer {
     }
 
     public MultiThreadRenderer(int threads, int symmetry) {
-        random = ThreadLocalRandom.current();
+        this(threads, symmetry, ThreadLocalRandom.current());
+    }
+
+    public MultiThreadRenderer(int threads, int symmetry, Random random) {
+        validateConstructorArgs(random, threads, symmetry);
+        this.random = random;
         this.threads = threads;
         this.symmetry = symmetry;
     }
 
+
     @Override
     public FractalImage render(FractalImage canvas, Rect world, List<Transformation> variations,
                                int samples, int iterPerSample) {
+        super.validateRenderData(canvas, world, variations, samples, iterPerSample);
+
         ExecutorService executorService = Executors.newFixedThreadPool(threads);
         List<Future<Void>> futures = new ArrayList<>();
 
@@ -55,6 +65,7 @@ public class MultiThreadRenderer extends AbstractRenderer {
         executorService.shutdown();
         return canvas;
     }
+
 
     private void renderPoint(FractalImage canvas, Rect world, List<Transformation> variations,
                              int start, int end, int iterPerSample) {
@@ -88,6 +99,18 @@ public class MultiThreadRenderer extends AbstractRenderer {
                     sourcePixel = mapRange(world, rotatedMainPoint, canvas);
                 }
             }
+        }
+    }
+
+
+
+    private void validateConstructorArgs(Random random, int threads, int symmetry) {
+        Objects.requireNonNull(random);
+        if (threads < 0 || threads > Runtime.getRuntime().availableProcessors()) {
+            throw new IllegalArgumentException();
+        }
+        if (symmetry < 0) {
+            throw new IllegalArgumentException();
         }
     }
 }
