@@ -35,7 +35,7 @@ public class ProfilerTest {
             "1",
             "2",
             "4",
-            
+
     })
     public void threadsPerfomanceTest(int threads) {
         AbstractRenderer renderer = new MultiThreadRenderer(threads, symmetry);
