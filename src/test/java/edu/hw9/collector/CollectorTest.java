@@ -49,7 +49,7 @@ public class CollectorTest {
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+           throw new RuntimeException(e);
         }
         var stats = collector.stats();
         assertEquals(N, stats.size());

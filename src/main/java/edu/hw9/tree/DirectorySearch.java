@@ -14,11 +14,10 @@ public class DirectorySearch extends RecursiveTask<List<Path>> {
     private final Integer amount;
 
     public DirectorySearch(Path directory, Integer amount) {
-        validate(directory,amount);
+        validate(directory, amount);
         this.directory = directory;
         this.amount = amount;
     }
-
 
 
     public List<Path> launch() {
@@ -46,7 +45,7 @@ public class DirectorySearch extends RecursiveTask<List<Path>> {
 
         List<Path> result = new ArrayList<>();
         if (fileCount >= amount) {
-            result.add(directory );
+            result.add(directory);
         }
 
         for (var task : subtasks) {
@@ -55,13 +54,14 @@ public class DirectorySearch extends RecursiveTask<List<Path>> {
 
         return result;
     }
+
     private void validate(Path directory, Integer amount) {
         Objects.requireNonNull(directory);
         Objects.requireNonNull(amount);
-        if(amount<0){
+        if (amount < 0) {
             throw new IllegalArgumentException();
         }
-        if(directory.toString().isEmpty() || directory.toString().isBlank()){
+        if (directory.toString().isEmpty() || directory.toString().isBlank()) {
             throw new IllegalArgumentException();
         }
     }

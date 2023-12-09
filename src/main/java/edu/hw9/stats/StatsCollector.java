@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 public class StatsCollector {
     private final Map<String, List<Double>> metrics;
@@ -33,7 +32,8 @@ public class StatsCollector {
         lock.lock();
         try {
 
-            metrics.computeIfAbsent(metricName, k -> new ArrayList<>()).addAll(Arrays.stream(values).boxed().collect(Collectors.toList()));
+            metrics.computeIfAbsent(metricName, k -> new ArrayList<>())
+                    .addAll(Arrays.stream(values).boxed().toList());
 
 
         } finally {

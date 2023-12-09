@@ -1,7 +1,5 @@
 package edu.hw9.tree;
 
-import java.io.File;
-
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -24,7 +22,7 @@ public class FileSearch extends RecursiveTask<List<Path>> {
 
     }
 
-    public List<Path> launch(){
+    public List<Path> launch() {
         return compute();
     }
 
@@ -32,14 +30,14 @@ public class FileSearch extends RecursiveTask<List<Path>> {
     protected List<Path> compute() {
         List<FileSearch> subtasks = new ArrayList<>();
         List<Path> answer = new ArrayList<>();
-        try(DirectoryStream<Path> stream = Files.newDirectoryStream(directory)){
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
             for (var path : stream) {
-                if(Files.isDirectory(path)){
-                    var subtask = new FileSearch(path,extension,size);
+                if (Files.isDirectory(path)) {
+                    var subtask = new FileSearch(path, extension, size);
                     subtask.fork();
                     subtasks.add(subtask);
-                }else{
-                    if(path.toString().endsWith(extension)&&Files.size(path)>size){
+                } else {
+                    if (path.toString().endsWith(extension) && Files.size(path) > size) {
                         answer.add(path);
                     }
                 }
@@ -53,12 +51,5 @@ public class FileSearch extends RecursiveTask<List<Path>> {
         return answer;
     }
 
-    public static void main(String[] args) {
-        Path path = Path.of("src/main/resources/temp_dir/predicate");
-        FileSearch fileSearch = new FileSearch(path,".txt",0);
-        var ans =  fileSearch.launch();
-        for (var elem : ans) {
-            System.out.println(elem);
-        }
-    }
+
 }

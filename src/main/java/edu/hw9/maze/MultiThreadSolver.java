@@ -24,7 +24,7 @@ public class MultiThreadSolver extends BFSSolver {
     public void close() {
         executorService.shutdown();
         try {
-            executorService.awaitTermination(10, TimeUnit.SECONDS);
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -77,6 +77,7 @@ public class MultiThreadSolver extends BFSSolver {
 
     }
 
+    @SuppressWarnings("ParameterAssignment")
     private List<Coordinate> reconstructPath(int startRow, int startCol, int currentRow, int currentCol) {
         List<Coordinate> path = new ArrayList<>();
         while (currentRow != startRow || currentCol != startCol) {
