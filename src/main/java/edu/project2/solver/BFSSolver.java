@@ -6,21 +6,23 @@ import edu.project2.maze_sekelet.Maze;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 
 public class BFSSolver implements Solver {
 
-    private final int height;
-    private final int width;
-    private final Cell[][] grid;
-    private boolean[][] visited;
-    private Queue<Coordinate> queue;
-    private int[][] parentRow;
-    private int[][] parentCol;
-    private final int[] directionRow;
-    private final int[] directionCol;
+    protected final int height;
+    protected final int width;
+    protected final Cell[][] grid;
+    protected boolean[][] visited;
+    protected Queue<Coordinate> queue;
+    protected int[][] parentRow;
+    protected int[][] parentCol;
+    protected final int[] directionRow;
+    protected final int[] directionCol;
 
     public BFSSolver(Maze maze) {
+        Objects.requireNonNull(maze);
         height = maze.getHeight();
         width = maze.getWidth();
         grid = maze.getGrid();
@@ -83,14 +85,14 @@ public class BFSSolver implements Solver {
         return List.of();
     }
 
-    private void initializer() {
+    protected void initializer() {
         visited = new boolean[height][width];
         queue = new LinkedList<>();
         parentRow = new int[height][width];
         parentCol = new int[height][width];
     }
 
-    private void checkNeighbors(int currentRow, int currentCol) {
+    protected void checkNeighbors(int currentRow, int currentCol) {
         for (int i = 0; i < directionCol.length; i++) {
             int newRow = currentRow + directionRow[i];
             int newCol = currentCol + directionCol[i];
@@ -109,11 +111,11 @@ public class BFSSolver implements Solver {
         }
     }
 
-    private boolean checkThatCellInTHeMaze(int newRow, int newCol) {
+    protected boolean checkThatCellInTHeMaze(int newRow, int newCol) {
         return newRow >= 0 && newRow < height && newCol >= 0 && newCol < width;
     }
 
-    private boolean checkThatCellIsPassage(int newRow, int newCol) {
+    protected boolean checkThatCellIsPassage(int newRow, int newCol) {
         return grid[newRow][newCol].type() == Cell.Type.PASSAGE;
     }
 }
