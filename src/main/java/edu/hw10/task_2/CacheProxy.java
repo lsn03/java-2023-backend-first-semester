@@ -165,7 +165,9 @@ public final class CacheProxy implements InvocationHandler {
 
     private static void createFile(Path path) {
         try {
-            Files.createFile(path);
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

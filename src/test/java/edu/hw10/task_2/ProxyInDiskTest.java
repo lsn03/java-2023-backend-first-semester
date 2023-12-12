@@ -42,7 +42,7 @@ public class ProxyInDiskTest {
     }
 
     @Test
-    public void inMemoryTest2() {
+    public void inDiskTest2() {
         String pathToDir = "src/test/resources/hw10/";
         String fullPath = "src/test/resources/hw10/" + FibImpl.class.getSimpleName() + ".txt";
         Path path = Path.of(pathToDir);
@@ -68,7 +68,7 @@ public class ProxyInDiskTest {
     }
 
     @Test
-    public void inMemoryTest3() {
+    public void inDiskTest3() {
         String pathToDir = "src/test/resources/hw10/";
         String fullPath = "src/test/resources/hw10/" + FibImpl.class.getSimpleName() + ".txt";
         List<String> expectedList = new ArrayList<>();
