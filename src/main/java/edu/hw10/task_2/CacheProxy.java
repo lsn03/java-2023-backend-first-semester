@@ -7,6 +7,7 @@ import java.lang.reflect.Proxy;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class CacheProxy implements InvocationHandler {
     private final Object target;
     private final String pathToDirectory;
-    private final Map<Method, Map<Object, Object>> inMemoryCache;
+    private final Map<Object, Object> inMemoryCache;
 
     private CacheProxy(Object target, String pathToDirectory) {
         this.target = target;
@@ -37,6 +38,18 @@ public class CacheProxy implements InvocationHandler {
                 new CacheProxy(target, pathToDirectory));
     }
 
+    public Object getTarget() {
+        return target;
+    }
+
+    public String getPathToDirectory() {
+        return pathToDirectory;
+    }
+
+    public Map<Object, Object> getInMemoryCache() {
+        return inMemoryCache;
+    }
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Cache cache = method.getAnnotation(Cache.class);
@@ -51,26 +64,20 @@ public class CacheProxy implements InvocationHandler {
     }
 
     private Object cacheToMemory(Method method, Object[] args) {
-        var methodCache = inMemoryCache.get(method);
-        Object value = args[0];
-        if (methodCache == null) {
-            methodCache = new HashMap<>();
-        }
+        int argsHashCode = Arrays.hashCode(args);
+        if (inMemoryCache.containsKey(argsHashCode)) {
+            return inMemoryCache.get(argsHashCode);
 
-        if (methodCache.containsKey(value)) {
-            return methodCache.get(value);
         } else {
             try {
                 Object result = method.invoke(target, args);
-                methodCache.put(value, result);
-                inMemoryCache.put(method, methodCache);
+                inMemoryCache.put(argsHashCode, result);
                 return result;
             } catch (ReflectiveOperationException e) {
                 throw new RuntimeException(e);
             }
+
         }
-
-
     }
 
     private Object cacheToDisk(Method method, Object[] args, String filePath) {
@@ -86,13 +93,14 @@ public class CacheProxy implements InvocationHandler {
         }
 
         try {
-            var results = readDataFromFile(method.getReturnType(), path);
-            Object value = castValue(args[0], method.getReturnType());
-            if (results.containsKey(value)) {
-                return results.get(value);
+            var returnType = method.getReturnType();
+            var results = readDataFromFile(returnType, path);
+            Object argsHashCode = castValue(Arrays.hashCode(args), returnType);
+            if (results.containsKey(argsHashCode)) {
+                return results.get(argsHashCode);
             } else {
                 Object result = method.invoke(target, args);
-                results.put(value, result);
+                results.put(argsHashCode, result);
                 writeDataToFile(path, results);
                 return result;
             }
@@ -168,18 +176,18 @@ public class CacheProxy implements InvocationHandler {
     }
 
     public static void main(String[] args) {
-//        FibImpl fib = new FibImpl();
-//        FibCalculator fibProxy = CacheProxy.create(fib, FibCalculator.class, "src/main/resources/");
-//        System.out.println(fibProxy.fib(7));
-////        fibProxy.fib(5);
-//        System.out.println(fibProxy.fib(7));
-//        System.out.println(fibProxy.fib(8));
-//        System.out.println(fibProxy.fib(9));
-        SquaratorImpl summator = new SquaratorImpl();
-        Squarator summatorProxy = CacheProxy.create(summator, Squarator.class);
-        System.out.println(summatorProxy.square(5));
-        System.out.println(summatorProxy.square(5));
-        System.out.println(summatorProxy.square(5));
-        System.out.println(summatorProxy.square(25));
+        FibImpl fib = new FibImpl();
+        FibCalculator fibProxy = CacheProxy.create(fib, FibCalculator.class, "src/main/resources/");
+        System.out.println(fibProxy.fib(7));
+
+        System.out.println(fibProxy.fib(7));
+        System.out.println(fibProxy.fib(8));
+        System.out.println(fibProxy.fib(9));
+        SummatorImpl summator = new SummatorImpl();
+        Summator summatorProxy = CacheProxy.create(summator, Summator.class);
+        System.out.println(summatorProxy.summ(5, 5));
+        System.out.println(summatorProxy.summ(5, 5));
+        System.out.println(summatorProxy.summ(5, 10));
+        System.out.println(summatorProxy.summ(25, 25));
     }
 }
