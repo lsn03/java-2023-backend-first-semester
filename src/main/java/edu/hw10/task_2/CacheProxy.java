@@ -18,6 +18,8 @@ public class CacheProxy implements InvocationHandler {
     private final String pathToDirectory;
     private final Map<Object, Object> inMemoryCache;
 
+    private boolean lastRequestFromInvoke = false;
+
     private CacheProxy(Object target, String pathToDirectory) {
         this.target = target;
         this.pathToDirectory = pathToDirectory;
@@ -25,25 +27,19 @@ public class CacheProxy implements InvocationHandler {
     }
 
     public static <T> T create(Object target, Class<?> interfac) {
-        return (T) Proxy.newProxyInstance(interfac.getClassLoader(),
-                new Class<?>[]{interfac},
-//                , target.getClass().getInterfaces(),
-                new CacheProxy(target, ""));
+        return create(target, interfac, "");
     }
 
     public static <T> T create(Object target, Class<?> interfac, String pathToDirectory) {
+        validate(target, interfac, pathToDirectory);
         return (T) Proxy.newProxyInstance(interfac.getClassLoader(),
                 new Class<?>[]{interfac},
-//                , target.getClass().getInterfaces(),
                 new CacheProxy(target, pathToDirectory));
     }
 
-    public Object getTarget() {
-        return target;
-    }
 
-    public String getPathToDirectory() {
-        return pathToDirectory;
+    public boolean isLastRequestFromInvoke() {
+        return lastRequestFromInvoke;
     }
 
     public Map<Object, Object> getInMemoryCache() {
@@ -66,12 +62,13 @@ public class CacheProxy implements InvocationHandler {
     private Object cacheToMemory(Method method, Object[] args) {
         int argsHashCode = Arrays.hashCode(args);
         if (inMemoryCache.containsKey(argsHashCode)) {
+            lastRequestFromInvoke = false;
             return inMemoryCache.get(argsHashCode);
-
         } else {
             try {
                 Object result = method.invoke(target, args);
                 inMemoryCache.put(argsHashCode, result);
+                lastRequestFromInvoke = true;
                 return result;
             } catch (ReflectiveOperationException e) {
                 throw new RuntimeException(e);
@@ -97,9 +94,11 @@ public class CacheProxy implements InvocationHandler {
             var results = readDataFromFile(returnType, path);
             Object argsHashCode = castValue(Arrays.hashCode(args), returnType);
             if (results.containsKey(argsHashCode)) {
+                lastRequestFromInvoke = false;
                 return results.get(argsHashCode);
             } else {
                 Object result = method.invoke(target, args);
+                lastRequestFromInvoke = true;
                 results.put(argsHashCode, result);
                 writeDataToFile(path, results);
                 return result;
@@ -145,7 +144,6 @@ public class CacheProxy implements InvocationHandler {
         } else if (returnType == double.class) {
             return Double.parseDouble(String.valueOf(stringValue));
         } else {
-
             return stringValue;
         }
     }
@@ -155,11 +153,9 @@ public class CacheProxy implements InvocationHandler {
             List<String> lines = new ArrayList<>();
 
             for (Map.Entry<Object, Object> entry : data.entrySet()) {
-
                 String line = entry.getKey() + ":" + entry.getValue();
                 lines.add(line);
             }
-
 
             Files.write(path, lines);
         } catch (IOException e) {
@@ -175,19 +171,11 @@ public class CacheProxy implements InvocationHandler {
         }
     }
 
-    public static void main(String[] args) {
-        FibImpl fib = new FibImpl();
-        FibCalculator fibProxy = CacheProxy.create(fib, FibCalculator.class, "src/main/resources/");
-        System.out.println(fibProxy.fib(7));
-
-        System.out.println(fibProxy.fib(7));
-        System.out.println(fibProxy.fib(8));
-        System.out.println(fibProxy.fib(9));
-        SummatorImpl summator = new SummatorImpl();
-        Summator summatorProxy = CacheProxy.create(summator, Summator.class);
-        System.out.println(summatorProxy.summ(5, 5));
-        System.out.println(summatorProxy.summ(5, 5));
-        System.out.println(summatorProxy.summ(5, 10));
-        System.out.println(summatorProxy.summ(25, 25));
+    private static void validate(Object target, Class<?> interfac, String pathToDirectory) {
+        Objects.requireNonNull(target);
+        Objects.requireNonNull(interfac);
+        Objects.requireNonNull(pathToDirectory);
     }
+
+
 }
