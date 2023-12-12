@@ -3,15 +3,13 @@ package edu.hw10.task_1;
 import edu.hw10.task_1.annotations.Max;
 import edu.hw10.task_1.annotations.Min;
 import edu.hw10.task_1.annotations.NotNull;
-import edu.hw10.task_1.example.CarClass;
-import edu.hw10.task_1.example.PersonClass;
-import edu.hw10.task_1.example.PersonRecord;
 import edu.hw10.task_1.example.Rogable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
+import java.util.Objects;
 import java.util.Random;
 
 public class RandomObjectGenerator {
@@ -53,9 +51,7 @@ public class RandomObjectGenerator {
 
 
     public <T extends Rogable> T nextObject(Class<T> clas, String factoryMethod) throws ReflectiveOperationException {
-        if (factoryMethod == null || factoryMethod.isEmpty() || factoryMethod.isBlank()) {
-            throw new IllegalArgumentException("Factory method is null or blank");
-        }
+        validate(clas, factoryMethod);
 
 
         Method[] methods = clas.getDeclaredMethods();
@@ -71,6 +67,14 @@ public class RandomObjectGenerator {
         }
 
         return (T) invokeFactoryMethod(targetFactoryMethod, clas.getDeclaredFields());
+    }
+
+    private static void validate(Class<?> clas, String factoryMethod) {
+        Objects.requireNonNull(clas);
+        if (factoryMethod == null || factoryMethod.isEmpty() || factoryMethod.isBlank()) {
+            throw new IllegalArgumentException("Factory method is null or blank");
+        }
+
     }
 
 
@@ -169,12 +173,14 @@ public class RandomObjectGenerator {
 
     private String generateString(int minLength, int maxLength) {
         validateMinMax(minLength, maxLength);
+        int newMin = minLength;
         if (minLength == Integer.MIN_VALUE) {
-            minLength = 0;
+            newMin = 0;
         }
-        maxLength = maxLength == Integer.MAX_VALUE ? minLength + 2 : maxLength;
+        int newMax = maxLength;
+        newMax = maxLength == Integer.MAX_VALUE ? newMin + 2 : maxLength;
 
-        int length = random.nextInt(minLength, maxLength);
+        int length = random.nextInt(newMin, newMax);
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < length; i++) {
@@ -211,15 +217,5 @@ public class RandomObjectGenerator {
         return Integer.MAX_VALUE;
     }
 
-    public static void main(String[] args) throws ReflectiveOperationException {
-        RandomObjectGenerator rog = new RandomObjectGenerator();
 
-        Rogable rogable1 = rog.nextObject(CarClass.class);
-        Rogable rogable2 = rog.nextObject(PersonClass.class, "create");
-        Rogable rogable3 = rog.nextObject(PersonRecord.class);
-        System.out.println(rogable1);
-        System.out.println(rogable2);
-        System.out.println(rogable3);
-
-    }
 }

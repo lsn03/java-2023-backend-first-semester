@@ -15,14 +15,6 @@ public class CarClass implements Rogable {
         this.maxSpeed = maxSpeed;
     }
 
-    public String getCarModel() {
-        return carModel;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
     @Override
     public String toString() {
         return "CarClass{"

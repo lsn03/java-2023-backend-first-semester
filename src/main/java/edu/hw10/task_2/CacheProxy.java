@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CacheProxy implements InvocationHandler {
+public final class CacheProxy implements InvocationHandler {
     private final Object target;
     private final String pathToDirectory;
     private final Map<Object, Object> inMemoryCache;

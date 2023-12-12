@@ -4,7 +4,7 @@ import edu.hw10.task_1.annotations.Max;
 import edu.hw10.task_1.annotations.Min;
 import edu.hw10.task_1.annotations.NotNull;
 
-public class PersonClass implements Rogable {
+public final class PersonClass implements Rogable {
     @NotNull
     @Max(5)
     private String name;
@@ -25,17 +25,6 @@ public class PersonClass implements Rogable {
         return new PersonClass(name, age, salary);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
 
     @Override
     public String toString() {
