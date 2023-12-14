@@ -1,13 +1,13 @@
 package edu.hw11;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import net.bytebuddy.jar.asm.ClassWriter;
 import net.bytebuddy.jar.asm.Label;
 import net.bytebuddy.jar.asm.MethodVisitor;
 import net.bytebuddy.jar.asm.Opcodes;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
-public class FibonnachiGenerator {
+public final class FibonacciGenerator {
 
 
     public static final int INDEX_OF_ONE_AT_EXIT = 1;
@@ -15,21 +15,21 @@ public class FibonnachiGenerator {
     public static final int FIB2_INDEX = 3;
     public static final int INDEX_I = 4;
     public static final int TEMP_VAR_INDEX = 5;
+    public static final String DESCRIPTOR_GET_EMPTY_RETURN_VOID = "()V";
+    public static final String JAVA_LANG_OBJECT = "java/lang/Object";
+    public static final int MAX_STACK = 6;
+    public static final int MAX_LOCALS = 7;
+    public static final String INIT = "<init>";
 
+    private FibonacciGenerator() {
+    }
 
     public static void generateFibClass(String filePath) throws IOException {
-//        var uloadedType = new ByteBuddy()
-//                .subclass(Object.class)
-//                .name("MyFibonacci")
-//                .defineMethod("fib",long.class, Opcodes.ACC_PUBLIC)
-//                .withParameter(int.class, "n" )
-//                .intercept(new FibMethodGen())
-//                .make();
 
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
-        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null);
+        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC, INIT, DESCRIPTOR_GET_EMPTY_RETURN_VOID, null, null);
 
-        cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, "Fibonacci", null, "java/lang/Object", null);
+        cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, "Fibonacci", null, JAVA_LANG_OBJECT, null);
 
         // default constructor
 
@@ -47,11 +47,11 @@ public class FibonnachiGenerator {
         mv.visitLabel(label1);
 
 //        create temp vars fib1 = fib2 = 1
-        CreateFib1Fib2EqualsOne(mv);
+        createFib1Fib2EqualsOne(mv);
 
 //        create for
         createFor(mv);
-        mv.visitMaxs(6, 7);
+        mv.visitMaxs(MAX_STACK, MAX_LOCALS);
         cw.visitEnd();
 
         byte[] bytes = cw.toByteArray();
@@ -105,7 +105,7 @@ public class FibonnachiGenerator {
 
         mv.visitCode();
         mv.visitVarInsn(Opcodes.ALOAD, 0);
-        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, JAVA_LANG_OBJECT, INIT, DESCRIPTOR_GET_EMPTY_RETURN_VOID, false);
         mv.visitInsn(Opcodes.RETURN);
         mv.visitMaxs(1, 1);
         mv.visitEnd();
@@ -120,7 +120,7 @@ public class FibonnachiGenerator {
         mv.visitInsn(Opcodes.IRETURN);
     }
 
-    private static void CreateFib1Fib2EqualsOne(MethodVisitor mv) {
+    private static void createFib1Fib2EqualsOne(MethodVisitor mv) {
         mv.visitInsn(Opcodes.ICONST_1);
         mv.visitVarInsn(Opcodes.ISTORE, FIB1_INDEX);
         mv.visitInsn(Opcodes.ICONST_1);

@@ -17,7 +17,7 @@ public class FIbGenTest {
 
     @BeforeAll
     public static void setup() throws Exception {
-        FibonnachiGenerator.generateFibClass("src/test/java/edu/hw11/");
+        FibonacciGenerator.generateFibClass("src/test/java/edu/hw11/");
         String className = "Fibonacci";
         Class<?> fibClass = new CustomClassLoader().defineClassFromFile(className, FILE_PATH);
         var constr = fibClass.getDeclaredConstructor();
