@@ -10,16 +10,16 @@ import net.bytebuddy.jar.asm.Opcodes;
 public final class FibonacciGenerator {
 
 
-    public static final int INDEX_OF_ONE_AT_EXIT = 1;
-    public static final int FIB1_INDEX = 2;
-    public static final int FIB2_INDEX = 3;
-    public static final int INDEX_I = 4;
-    public static final int TEMP_VAR_INDEX = 5;
-    public static final String DESCRIPTOR_GET_EMPTY_RETURN_VOID = "()V";
-    public static final String JAVA_LANG_OBJECT = "java/lang/Object";
-    public static final int MAX_STACK = 6;
-    public static final int MAX_LOCALS = 7;
-    public static final String INIT = "<init>";
+    private static final int INDEX_OF_ONE_AT_EXIT = 1;
+    private static final int FIB1_INDEX = 2;
+    private static final int FIB2_INDEX = 3;
+    private static final int INDEX_I = 4;
+    private static final int TEMP_VAR_INDEX = 5;
+    private static final String DESCRIPTOR_GET_EMPTY_RETURN_VOID = "()V";
+    private static final String JAVA_LANG_OBJECT = "java/lang/Object";
+    private static final int MAX_STACK = 6;
+    private static final int MAX_LOCALS = 7;
+    private static final String INIT = "<init>";
 
     private FibonacciGenerator() {
     }
