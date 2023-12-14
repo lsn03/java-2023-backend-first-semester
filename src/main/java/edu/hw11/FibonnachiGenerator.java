@@ -37,7 +37,7 @@ public class FibonnachiGenerator {
 
 
         // create fib
-        mv = cw.visitMethod(Opcodes.ACC_PUBLIC, "fib", "(I)J", null, null);
+        mv = cw.visitMethod(Opcodes.ACC_PUBLIC, "fib", "(I)I", null, null);
         mv.visitCode();
 
         Label label1 = new Label();
@@ -70,19 +70,19 @@ public class FibonnachiGenerator {
         mv.visitLabel(loopStart);
 
 //       temp = fib1+fib2
-        mv.visitVarInsn(Opcodes.LLOAD, FIB1_INDEX);
-        mv.visitVarInsn(Opcodes.LLOAD, FIB2_INDEX);
-        mv.visitInsn(Opcodes.LADD);
-        mv.visitVarInsn(Opcodes.LSTORE, TEMP_VAR_INDEX);
+        mv.visitVarInsn(Opcodes.ILOAD, FIB1_INDEX);
+        mv.visitVarInsn(Opcodes.ILOAD, FIB2_INDEX);
+        mv.visitInsn(Opcodes.IADD);
+        mv.visitVarInsn(Opcodes.ISTORE, TEMP_VAR_INDEX);
 
         // Swap values
 //        fib1 = fib2;
 //        fib2 = temp;
-        mv.visitVarInsn(Opcodes.LLOAD, FIB2_INDEX);
-        mv.visitVarInsn(Opcodes.LSTORE, FIB1_INDEX);
+        mv.visitVarInsn(Opcodes.ILOAD, FIB2_INDEX);
+        mv.visitVarInsn(Opcodes.ISTORE, FIB1_INDEX);
 
-        mv.visitVarInsn(Opcodes.LLOAD, TEMP_VAR_INDEX);
-        mv.visitVarInsn(Opcodes.LSTORE, FIB2_INDEX);
+        mv.visitVarInsn(Opcodes.ILOAD, TEMP_VAR_INDEX);
+        mv.visitVarInsn(Opcodes.ISTORE, FIB2_INDEX);
 
         // i++;
         mv.visitIincInsn(INDEX_I, 1);
@@ -94,8 +94,8 @@ public class FibonnachiGenerator {
 
 
         // return fib2
-        mv.visitVarInsn(Opcodes.LLOAD, FIB2_INDEX);
-        mv.visitInsn(Opcodes.LRETURN);
+        mv.visitVarInsn(Opcodes.ILOAD, FIB2_INDEX);
+        mv.visitInsn(Opcodes.IRETURN);
     }
 
 
@@ -112,25 +112,20 @@ public class FibonnachiGenerator {
     }
 
     private static void createConditionOfExitFromStart(MethodVisitor mv, Label label1) {
-//        if var1 <= 1 return var
+//        if var1 <= 2 return 1
         mv.visitVarInsn(Opcodes.ILOAD, INDEX_OF_ONE_AT_EXIT);
-        mv.visitInsn(Opcodes.ICONST_1);
+        mv.visitInsn(Opcodes.ICONST_2);
         mv.visitJumpInsn(Opcodes.IF_ICMPGT, label1);
-        mv.visitVarInsn(Opcodes.ILOAD, INDEX_OF_ONE_AT_EXIT);
-        mv.visitInsn(Opcodes.I2L);
-        mv.visitInsn(Opcodes.LRETURN);
+        mv.visitInsn(Opcodes.ICONST_1);
+        mv.visitInsn(Opcodes.IRETURN);
     }
 
     private static void CreateFib1Fib2EqualsOne(MethodVisitor mv) {
-        mv.visitInsn(Opcodes.LCONST_1);
-        mv.visitVarInsn(Opcodes.LSTORE, FIB1_INDEX);
-        mv.visitInsn(Opcodes.LCONST_1);
-        mv.visitVarInsn(Opcodes.LSTORE, FIB2_INDEX);
+        mv.visitInsn(Opcodes.ICONST_1);
+        mv.visitVarInsn(Opcodes.ISTORE, FIB1_INDEX);
+        mv.visitInsn(Opcodes.ICONST_1);
+        mv.visitVarInsn(Opcodes.ISTORE, FIB2_INDEX);
 
-    }
-
-    public static void main(String[] args) throws IOException {
-        generateFibClass("src/main/java/edu/hw11/");
     }
 
 

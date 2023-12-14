@@ -1,24 +1,54 @@
 package edu.hw11;
 
+import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class FIbGenTest {
-    @Test
-    public void test() throws Exception {
+    public static final String FILE_PATH = "src/test/java/edu/hw11/Fibonacci.class";
+    private static Method method;
+    private static Object instance;
 
+    @BeforeAll
+    public static void setup() throws Exception {
         FibonnachiGenerator.generateFibClass("src/test/java/edu/hw11/");
         String className = "Fibonacci";
-        Class<?> fibClass = new CustomClassLoader().defineClassFromFile(className,"src/test/java/edu/hw11/Fibonacci.class");
-        System.out.println(      fibClass.getDeclaredMethods());
-
+        Class<?> fibClass = new CustomClassLoader().defineClassFromFile(className, FILE_PATH);
+        var constr = fibClass.getDeclaredConstructor();
+        instance = constr.newInstance();
+        var methods = fibClass.getDeclaredMethods();
+        method = methods[0];
     }
-    public class CustomClassLoader extends ClassLoader {
+
+    @AfterAll
+    public static void end() throws IOException {
+        Path path = Path.of("src/test/java/edu/hw11/Fibonacci.class");
+        if (Files.exists(path)) {
+            Files.delete(path);
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "1, 1",
+            "2, 1",
+            "5, 5",
+            "6, 8",
+            "7, 13",
+    })
+    public void test(int n, int expectedResult) throws Exception {
+
+
+        assertEquals(expectedResult, method.invoke(instance, n));
+    }
+
+    public static class CustomClassLoader extends ClassLoader {
 
         public Class<?> defineClassFromFile(String className, String filePath) throws IOException {
             byte[] classData = Files.readAllBytes(Path.of(filePath));
