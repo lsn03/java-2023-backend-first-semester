@@ -36,9 +36,6 @@ public class FibonnachiGenerator {
         initDefaultConstructor(cw, mv);
 
 
-        
-
-
         // create fib
         mv = cw.visitMethod(Opcodes.ACC_PUBLIC, "fib", "(I)J", null, null);
         mv.visitCode();
@@ -87,7 +84,7 @@ public class FibonnachiGenerator {
         mv.visitVarInsn(Opcodes.LLOAD, TEMP_VAR_INDEX);
         mv.visitVarInsn(Opcodes.LSTORE, FIB2_INDEX);
 
-        // I++;
+        // i++;
         mv.visitIincInsn(INDEX_I, 1);
 
         // if (i <= n)
@@ -95,11 +92,11 @@ public class FibonnachiGenerator {
         mv.visitVarInsn(Opcodes.ILOAD, INDEX_OF_ONE_AT_EXIT);
         mv.visitJumpInsn(Opcodes.IF_ICMPLE, loopStart); //  goto loopStart
 
+
         // return fib2
         mv.visitVarInsn(Opcodes.LLOAD, FIB2_INDEX);
         mv.visitInsn(Opcodes.LRETURN);
     }
-
 
 
     private static void initDefaultConstructor(ClassWriter cw, MethodVisitor mv) {
@@ -113,17 +110,7 @@ public class FibonnachiGenerator {
         mv.visitMaxs(1, 1);
         mv.visitEnd();
     }
-    private static void initPsfFieldStart(ClassWriter cw, MethodVisitor mv) {
-//         private static final int START = 3;
 
-        cw.visitField(Opcodes.ACC_PRIVATE | Opcodes.ACC_STATIC | Opcodes.ACC_FINAL, "START", "I", null, 3).visitEnd();
-        mv.visitCode();
-        mv.visitIntInsn(Opcodes.SIPUSH, 3);
-        mv.visitFieldInsn(Opcodes.PUTSTATIC, "Fibonacci", "START", "I");
-        mv.visitInsn(Opcodes.RETURN);
-        mv.visitMaxs(1, 1);
-        mv.visitEnd();
-    }
     private static void createConditionOfExitFromStart(MethodVisitor mv, Label label1) {
 //        if var1 <= 1 return var
         mv.visitVarInsn(Opcodes.ILOAD, INDEX_OF_ONE_AT_EXIT);
@@ -143,7 +130,7 @@ public class FibonnachiGenerator {
     }
 
     public static void main(String[] args) throws IOException {
-        generateFibClass("src/main/");
+        generateFibClass("src/main/java/edu/hw11/");
     }
 
 
