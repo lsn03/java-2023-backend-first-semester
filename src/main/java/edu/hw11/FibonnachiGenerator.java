@@ -36,7 +36,7 @@ public class FibonnachiGenerator {
         initDefaultConstructor(cw, mv);
 
 
-        initPsfFieldStart(cw,mv);
+        
 
 
         // create fib
@@ -68,8 +68,8 @@ public class FibonnachiGenerator {
         Label loopStart = new Label();
 
 
-        mv.visitVarInsn(Opcodes.LLOAD, 1);
-        mv.visitVarInsn(Opcodes.LSTORE, INDEX_I);
+        mv.visitInsn(Opcodes.ICONST_3);
+        mv.visitVarInsn(Opcodes.ISTORE, INDEX_I);
         mv.visitLabel(loopStart);
 
 //       temp = fib1+fib2
